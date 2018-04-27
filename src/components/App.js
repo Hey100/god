@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './Header';
 // import Welcome from './Welcome';
-// import WhyJoin from './WhyJoin';
+import WhyJoin from './WhyJoin';
 // import Footer from './Footer';
 
 class App extends Component {
@@ -12,9 +12,9 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            {/* <Welcome />
+            {/* <Welcome /> */}
             <WhyJoin />
-            <Footer /> */}
+            {/* <Footer /> */}
           </div>
         </BrowserRouter>
       </div>
