@@ -1,0 +1,56 @@
+body {
+	background-image: url("https://i.imgur.com/DTvHQrT.png");
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: cover;
+	height: 100vh;
+}
+
+.row {
+	margin: 5vw 0 10vw 0;
+}
+
+.header {
+	font-size: 4em;
+	color: #067084;
+}
+
+.turquoise {
+	color: #088da5;
+}
+
+.large {
+	width: 20vw;
+	height: 5vw;
+	border-radius: 10px;
+	font-size: 2em;
+	border-width: 4px;
+}
+
+.footer {
+	background-color: #067084;
+	color: #FFF;
+}
+
+.footer-list {
+	list-style-type: none;
+}
+
+.link {
+	color: #FFF;
+	margin: 0 1vw;
+}
+
+.link:hover {
+	color: lightskyblue;
+	text-decoration-line: none;
+	transition: color 300ms;
+}
+
+.small {
+	font-size: 0.5em;
+}
+
+.test { 
+	background-color: tomato;
+}
