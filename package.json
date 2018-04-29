@@ -1,21 +1,37 @@
 {
-  "name": "poo",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "bootstrap": "^4.1.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+  "name": "node-authentication",
+  "main": "server.js",
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "latest",
+    "body-parser": "~1.15.2",
+    "concurrently": "^3.5.1",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "~1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.4",
+    "ejs": "~2.5.2",
+    "express": "~4.14.0",
+    "express-session": "~1.14.1",
+    "method-override": "~2.3.6",
+    "mongoose": "~4.13.1",
+    "morgan": "~1.7.0",
+    "nodemon": "^1.17.3",
+    "passport": "~0.3.2",
+    "passport-facebook": "~2.1.1",
+    "passport-google-oauth": "~1.0.0",
+    "passport-local": "~1.0.0",
+    "passport-twitter": "~1.0.4",
+    "react-redux": "^5.0.7",
+    "redux-form": "^7.3.0"
   }
 }

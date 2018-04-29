@@ -13,7 +13,6 @@ class WhyJoin extends Component {
             <img
               className="center-block"
               src="https://png.icons8.com/color/50/000000/bitcoin.png"
-              alt="Generic placeholder image"
               width="75"
               height="75"
             />
@@ -29,7 +28,6 @@ class WhyJoin extends Component {
             <img
               className="center-block"
               src="https://png.icons8.com/color/50/000000/bank-cards.png"
-              alt="Generic placeholder image"
               width="75"
               height="75"
             />
@@ -45,7 +43,6 @@ class WhyJoin extends Component {
             <img
               className="center-block"
               src="https://png.icons8.com/color/50/000000/conference-background-selected.png"
-              alt="Generic placeholder image"
               width="75"
               height="75"
             />
@@ -60,7 +57,7 @@ class WhyJoin extends Component {
         </div>
         <hr />
         <div className="text-center">
-          <a href="#" className="btn btn-light btn-xl">
+          <a href="/signup" className="btn btn-light btn-xl">
             Sign Up
           </a>
         </div>
