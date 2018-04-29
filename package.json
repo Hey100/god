@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "4.1.0",
     "install": "0.11.0",
     "mdi-react": "^3.3.0",
     "npm": "6.0.0",

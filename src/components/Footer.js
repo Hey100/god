@@ -2,6 +2,11 @@ import React from "react";
 import "../styles.css";
 import { TwitterIcon, YoutubeIcon, FacebookIcon } from "mdi-react";
 const Footer = () => {
+	return (
+		<div className="footer">
+				<p>Footer</p>
+      </div>
+	);
   return <div className="container-fluid footer">
       <div className="row justify-content-center m-0 pt-5">
         <div className="col-sm-10 d-flex flex-row justify-content-between">

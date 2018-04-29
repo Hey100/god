@@ -5,20 +5,18 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	font-family: sans-serif;
-	font-size: 14px;
 }
 
 
 /* GRID SYSTEM */
 
 
-.container {
+.contain {
 	display: grid;
 	height: 100vh;
 	background-color: lightskyblue;
 	grid-template-columns: [col1] 20px [col2] 1fr [col3] 1fr [col4] 20px ;
-	grid-template-rows: [row] auto repeat(3, [row] 1fr) [row] auto;
+	grid-template-rows: [row1] auto [row2] auto [row3] 100vh [row4] 100vh [row5] auto;
 	grid-gap: 0px 0px;
 	grid-template-areas: 
 	"header header header header"
@@ -41,6 +39,7 @@ p {
 }
 
 .section1 {
+	height: 600px;
 	display: flex;
 	background-color: coral;
 	grid-area: main1;
@@ -134,97 +133,3 @@ p {
 		/* justify-content: stretch; */
 	}
 }
-
-
-/*
-
-.row {
-	margin: 5vw 0 10vw 0;
-}
-.header {
-	font-size: 4em;
-	color: #067084;
-}
-.turquoise {
-	color: #088da5;
-}
-.large {
-	width: 20vw;
-	height: 5vw;
-	border-radius: 10px;
-	font-size: 200%;
-	border-width: 4px;
-	vertical-align: center;
-	align-items: center;
-}
-.footer {
-	background-color: #067084;
-	color: #FFF;
-}
-.footer-list {
-	list-style-type: none;
-}
-.link {
-	color: #FFF;
-	margin: 0 1vw;
-}
-.link:hover {
-	color: #87cefa;
-	text-decoration-line: none;
-	transition: color 300ms;
-}
-.small {
-	font-size: 0.5em;
-}
-.test { 
-	background-color: tomato;
-}
-.navigator {
-	top: 0;
-	z-index: 1;
-	height: 5vw;
-	width: 100vw;
-	padding: 0 50px;
-	background-color: #FFF;
-	box-shadow: #58a5a1 0px 5px 40px;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-		position: absolute;
-		right: 0;
-    background-color: #FFF;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px #00000033;
-    z-index: 1;
-}
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown-content a {
-    color: #008b8b;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-content a:last-child {
-	border-top: 1px solid #d3d3d3;
-}
-.dropdown-content a:hover {
-	background-color: #efffff;
-}
-.title {
-	font-size: 2em;
-	color: 'dodgerblue';
-}
-.why {
-	background-image: url("https://i.imgur.com/iXswlrV.png");
-	background-repeat: no-repeat;
-	background-position: top left;
-	background-size: cover;
-	height: 100vh;
-}
- */
