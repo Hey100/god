@@ -5,6 +5,7 @@ import Welcome from './Welcome';
 import WhyJoin from './WhyJoin';
 import Questions from './Questions';
 import Footer from './Footer';
+import Form from "./Form";
 
 class App extends Component {
   render() {
@@ -12,10 +13,11 @@ class App extends Component {
         <BrowserRouter>
 					<div className="container" >
 						<Header/>
-						<Welcome />
+						<Form/>
+						{/* <Welcome />
 						<WhyJoin />
-						<Questions />
-						<Footer />
+						<Questions /> */}
+						<Footer/>
 					</div>
         </BrowserRouter>
       </div>;

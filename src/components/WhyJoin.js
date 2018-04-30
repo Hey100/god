@@ -3,16 +3,23 @@ import "../styles.css";
 
 class WhyJoin extends Component {
   render() {
-		return (
-			<div className="section2">
-        <div className="half" id="s2l">
-          <p>SECTION 2 - LEFT</p>
+		return <div className="section2">
+        <div className="column" id="s20">
+          <h1 className="text-1">Why Join Us ?</h1>
         </div>
-        <div className="half" id="s2r">
-          <p>SECTION 2 - RIGHT</p>
+        <div className="column" id="s21">
+          <p className="half">SECTION 2.1.A</p>
+          <p className="half">SECTION 2.1.B</p>
         </div>
-      </div>
-		);
+        <div className="column" id="s22">
+          <p className="half">SECTION 2.2.A</p>
+          <p className="half">SECTION 2.2.B</p>
+        </div>
+        <div className="column" id="s23">
+          <p className="half">SECTION 2.3.A</p>
+          <p className="half">SECTION 2.3.B</p>
+        </div>
+      </div>;
     return <div className="con tainer-fluid why">
         <h1 className="header text-center p-5">Why Join Us ?</h1>
         <div className="row mt-5 align-content-start">

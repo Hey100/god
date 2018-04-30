@@ -6,18 +6,18 @@ class Header extends Component {
   render() {
     return <div className="header">
         <div className="nav-left">
-          <button type="button" className="button title">
-            WEB PAGE
+          <button type="button" className="button" id="title">
+            COLLECTIVE CAPITAL
           </button>
         </div>
         <div className="nav-right">
           <button type="button" className="button">
-            LINK
+            SIGN IN
           </button>
           <button type="button" className="button">
-            LINK
+            START A POOL
           </button>
-          <input type="text" className="input" placeholder="text..." />
+          <input type="text" className="input" placeholder="search pools.." />
         </div>
       </div>;
   }
