@@ -4,11 +4,19 @@ import Header from './Header';
 // import Welcome from './Welcome';
 import WhyJoin from './WhyJoin';
 import Login from './Login';
-import Signup from './Signup';
+import Logout from './Logout';
+import Signup from './signup/Signup';
 import Dashboard from './Dashboard';
+import * as actions from '../actions';
+import { connect } from 'react-redux';
+import { AUTH_USER } from '../actions/types';
 // import Footer from './Footer';
 
 class App extends Component {
+  componentDidMount() {
+  	this.props.fetchUser()
+  }
+
   render() {
     return (
       <div>
@@ -16,9 +24,10 @@ class App extends Component {
           <div>
             <Header />
             {/* <Welcome /> */}
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/signup" component={Signup} />
             <Route exact path="/" component={WhyJoin} />
             {/* <Footer /> */}
           </div>
@@ -28,4 +37,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, actions)(App);

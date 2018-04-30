@@ -1,14 +1,59 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class Header extends Component {
+  renderProfile = () => {
+		if (this.props.auth.user) {
+      const { first_name, last_name } = this.props.auth.user;
+      const name = first_name + ' ' + last_name.charAt(0) + '.';
+      return (
+        <Link to="/dashboard" className="btn btn-info btn-md">
+          <span className="glyphicon glyphicon-user" /> {name}
+        </Link>
+      );
+    }
+    return null;
+  };
+
   render() {
-    return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    const loginStatus = this.props.auth.user;
+    const button = !loginStatus ? (
+      <Link className="dropdown-item" to={'/login'}>
+        Sign In
+      </Link>
+    ) : (
+      [
+        <Link key={1} className="dropdown-item" to={'/dashboard'}>
+          My Profile
+        </Link>,
+        <Link key={2} className="dropdown-item" to={'/logout'}>
+          Logout
+        </Link>
+      ]
+    );
+    return (
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <a className="navbar-brand" href="/">
-            CommunityCapital
-          </a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+          {loginStatus ? (
+            <Link className="navbar-brand" to={'/dashboard'}>
+              CommunityCapital
+            </Link>
+          ) : (
+            <Link className="navbar-brand" to={'/'}>
+              CommunityCapital
+            </Link>
+          )}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExample07"
+            aria-controls="navbarsExample07"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon" />
           </button>
 
@@ -21,7 +66,14 @@ class Header extends Component {
                 </a>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropdown07"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
                   <span className="oi oi-menu" />
                 </a>
                 <div className="dropdown-menu" aria-labelledby="dropdown07">
@@ -35,19 +87,28 @@ class Header extends Component {
                     About Us
                   </a>
                   <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="/login">
-                    Sign In
-                  </a>
+                  {button}
                 </div>
               </li>
             </ul>
             <form className="form-inline my-2 my-md-0">
-              <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+              />
             </form>
+            {this.renderProfile()}
           </div>
         </div>
-      </nav>;
+      </nav>
+    );
   }
 }
 
-export default Header;
+const mstp = state => {
+  return { auth: state.auth };
+};
+
+export default connect(mstp, actions)(Header);
