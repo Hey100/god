@@ -7,10 +7,11 @@ import Login from './Login';
 import Logout from './Logout';
 import Signup from './signup/Signup';
 import Dashboard from './Dashboard';
+import Form from "./Form";
+import Footer from './Footer';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { AUTH_USER } from '../actions/types';
-// import Footer from './Footer';
 
 class App extends Component {
   componentDidMount() {
@@ -29,7 +30,7 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/" component={WhyJoin} />
-            {/* <Footer /> */}
+            <Footer />
           </div>
         </BrowserRouter>
       </div>
