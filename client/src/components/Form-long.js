@@ -1,6 +1,5 @@
 import React from "react";
 import { LockAlertIcon } from "mdi-react";
-import "../styles.css";
 
 const Form = () => {
 	return <div className="section1" id="form">

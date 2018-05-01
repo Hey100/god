@@ -8,29 +8,29 @@ export default ({
   meta: { error, touched }
 }) => {
   return (
-    <div>
-      <label>{label}</label>
-      <br />
-      {input.name === 'state' ? (
-        renderDropdown(input)
-      ) : (
-        <input
-          {...input}
-          style={{ marginBottom: '2px' }}
-          type={type}
-          placeholder={placeholder}
-        />
-      )}
-      <div className="alert" style={{ marginBottom: '10px', color: 'tomato' }}>
-        {touched && error}
-      </div>
-    </div>
+		<div>
+			<label>{label}</label>
+			{input.name === 'state' ? (
+				renderDropdown(input)
+			) : (
+				<input
+					className="form-in"
+					{...input}
+					style={{ marginBottom: '2px' }}
+					type={type}
+					placeholder={placeholder}
+				/>
+			)}
+			<div className="alert" style={{ marginBottom: '10px', color: 'tomato' }}>
+				{touched && error}
+			</div>
+		</div>
   );
 };
 
 const renderDropdown = (input) => {
 	return (
-	<select {...input}>
+	<select {...input} className="form-in">
           <option value="" />
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>

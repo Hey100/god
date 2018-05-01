@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import * as actions from '../actions/index'
+import { Link } from "react-router-dom";
+import * as actions from '../actions/index';
+import MyPools from './MyPools';
+import AllPools from './AllPools';
 
 class Dashboard extends Component {
 
@@ -9,9 +12,12 @@ class Dashboard extends Component {
 			const { first_name, last_name, ccScore, mlimit } = this.props.auth.user
 			const name = first_name + ' ' + last_name.charAt(0) + '.'
 			return (
-				<div>
+				<div className="section1">
 					Hello, {name}, CC Score:{ccScore}, Monthly Limit:{mlimit}
+					<Link className="button" to={"/mypools"}>MY POOLS</Link>
+					<Link className="button" to={"/pools"}>ALL POOLS</Link>
 				</div>
+
 			);
 		}
 		else {
