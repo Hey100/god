@@ -1,16 +1,15 @@
 import React from "react";
-import "../styles.css";
 import { TwitterIcon, YoutubeIcon, FacebookIcon } from "mdi-react";
 const Footer = () => {
 	return (
 		<div className="footer">
 			<div className="f-list">
-				<ul class="f-list-el">
+				<ul className="f-list-el">
 					<li><a href="#"><TwitterIcon size={34} color='#FFF'/></a></li>
 					<li><a href="#"><FacebookIcon size={34} color='#FFF'/></a></li>
 					<li><a href="#"><YoutubeIcon size={34} color='#FFF'/></a></li>
 				</ul>
-				<ul class="f-list-el" >
+				<ul className="f-list-el" >
 					<li><a href="#">Contact us</a></li>
 					<li><a href="#">About us</a></li>
 					<li><a href="#">Terms</a></li>

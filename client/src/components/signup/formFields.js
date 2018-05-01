@@ -66,19 +66,5 @@ export default [
     type: 'text',
     placeholder: '$$/year',
     noValueError: 'Required Field'
-  },
-  {
-    label: `Email`,
-    name: 'email',
-    type: 'email',
-    placeholder: 'example@example.com',
-    noValueError: 'Required Field'
-  },
-  {
-    label: `Password`,
-    name: 'password',
-    type: 'password',
-    placeholder: '********',
-    noValueError: 'Required Field'
   }
 ];

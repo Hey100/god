@@ -14,11 +14,11 @@ p {
 
 /* GRID SYSTEM */
 
-.container {
+.container1 {
 	display: grid;
 	height: 100vh;
 	grid-template-columns: [col1] 1fr [col2] 1fr;
-	grid-template-rows: [row1] auto [row2] auto repeat(2, [row] 1fr) [row] auto;
+	grid-template-rows: [row1] 75px [row2] auto repeat(2, [row] 1fr) [row] auto;
 	grid-gap: 0px 0px;
 	grid-template-areas:
 	"header header"
@@ -44,7 +44,7 @@ p {
 #title {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	color: navy;
-	font-size: 22px;
+	font-size: 24px;
 }
 
 .section1 {
@@ -126,7 +126,7 @@ p {
 	display: flex;
 	flex-flow: column wrap;
 	justify-content: flex-start;
-	align-items: center;
+	/* align-items: center; */
 }
 
 .form-sec {
@@ -205,6 +205,7 @@ p {
 	color: dodgerblue;
 	border: none;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .button:hover {
@@ -279,36 +280,3 @@ img {
 	}
 	
 }
-
-/*
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-		position: absolute;
-		right: 0;
-    background-color: #FFF;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px #00000033;
-    z-index: 1;
-}
-.dropdown:hover .dropdown-content {
-
-    display: block;
-}
-.dropdown-content a {
-    color: #008b8b;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-content a:last-child {
-	border-top: 1px solid #d3d3d3;
-}
-.dropdown-content a:hover {
-	background-color: #efffff;
-}
- */

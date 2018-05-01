@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../styles.css";
 
 class Questions extends Component {
   render() {
