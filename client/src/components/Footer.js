@@ -5,15 +5,15 @@ const Footer = () => {
 		<div className="footer">
 			<div className="f-list">
 				<ul className="f-list-el">
-					<li><a href="#"><TwitterIcon size={34} color='#FFF'/></a></li>
-					<li><a href="#"><FacebookIcon size={34} color='#FFF'/></a></li>
-					<li><a href="#"><YoutubeIcon size={34} color='#FFF'/></a></li>
+					<li><a href="/"><TwitterIcon size={34} color='#FFF'/></a></li>
+					<li><a href="/"><FacebookIcon size={34} color='#FFF'/></a></li>
+					<li><a href="/"><YoutubeIcon size={34} color='#FFF'/></a></li>
 				</ul>
 				<ul className="f-list-el" >
-					<li><a href="#">Contact us</a></li>
-					<li><a href="#">About us</a></li>
-					<li><a href="#">Terms</a></li>
-					<li><a href="#">Security</a></li>
+					<li><a href="/">Contact us</a></li>
+					<li><a href="/">About us</a></li>
+					<li><a href="/">Terms</a></li>
+					<li><a href="/">Security</a></li>
 				</ul>
 			</div>
       <div className="f-dec">

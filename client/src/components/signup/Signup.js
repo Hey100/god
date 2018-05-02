@@ -37,7 +37,6 @@ class Signup extends Component {
     return <div className="section1" id="form">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
         {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
-          )}>
           <div className="form-sec">
             <h2 className="text-2">
               Please provide a few details about yourself
@@ -65,18 +64,18 @@ class Signup extends Component {
             </div>
             <ul>
               <li>
-                You agree to the <a href="#">
+                You agree to the <a href="/">
                   Electronic Communications Policy and Consent
                 </a> and understand that the terms and conditions and other disclosures will be provided to you electronically; and
               </li>
               <li>
-                You agree to the <a className="terms" href="#">
+                You agree to the <a className="terms" href="/">
                   Credit Report and Information Verification Consent
-                </a>, the <a className="terms" href="#">
+                </a>, the <a className="terms" href="/">
                   Upstart Privacy Policy
-                </a>, the <a className="terms" href="#">
+                </a>, the <a className="terms" href="/">
                   Upstart Privacy Notice
-                </a>, and the <a className="terms" href="#">
+                </a>, and the <a className="terms" href="/">
                   Upstart Platform Agreement
                 </a>.
               </li>

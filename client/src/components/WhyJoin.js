@@ -29,7 +29,7 @@ class WhyJoin extends Component {
             <img
               className="m-4"
               src="https://png.icons8.com/color/50/000000/bitcoin.png"
-              alt="Generic placeholder image"
+              alt="#"
               width="75"
               height="75"
             />
@@ -43,7 +43,7 @@ class WhyJoin extends Component {
             <img
               className="m-4"
               src="https://png.icons8.com/color/50/000000/bank-cards.png"
-              alt="Generic placeholder image"
+              alt="#"
               width="75"
               height="75"
             />
@@ -58,7 +58,7 @@ class WhyJoin extends Component {
             <img
               className="m-4"
               src="https://png.icons8.com/color/50/000000/conference-background-selected.png"
-              alt="Generic placeholder image"
+              alt="#"
               width="75"
               height="75"
             />
