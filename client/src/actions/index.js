@@ -4,8 +4,9 @@ import {
   AUTH_ERROR,
   UNAUTH_USER,
   FETCH_USER,
-	MY_POOLS,
-	CHART_CREATED
+  MY_POOLS,
+  CHART_CREATED,
+  RESET_CHART
 } from './types';
 
 export const onLogin = ({ email, password }, history) => {
@@ -59,7 +60,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const createPool = (values, history) => async dispatch => {
-  const res = await axios.post('/api/createPool', values);
+  await axios.post('/api/createPool', values);
   history.push('/mypools');
   // dispatch({ type: POOL_CREATED})
 };
@@ -77,7 +78,7 @@ export const createChart = values => dispatch => {
   let cashInterval = amount * rate / term;
   let paymentInterval = cashInterval / term;
   let basePayment = amount / term;
-	let users = {}
+  let users = {};
   const chartCalc = (
     amount,
     ppl,
@@ -92,7 +93,12 @@ export const createChart = values => dispatch => {
       let result = {
         cashReceived: x.toFixed(2),
         cashPaid: y.toFixed(2),
-        monthly: z.toFixed(2)
+				monthly: z.toFixed(2),
+				amount: amount,
+				interestRate: ((y-x)/y * 100).toFixed(2),
+				interestAmount: (y - x).toFixed(2),
+				fee: amount * 0.01,
+				tcr: (x - (amount * 0.01)).toFixed(2)
       };
       users[ppl - i] = result;
     }
@@ -100,3 +106,9 @@ export const createChart = values => dispatch => {
   chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   dispatch({ type: CHART_CREATED, payload: users });
 };
+
+export const resetChart = () => {
+	return {
+		type: RESET_CHART
+	}
+}
