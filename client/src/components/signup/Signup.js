@@ -34,10 +34,9 @@ class Signup extends Component {
   };
 
   render() {
-    return <div className="section1" id="form">
+    return <div className="section1 form">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
-          )}>
+        {/* <form onSubmit={this.props.handleSubmit(values => console.log(values))}> */}
           <div className="form-sec">
             <h2 className="text-2">
               Please provide a few details about yourself
@@ -89,14 +88,7 @@ class Signup extends Component {
             </h5>
           </div>
           <br />
-          <Link to="/" className="red btn-flat right white-text">
-            Cancel
-          </Link>
         </form>
-        {/* <hr />
-         <Link to="/login" className="orange btn-flat white-text">
-          Log In
-        </Link> */}
       </div>;
   }
 }

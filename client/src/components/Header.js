@@ -45,10 +45,10 @@ class Header extends Component {
             </Link>}
         </div>
         <div className="nav-right">
-          {button}
           <Link className="button" to={"/create"}>
             Start a pool
           </Link>
+          {button}
           <input type="text" className="input" placeholder="search pools.." />
           {this.renderProfile()}
         </div>
