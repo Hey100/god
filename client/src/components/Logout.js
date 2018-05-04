@@ -9,8 +9,8 @@ class Logout extends Component {
 	
 	render() {
 		return (
-			<div>
-				You have been successfully logged out.
+			<div className="section1 sign">
+				<h1 className="text-1">You have been successfully logged out.</h1>
 			</div>
 		);
 	}

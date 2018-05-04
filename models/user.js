@@ -3,20 +3,20 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
 const userSchema = new Schema({
-  first_name: String,
-  last_name: String,
-  dob: Date,
-  address: String,
-  city: String,
-  state: String,
-  zip: Number,
-  phone: Number,
-  savingsQ: String,
-  incomeQ: String,
-  email: { type: String, unique: true, lowercase: true },
-	password: String,
-	ccScore: {type: Number, default: 80},
-	mlimit: {type: Number, default: 700}
+  first_name: { type: String, required: true },
+  last_name: { type: String, required: true },
+  dob: { type: String, required: true },
+  address: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zip: { type: Number, required: true },
+  phone: { type: Number, required: true },
+  savingsQ: { type: String, required: true },
+  incomeQ: { type: String, required: true },
+  email: { type: String, unique: true, lowercase: true, require: true },
+  password: { type: String, required: true },
+  ccScore: { type: Number, default: 80 },
+  mlimit: { type: Number, default: 700 }
 });
 
 userSchema.pre('save', function(next) {

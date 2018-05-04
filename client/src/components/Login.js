@@ -21,27 +21,30 @@ class Login extends Component {
   }
 
   render() {
-    return (
-      <div className="container">
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <label>Email</label>
-          <Field type="text" name="email" component="input" />
-          <label>Password</label>
-          <Field type="password" name="password" component="input" />
-          <Link to="/" className="red btn-flat white-text">
-            Cancel
-          </Link>
-          <button className="teal btn-flat right white-text" type="submit">
+    return <div className="form">
+        <form className="form-sec" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+          <div>
+            Email
+            <Field className="form-in" type="text" name="email" component="input" />
+          </div>
+          <div>
+            Password
+            <Field className="form-in" type="password" name="password" component="input" />
+          </div>
+          <button className="mid-btn" type="submit">
             Login
           </button>
-					{this.renderAlert()}
+          {this.renderAlert()}
+          <div>
+            <Link to="/" className="button cancel">
+              Cancel
+            </Link>
+            <Link to="/signup" className="button">
+              Sign up
+            </Link>
+          </div>
         </form>
-        <hr />
-        <Link to="/signup" className="teal btn-flat white-text">
-          Sign up
-        </Link>
-      </div>
-    );
+      </div>;
   }
 }
 

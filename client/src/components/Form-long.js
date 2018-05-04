@@ -2,7 +2,7 @@ import React from "react";
 import { LockAlertIcon } from "mdi-react";
 
 const Form = () => {
-	return <div className="section1" id="form">
+	return <div className="section1 form">
       <h1 className="text-1">Find Your Options</h1>
       <form>
         <div className="form-sec">
