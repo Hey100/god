@@ -8,6 +8,14 @@ import { connect } from 'react-redux';
 // import ReactTable from 'react-table';
 
 class Create extends Component {
+	state = {
+		selection: null
+	}
+	componentDidMount() {
+		console.log(this.state)
+	}
+	
+
   renderFields() {
     return _.map(formFields, ({ label, name, placeholder }) => {
       return (
@@ -22,83 +30,54 @@ class Create extends Component {
     });
   }
 
+  setSelection(chart) {
+		console.log(chart)
+    this.setState({ selection: chart }, () => {
+			console.log(this.state.selection)
+		});
+  }
+
   handleChart = (data, columns) => {
     if (this.props.pools.chart) {
-      // console.log(data);
-      // <ReactTable data={data} columns={columns} />;
-      // let td = _.map(this.props.pools.chart, chart => {
-      //   console.log(chart.cashPaid);
-      //   return;
-      //   <tr>
-      //     <td key={chart.cashPaid}>{chart.cashPaid}</td>
-      //     <td key={chart.cashReceived + 1}>{chart.cashReceived}</td>
-      //     <td key={chart.monthly}>{chart.monthly}</td>
-      //   </tr>;
-      // });
-      // console.log(td);
       return (
-        <div>
+        <div className="form-sec">
           <table style={{ border: '1px solid black' }}>
             <tbody>
               <tr>
+                <th style={{ padding: '10px' }}>Position</th>
                 <th style={{ padding: '10px' }}>Base Amount</th>
                 <th style={{ padding: '10px' }}>Interest Rate</th>
                 <th style={{ padding: '10px' }}>Interest Paid/Earned*</th>
                 <th style={{ padding: '10px' }}>Monthly Payment</th>
                 <th style={{ padding: '10px' }}>Cash Paid</th>
-                <th style={{ padding: '10px' }}>Cash Received</th>
+                <th style={{ padding: '10px' }}>Cash Available</th>
                 <th style={{ padding: '10px' }}>Fee**</th>
-                <th style={{ padding: '10px' }}>Total Cash Received</th>
+                <th style={{ padding: '10px' }}>Cash Received</th>
               </tr>
               {_.map(this.props.pools.chart, chart => {
-                console.log(chart);
-                let cashReceived = parseFloat(
-                  chart.cashReceived
-                ).toLocaleString('USD', {
-                  style: 'currency',
-                  currency: 'USD',
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2
-                });
-                let monthly = parseFloat(chart.monthly).toLocaleString('USD', {
-                  style: 'currency',
-                  currency: 'USD',
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2
-                });
-                let cashPaid = parseFloat(chart.cashPaid).toLocaleString(
-                  'USD',
-                  {
-                    style: 'currency',
-                    currency: 'USD',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                  }
-                );
-                let amount = parseFloat(chart.amount).toLocaleString('USD', {
-                  style: 'currency',
-                  currency: 'USD',
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2
-                });
-                let interestRate = parseFloat(chart.interestRate).toFixed(2);
-                let interestAmount = parseFloat(
-                  chart.interestAmount
-                ).toLocaleString('USD', {
-                  style: 'currency',
-                  currency: 'USD',
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2
-                });
-                let fee = parseFloat(chart.fee);
-                let tcr = parseFloat(chart.tcr).toLocaleString('USD', {
-                  style: 'currency',
-                  currency: 'USD',
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2
-                });
+                const {
+                  cashReceived,
+                  cashPaid,
+                  monthly,
+                  amount,
+                  interestRate,
+                  interestAmount,
+                  fee,
+                  tcr,
+                  position
+                } = chart;
+                let index = this.props.pools.chart.indexOf(chart);
                 return (
                   <tr key={chart.cashPaid + 1}>
+                    <td style={{ padding: '10px' }} key={position}>
+                      {index + 1}
+                      <input
+                        type="radio"
+                        name="position"
+                        value={chart}
+                        onClick={() => this.setSelection(chart)}
+                      />
+                    </td>
                     <td
                       style={{ padding: '10px' }}
                       key={chart.cashReceived + chart.amount}
@@ -133,6 +112,15 @@ class Create extends Component {
           </table>
           <p>*Amount before platform fee</p>
           <p>**1% Platform Fee</p>
+          <div className="form-sec">
+            <button
+              className="big-btn"
+              type="submit"
+              onClick={this.props.handleSubmit(this.props.onSubmit)}
+            >
+              Next
+            </button>
+          </div>
         </div>
       );
     }
@@ -140,17 +128,6 @@ class Create extends Component {
   };
 
   render() {
-    const { chart } = this.props.pools;
-    const data = chart ? Object.values(this.props.pools.chart) : null;
-    const columns = [
-      {
-        Header: 'Name'
-        // String-based value accessors!
-      },
-      {
-        Header: 'Age'
-      }
-    ];
     return (
       <div>
         <div className="section1" id="form">
@@ -158,29 +135,21 @@ class Create extends Component {
             <h2 className="text-2">Choose Your Options</h2>
           </div>
           <form>
-            {/* <form onSubmit={this.props.handleSubmit(values => console.log(values))}> */}
             <div className="form-sec">{this.renderFields()}</div>
             <div className="form-sec">
               <button
                 className="button"
                 type="submit"
-                onClick={this.props.handleSubmit(this.props.onSubmit)}
+                onClick={this.props.handleSubmit(values =>
+                  this.props.createChart(values)
+                )}
               >
-                Next
+                Show Chart
               </button>
             </div>
-            <button
-              className="button"
-              type="submit"
-              onClick={this.props.handleSubmit(values =>
-                this.props.createChart(values)
-              )}
-            >
-              Show Chart
-            </button>
           </form>
+          {this.handleChart()}
         </div>
-        {this.handleChart(data, columns)}
       </div>
     );
   }

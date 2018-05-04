@@ -78,7 +78,7 @@ export const createChart = values => dispatch => {
   let cashInterval = amount * rate / term;
   let paymentInterval = cashInterval / term;
   let basePayment = amount / term;
-  let users = {};
+  let users = [];
   const chartCalc = (
     amount,
     ppl,
@@ -91,24 +91,55 @@ export const createChart = values => dispatch => {
       let y = amount + cashInterval * [i];
       let z = basePayment + paymentInterval * [i];
       let result = {
-        cashReceived: x.toFixed(2),
-        cashPaid: y.toFixed(2),
-				monthly: z.toFixed(2),
-				amount: amount,
-				interestRate: ((y-x)/y * 100).toFixed(2),
-				interestAmount: (y - x).toFixed(2),
-				fee: amount * 0.01,
-				tcr: (x - (amount * 0.01)).toFixed(2)
+        cashReceived: parseFloat(x).toLocaleString('USD', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        cashPaid: parseFloat(y).toLocaleString('USD', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        monthly: parseFloat(z).toLocaleString('USD', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        amount: parseFloat(amount).toLocaleString('USD', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        interestRate: parseFloat(((y - x) / y * 100)).toFixed(2),
+        interestAmount: parseFloat((y - x)).toLocaleString('USD', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        fee: parseFloat(amount * 0.01),
+        tcr: parseFloat((x - amount * 0.01)).toLocaleString('USD', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+				}),
+				ppl
       };
-      users[ppl - i] = result;
+			users.push(result);
     }
   };
-  chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
+	chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   dispatch({ type: CHART_CREATED, payload: users });
 };
 
 export const resetChart = () => {
-	return {
-		type: RESET_CHART
-	}
-}
+  return {
+    type: RESET_CHART
+  };
+};
