@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import Welcome from './Welcome';
+import Landing from './Landing';
 import Header from './Header';
-import WhyJoin from './WhyJoin';
 import Login from './Login';
 import Logout from './Logout';
 import Signup from './signup/Signup';
@@ -25,7 +24,7 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <div className="container1">
+          <div className="contain">
             <Header />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/mypools" component={MyPools} />
@@ -36,7 +35,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/signup" component={Signup} />
-            <Route exact path="/" component={WhyJoin} />
+            <Route exact path="/" component={Landing} />
             <Footer />
           </div>
         </BrowserRouter>

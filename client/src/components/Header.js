@@ -47,6 +47,7 @@ class Header extends Component {
           <Link className="button" to={"/newpool"}>
             Start a pool
           </Link>
+          {button}
           <input type="text" className="input" placeholder="search pools.." />
           {this.renderProfile()}
         </div>
