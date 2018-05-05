@@ -23,8 +23,7 @@ class Create extends Component {
           key={name}
           component={CreateField}
           name={name}
-          label={label}
-          placeholder={placeholder}
+          placeholder={label}
         />
       );
     });
@@ -130,7 +129,7 @@ class Create extends Component {
   render() {
     return (
       <div>
-        <div className="section1" id="form">
+        <div className="section1 form">
           <div className="form-sec">
             <h2 className="text-2">Choose Your Options</h2>
           </div>

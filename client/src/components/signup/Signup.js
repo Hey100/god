@@ -16,17 +16,12 @@ class Signup extends Component {
         <Field
           key={name}
           component={SignUpField}
-          label={label}
           name={name}
           type={type}
-          placeholder={placeholder}
+          placeholder={label}
         />
       );
     });
-  }
-
-  renderEmailAndPassword() {
-    return;
   }
 
   onSubmit = values => {
@@ -38,6 +33,9 @@ class Signup extends Component {
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
         {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
           <div className="form-sec">
+						<Link to="/signin" className="button">
+							Already a member?
+						</Link>
             <h2 className="text-2">
               Please provide a few details about yourself
             </h2>
@@ -45,14 +43,8 @@ class Signup extends Component {
           </div>
           <div className="form-sec">
             <h2 className="text-2">Save Your Information</h2>
-            <div>
-              Email Address:
-              <Field className="form-in" component="input" name="email" type="text" placeholder="email@example.com" />
-            </div>
-            <div>
-              Password:
-              <Field className="form-in" component="input" name="password" type="password" />
-            </div>
+						<Field className="form-in" component="input" name="email" type="text" placeholder="Email" />
+						<Field className="form-in" component="input" name="password" type="password" placeholder="Password" />
             <h5 style={{ color: "orange" }}>
               Must contain at least 8 characters, including 1 number and 1
               uppercase letter
@@ -72,11 +64,11 @@ class Signup extends Component {
                 You agree to the <a className="terms" href="/">
                   Credit Report and Information Verification Consent
                 </a>, the <a className="terms" href="/">
-                  Upstart Privacy Policy
+                  Collective Capital Privacy Policy
                 </a>, the <a className="terms" href="/">
-                  Upstart Privacy Notice
+                  Collective Capital Privacy Notice
                 </a>, and the <a className="terms" href="/">
-                  Upstart Platform Agreement
+                  Collective Capital Platform Agreement
                 </a>.
               </li>
             </ul>

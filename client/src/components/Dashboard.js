@@ -20,6 +20,12 @@ class Dashboard extends Component {
 				return (
 					<MyPools />
 				)
+			case 'bank':
+				return (
+					<div className="tab">
+						<h1 className="text-1">BANK INFO</h1>
+					</div>
+				)
 			case 'friends':
 				return (
 					<Friends />
@@ -44,7 +50,7 @@ class Dashboard extends Component {
 		if (!this.props.auth.user){return <Redirect to="/" />};
 		const { first_name, last_name, ccScore, mlimit } = this.props.auth.user
 		const name = first_name + ' ' + last_name.charAt(0) + '.'
-		return <div className="section1" id="dash">
+		return <div id="dash">
         <div className="sub-nav">
 					<button
 						className="sub-button"
@@ -56,6 +62,11 @@ class Dashboard extends Component {
 						style={this.isActive('myPools')}
 						onClick={() => this.setState({ section: 'myPools'})}
 					>My pools</button>
+					<button
+						className="sub-button"
+						style={this.isActive('bank')}
+						onClick={() => this.setState({ section: 'bank'})}
+						>Bank Info</button>
 					<button
 						className="sub-button"
 						style={this.isActive('friends')}

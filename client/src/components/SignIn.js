@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-import * as actions from '../actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { GoogleIcon, FacebookIcon } from "mdi-react";
+import * as actions from '../actions/index';
 
-class Login extends Component {
+class SignIn extends Component {
   onSubmit = values => {
     this.props.onLogin(values, this.props.history);
   };
@@ -24,15 +25,20 @@ class Login extends Component {
     return <div className="form">
         <form className="form-sec" onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div>
-            Email
-            <Field className="form-in" type="text" name="email" component="input" />
+            <Field className="form-in" type="text" name="email" component="input" placeholder="Email"/>
           </div>
           <div>
-            Password
-            <Field className="form-in" type="password" name="password" component="input" />
+            <Field className="form-in" type="password" name="password" component="input" placeholder="Password"/>
           </div>
           <button className="mid-btn" type="submit">
             Login
+          </button>
+					<hr className="separator" />
+          <button className="mid-btn" style={{ backgroundColor: '#FFF', color: 'tomato', border: '2px solid tomato'}}>
+					Sign Up with Google <GoogleIcon size={28} color="tomato" />
+          </button>
+				<button className="mid-btn" style={{ backgroundColor: '#3B5998', color: 'white'}}>
+					Sign Up with Facebook <FacebookIcon size={28} color="#FFF" />
           </button>
           {this.renderAlert()}
           <div>
@@ -40,7 +46,7 @@ class Login extends Component {
               Cancel
             </Link>
             <Link to="/signup" className="button">
-              Sign up
+              Not a member yet?
             </Link>
           </div>
         </form>
@@ -56,6 +62,6 @@ export default withRouter(
   connect(mstp, actions)(
     reduxForm({
       form: 'logInForm'
-    })(Login)
+    })(SignIn)
   )
 );

@@ -1,5 +1,7 @@
 import React from "react";
 import { TwitterIcon, YoutubeIcon, FacebookIcon } from "mdi-react";
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
 	return <div className="footer">
       <div className="f-list">
@@ -31,11 +33,11 @@ const Footer = () => {
             <a href="#">Terms</a>
           </li>
           <li>
-            <a href="#">Security</a>
+						<Link to={"/help"}>Help Center</Link>
           </li>
           <li>
-            <a href="https://www.freepik.com/free-vector/business-character-seatted-on-an-safebox_1167767.htm">
-              Illustrations Designed by Freepik
+					<a href="https://www.freepik.com/alekksall">
+              Illustrations by Alekksall
             </a>
           </li>
         </ul>

@@ -5,6 +5,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
+	font-weight: lighter;
 	font-size: 14px;
 }
 
@@ -180,8 +181,8 @@ p {
 .form-in {
 	margin: 10px;
 	padding: 10px 15px;
-	width: 200px;
-	height: 40px;
+	width: 300px;
+	height: 50px;
 	color: darkcyan;
 	border: 1px solid lightgray;
 	border-radius: 10px;
@@ -240,7 +241,7 @@ p {
 	color: skyblue;
 }
 
-.button:focus, .input:focus, .sub-button:focus {
+.button:focus, .input:focus, .sub-button:focus, .form-in:focus, .mid-btn:focus {
 	outline: none;
 }
 
@@ -255,12 +256,20 @@ p {
 	cursor: pointer;
 }
 
+.separator { 
+	margin: 20px 0;
+	width: 300px;
+}
+
 .mid-btn {
-	margin: 20px;
-	padding: 15px 60px;
+	margin: 10px;
+	width: 300px;
+	height: 50px;
 	font-size: 1.5em;
 	background-color: darkcyan;
 	border-radius: 10px;
+	text-align: center;
+	vertical-align: center;
 	color: white;
 	border: none;
 	cursor: pointer;
@@ -283,6 +292,75 @@ img {
 	color: gray;
 	border: 1px solid dodgerblue;
 	border-radius: 5px;
+}
+
+.search-bar {
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: space-around;
+}
+
+.nav-input {
+	background-color: white;
+	height: 40px;
+	width: 200px;
+	margin: 10px;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	padding-left: 10px;
+	border-radius: 5px;
+}
+
+.results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 50px;
+}
+
+.card {
+	max-width: 300px;
+	background-color: #F2F7F8;
+	margin: 20px;
+	transition: scale, .1s;
+}
+
+.card-content {
+	padding: 20px;
+}
+
+.card:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.img-wrapper {
+	width: 300px;
+	height: 150px;
+	overflow: hidden;
+	background-size: cover;
+}
+
+.meter { 
+	margin: 10px 0;
+	height: 2px;
+	position: relative;
+	background: lightgray;
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  background-color: #72E5BE;
+  position: relative;
+	overflow: hidden;
+	animation: fill 1s ease;
+}
+
+@keyframes fill {
+   0% { width: 0; }
 }
 
 /* MEDIA */

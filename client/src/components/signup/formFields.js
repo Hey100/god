@@ -20,8 +20,15 @@ export default [
     noValueError: 'Required Field'
   },
   {
-    label: 'Street Address',
-    name: 'address',
+    label: 'Address Line#1',
+    name: 'address1',
+    type: 'text',
+    placeholder: 'Enter a Location',
+    noValueError: 'Required Field'
+  },
+  {
+    label: 'Address Line#2',
+    name: 'address2',
     type: 'text',
     placeholder: 'Enter a Location',
     noValueError: 'Required Field'
