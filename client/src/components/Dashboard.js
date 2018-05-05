@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import * as actions from '../actions/index';
 import Summary from './Summary';
 import MyPools from './MyPools';
@@ -34,7 +34,7 @@ class Dashboard extends Component {
 	}
 
 	isActive = button => {
-		if(this.state.section == button){
+		if(this.state.section === button){
 			return {color: 'skyblue'}
 		}
 		return
@@ -42,8 +42,6 @@ class Dashboard extends Component {
 
 	render() {
 		if (!this.props.auth.user){return <Redirect to="/" />};
-		const { first_name, last_name, ccScore, mlimit } = this.props.auth.user
-		const name = first_name + ' ' + last_name.charAt(0) + '.'
 		return <div className="section1" id="dash">
         <div className="sub-nav">
 					<button
@@ -69,7 +67,6 @@ class Dashboard extends Component {
 				</div>
 				{this.handleSection()}
       </div>;
-			// Hello, {name}, CC Score:{ccScore}, Monthly Limit:{mlimit}
 	}
 }
 

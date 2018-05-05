@@ -6,6 +6,7 @@ import {
   FETCH_USER,
   MY_POOLS,
   CHART_CREATED,
+  SELECTION,
   RESET_CHART
 } from './types';
 
@@ -71,10 +72,11 @@ export const fetchPools = () => async dispatch => {
 };
 
 export const createChart = values => dispatch => {
-  let amount = parseInt(values.amount);
-  let ppl = parseInt(values.participants);
+  let amount = parseInt(values.amount, 0);
+  let ppl = parseInt(values.participants, 0);
   let rate = values.rate / 100;
   let term = ppl - 1;
+  let startDate = values.date;
   let cashInterval = amount * rate / term;
   let paymentInterval = cashInterval / term;
   let basePayment = amount / term;
@@ -115,29 +117,36 @@ export const createChart = values => dispatch => {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         }),
-        interestRate: parseFloat(((y - x) / y * 100)).toFixed(2),
-        interestAmount: parseFloat((y - x)).toLocaleString('USD', {
+        interestRate: parseFloat((y - x) / y * 100).toFixed(2),
+        interestAmount: parseFloat(y - x).toLocaleString('USD', {
           style: 'currency',
           currency: 'USD',
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         }),
         fee: parseFloat(amount * 0.01),
-        tcr: parseFloat((x - amount * 0.01)).toLocaleString('USD', {
+        tcr: parseFloat(x - amount * 0.01).toLocaleString('USD', {
           style: 'currency',
           currency: 'USD',
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
 				}),
-				ppl
+				startDate,
+        ppl
       };
-			users.push(result);
+      users.push(result);
     }
   };
-	chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
+  chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   dispatch({ type: CHART_CREATED, payload: users });
 };
 
+export const setSelection = selection => {
+  return {
+    type: SELECTION,
+    payload: selection
+  };
+};
 export const resetChart = () => {
   return {
     type: RESET_CHART

@@ -1,43 +1,51 @@
 import React, { Component } from 'react';
+import Chart from '../Chart';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import * as actions from '../../actions/index'
+import * as actions from '../../actions/index';
 import formFields from './formFields';
 import { withRouter } from 'react-router';
 
 class Review extends Component {
-	reviewFields = _.map(formFields, ({ label, name }) => {
-		const values = this.props.formValues
-		return (
-			<div key={name}>
-				<label className="button">{label}</label>
-				<div>{values[name]}</div>
-			</div>
-		)
-	})
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
+  reviewFields = _.map(formFields, ({ label, name }) => {
+    const values = this.props.formValues;
+    return (
+      <div key={name} className="form-sec">
+        <h5>{label}</h5>
+        <div>{values[name]}</div>
+      </div>
+    );
+  });
 
   render() {
-		const values = this.props.formValues;
-		const { history, createPool } = this.props;
+    const values = this.props.formValues;
+    const { history, createPool } = this.props;
     return (
       <div>
+        <div className="form-sec">
+          <h2 className="text-2">Review Your Pool</h2>
+        </div>
         {this.reviewFields}
-        <button
-          className="button"
-          onClick={this.props.onCancel}
-        >
-          Back
-        </button>
-        <a className="button" onClick={() => createPool(values, history)}>
-					Submit
-        </a>
+        <Chart chart={this.props.pools.chart} onCancel={this.props.onCancel} />
+        <div className="form-sec">
+          <a className="big-btn" onClick={() => createPool(values, history)}>
+            Submit
+          </a>
+          <button className="button" onClick={this.props.onCancel}>
+            Back
+          </button>
+        </div>
       </div>
     );
   }
 }
 
-const mstp = (state) => {
-	return { formValues: state.form.poolForm.values }
-}
+const mstp = state => {
+  return { formValues: state.form.poolForm.values, pools: state.pools };
+};
 
 export default connect(mstp, actions)(withRouter(Review));

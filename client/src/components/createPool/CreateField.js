@@ -28,25 +28,28 @@ const renderInput = (input, type, placeholder) => {
   if (input.name === 'amount') {
     return amount(input);
   }
-  // if (input.name === 'picture') {
-  //   return (
-  //     <input
-	// 			name="picture"
-	// 			onBlur={() => null}
-	// 			onChange={() => null}
-	// 			onDragStart={() => null}
-	// 			onDrop={() => null}
-	// 			onFocus={() => null}
-	// 			value={input.value}
-  //       className="form-in"
-  //       style={{ marginBottom: '2px' }}
-  //       type="file"
-  //       accept="image/*"
-  //     />
-  //   );
-  // }
+  if (input.name === 'picture') {
+    return (
+      <input
+				name="picture"
+				onBlur={() => null}
+				onChange={() => null}
+				onDragStart={() => null}
+				onDrop={() => null}
+				onFocus={() => null}
+				value=""
+        className="form-in"
+        style={{ marginBottom: '2px' }}
+        type="file"
+        accept="image/*"
+      />
+    );
+  }
   if (input.name === 'rate') {
-    return rate(input);
+		return rate(input);
+	}
+  if (input.name === 'description') {
+    return description(input);
   } else {
     return (
       <input
@@ -58,6 +61,11 @@ const renderInput = (input, type, placeholder) => {
       />
     );
   }
+};
+const description = input => {
+  return (
+    <textarea {...input} cols="30" rows="10"></textarea>
+  );
 };
 const participants = input => {
   return (
