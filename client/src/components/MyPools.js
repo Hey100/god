@@ -15,20 +15,26 @@ class MyPools extends Component {
 			);
 		}
     return this.props.pools.reverse().map(pool => {
-      return (
-        <div className="card darken-1" key={pool._id}>
-          <div className="card-content">
-            <span className="button">{pool.title}</span>
-            <p>{pool.title}</p>
-            <p>{pool.category}</p>
-            <p>{pool.description}</p>
-            <p>{pool.numOfParticipants}</p>
-            <p>{pool.rate}</p>
-            <p>{this.props.auth.user.first_name}</p>
-            <p>{pool.amount}</p>
-          </div>
-        </div>
-      );
+      return <div className="card" key={pool._id} onClick={() => alert("card2")}>
+					<div
+						className="thumbnail"
+						style={{
+							backgroundImage: "url(http://www.backpaco.com/wp-content/uploads/2015/04/yosemite-waterfall.jpg)"
+						}}
+						alt=""
+					/>
+					<div className="card-content">
+						<h1>{pool.title}</h1>
+						<div className="meter">
+							<span style={{ width: '80%' }}></span>
+						</div>
+						<h3>{pool.description}</h3>
+						<h3>{pool.numOfParticipants}</h3>
+						<h3>{pool.rate}</h3>
+						<h3>{this.props.auth.user.first_name}</h3>
+						<h3>{pool.amount}</h3>
+					</div>
+				</div>
     });
   }
 
