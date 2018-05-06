@@ -7,7 +7,8 @@ import {
   MY_POOLS,
   CHART_CREATED,
   SELECTION,
-  RESET_CHART
+  RESET_CHART,
+  FETCHED_POOL
 } from './types';
 
 export const onLogin = ({ email, password }, history) => {
@@ -60,10 +61,12 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const createPool = (values, history) => async dispatch => {
-  await axios.post('/api/createPool', values);
-  history.push('/mypools');
-  // dispatch({ type: POOL_CREATED})
+export const createPool = (values, position, history) => async dispatch => {
+  values['position'] = position;
+  const res = await axios.post('/api/createPool', values);
+  console.log(res);
+  history.push(`/pools/${res.data._id}`);
+  dispatch({ type: RESET_CHART });
 };
 
 export const fetchPools = () => async dispatch => {
@@ -72,6 +75,7 @@ export const fetchPools = () => async dispatch => {
 };
 
 export const createChart = values => dispatch => {
+	console.log('hit createChart')
   let amount = parseInt(values.amount, 0);
   let ppl = parseInt(values.participants, 0);
   let rate = values.rate / 100;
@@ -130,8 +134,8 @@ export const createChart = values => dispatch => {
           currency: 'USD',
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
-				}),
-				startDate,
+        }),
+        startDate,
         ppl
       };
       users.push(result);
@@ -146,6 +150,16 @@ export const setSelection = selection => {
     type: SELECTION,
     payload: selection
   };
+};
+export const fetchPool = id => async dispatch => {
+	const res = await axios.get(`/api/fetchPool/${id}`);
+  let obj = {};
+  obj['amount'] = res.data.amount;
+  obj['participants'] = res.data.numOfParticipants;
+  obj['date'] = res.data.date;
+  obj['rate'] = res.data.rate;
+  dispatch(createChart(obj))
+  dispatch({ type: FETCHED_POOL, payload: res.data });
 };
 export const resetChart = () => {
   return {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
+import { Link } from 'react-router-dom'
 
 class MyPools extends Component {
   componentDidMount() {
@@ -12,7 +13,11 @@ class MyPools extends Component {
       return (
         <div className="card darken-1" key={pool._id}>
           <div className="card-content">
-            <span className="button">{pool.title}</span>
+						<Link 
+							to={`/pools/${pool._id}`}
+						>
+							{pool.title}
+						</Link>
             <p>{pool.title}</p>
             <p>{pool.category}</p>
             <p>{pool.description}</p>

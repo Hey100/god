@@ -10,6 +10,13 @@ import Messages from './Messages';
 class Dashboard extends Component {
 	state = { section: 'summary' };
 
+	componentDidMount() {
+		if(this.props.pool.chart) {
+			this.props.resetChart()
+		}
+	}
+	
+
 	handleSection = () => {
 		switch (this.state.section) {
 			case 'summary':
@@ -71,7 +78,7 @@ class Dashboard extends Component {
 }
 
 const mstp = (state) => {
-	return { auth: state.auth }
+	return { auth: state.auth, pool: state.pools }
 }
 
 export default connect(mstp, actions)(Dashboard);

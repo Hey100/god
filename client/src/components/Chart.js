@@ -16,30 +16,40 @@ class Chart extends Component {
   }
 
   handleNext() {
-    if (this.props.pools.selection) {
+    if (this.props.pools.selection === '') {
+      this.setState({ error: 'Please Select a Position in the chart' });
+    } else {
       this.props.onSubmit();
     }
-    this.setState({ error: 'Please Select a Position in the chart' });
   }
 
   renderInput = (chart, index) => {
-    if (this.props.onCancel && index !== this.props.pools.selection) {
-      return <td style={{ padding: '10px' }}>{index + 1}</td>;
+    if (this.props.position >= 0) {
+      if (this.props.position !== index) {
+        return <td style={{ padding: '10px' }}>{index + 1}</td>;
+      }
+      return <td style={{ padding: '10px' }}>You &#10004;</td>;
+    } else {
+      if (this.props.onCancel && index !== this.props.pools.selection) {
+        return <td style={{ padding: '10px' }}>{index + 1}</td>;
+      }
+      if (index !== this.props.pools.selection) {
+        return (
+          <td style={{ padding: '10px' }}>
+            {index + 1}
+            <input
+              type="radio"
+              name="position"
+              value={chart}
+              onClick={() => {
+                this.selection(index), this.setState({ error: '' });
+              }}
+            />
+          </td>
+        );
+      }
+      return <td style={{ padding: '10px' }}>{index + 1} &#10004;</td>;
     }
-    if (index !== this.props.pools.selection) {
-      return (
-        <td style={{ padding: '10px' }}>
-          {index + 1}
-          <input
-            type="radio"
-            name="position"
-            value={chart}
-            onClick={() => this.selection(index)}
-          />
-        </td>
-      );
-    }
-    return <td style={{ padding: '10px' }}>{index + 1} &#10004;</td>;
   };
 
   renderDate = (date, index) => {
@@ -101,7 +111,7 @@ class Chart extends Component {
                   <td style={{ padding: '10px' }} key={monthly}>
                     {monthly}
                   </td>
-                  <td style={{ padding: '10px' }} key={cashPaid}>
+                  <td style={{ padding: '10px' }} key={cashPaid - 1}>
                     {cashPaid}
                   </td>
                   <td style={{ padding: '10px' }} key={cashReceived + 1}>
@@ -122,7 +132,7 @@ class Chart extends Component {
         <p>*Amount before platform fee</p>
         <p>**1% Platform Fee</p>
         {this.state.error ? <p className="cancel">{this.state.error}</p> : null}
-        {!this.props.onCancel ? (
+        {!this.props.onCancel && !this.props.user ? (
           <button
             className="big-btn"
             type="submit"
@@ -136,8 +146,16 @@ class Chart extends Component {
   }
 }
 
-const mstp = ({ pools }) => {
-  return { pools };
+const mstp = ({ pools }, ownProps) => {
+  let position;
+  pools.pool
+    ? pools.pool.participants.map(participant => {
+        if (participant.user === ownProps.user._id) {
+          position = participant.position;
+        }
+      })
+    : null;
+  return { pools, position };
 };
 
 export default connect(mstp, actions)(

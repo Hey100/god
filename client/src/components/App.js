@@ -8,6 +8,7 @@ import Logout from './Logout';
 import Signup from './signup/Signup';
 import Dashboard from './Dashboard';
 import MyPools from './MyPools';
+import PoolDetail from './PoolDetail';
 import AllPools from './AllPools';
 import NewPool from './createPool/NewPool';
 import Create from './createPool/Create';
@@ -28,7 +29,8 @@ class App extends Component {
             <Header />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/mypools" component={MyPools} />
-            <Route path="/pools" component={AllPools} />
+            <Route exact path="/pools/:id" component={PoolDetail} />
+            <Route exact path="/pools" component={AllPools} />
             <Route path="/newpool" component={NewPool} />
             <Route path="/create" component={Create} />
             <Route path="/review" component={Review} />

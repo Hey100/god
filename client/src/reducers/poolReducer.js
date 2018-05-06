@@ -1,14 +1,16 @@
 import {
   MY_POOLS,
   CHART_CREATED,
-  SELECTION,
+	SELECTION,
+	FETCHED_POOL,
   RESET_CHART
 } from '../actions/types';
 
 const INITIAL_STATE = {
   myPools: null,
   chart: null,
-  selection: null
+	selection: '',
+	pool: null
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -19,8 +21,10 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, chart: action.payload };
     case SELECTION:
       return { ...state, selection: action.payload };
+		case FETCHED_POOL:
+      return { ...state, pool: action.payload };
     case RESET_CHART:
-      return { ...state, chart: null, selection: null };
+      return { ...state, chart: null, selection: '', pool: null };
     default:
       return state;
   }

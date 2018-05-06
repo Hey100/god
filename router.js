@@ -21,6 +21,10 @@ module.exports = function(app) {
     const pools = await Pool.find({ _user: req.user.id });
     res.send(pools);
   });
+  app.get('/api/fetchPool/:id', async (req, res, done) => {
+    const pool = await Pool.findById({ _id: req.params.id });
+    res.send(pool);
+  });
   //post
   app.post('/api/createPool', pools.create);
   app.post('/api/login', requireSignin, authentication.signin);
