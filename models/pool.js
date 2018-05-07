@@ -12,9 +12,8 @@ const poolSchema = new Schema({
   rate: { type: String, required: true },
   amount: { type: String, required: true },
   date: { type: Date, required: true },
+  creator: { type: String, required: true },
   _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-const ModelClass = mongoose.model('pools', poolSchema);
-
-module.exports = ModelClass;
+module.exports = mongoose.model('pools', poolSchema);

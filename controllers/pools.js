@@ -22,7 +22,8 @@ exports.create = function(req, res, done) {
     participants: [{ user: req.user.id, position, name }],
     rate,
     amount,
-    date,
+		date,
+		creator: name,
     _user: req.user.id
   });
   pool.save(err => {

@@ -2,19 +2,22 @@ import {
   MY_POOLS,
   CHART_CREATED,
   SELECTION,
-  FETCHED_POOL,
+	FETCHED_POOL,
+	COMMENT_CREATED,
+	FETCHED_COMMENTS,
   RESET,
   ALL_POOLS,
   JOINED
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  myPools: null,
   allPools: null,
+  myPools: null,
   chart: null,
+	joined: false,
   selection: '',
   pool: null,
-  joined: false
+	comments: null
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -23,6 +26,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, allPools: action.payload };
     case MY_POOLS:
       return { ...state, myPools: action.payload };
+		case COMMENT_CREATED:
+      return state
     case CHART_CREATED:
       return { ...state, chart: action.payload };
     case JOINED:
@@ -31,6 +36,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, selection: action.payload };
     case FETCHED_POOL:
       return { ...state, pool: action.payload };
+		case FETCHED_COMMENTS:
+      return { ...state, comments: action.payload };
     case RESET:
       return { ...state, chart: null, selection: '', pool: null, joined: false };
     default:

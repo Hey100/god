@@ -1,10 +1,12 @@
 const authentication = require('./controllers/authentication');
 const pools = require('./controllers/pools');
+const comments = require('./controllers/comments');
 const passportServer = require('./services/passport');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
 const Pool = mongoose.model('pools');
+const Comment = mongoose.model('comments');
 
 const requireSignin = passport.authenticate('local', { session: true });
 
@@ -25,11 +27,16 @@ module.exports = function(app) {
     const pools = await Pool.find({});
     res.send(pools);
   });
+  app.get('/api/comments/:id', async (req, res) => {
+    const comments = await Comment.find({ pool_id: req.params.id });
+    res.send(comments);
+  });
   app.get('/api/fetchPool/:id', async (req, res, done) => {
     const pool = await Pool.findById({ _id: req.params.id });
     res.send(pool);
   });
   //post
+  app.post('/api/saveComment', comments.create);
   app.post('/api/createPool', pools.create);
   app.post('/api/joinPool', pools.join);
   app.post('/api/login', requireSignin, authentication.signin);

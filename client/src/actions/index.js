@@ -7,12 +7,15 @@ import {
   MY_POOLS,
   ALL_POOLS,
   CHART_CREATED,
+	COMMENT_CREATED,
+	FETCHED_COMMENTS,
   SELECTION,
   RESET,
-	FETCHED_POOL,
-	JOINED
+  FETCHED_POOL,
+  JOINED
 } from './types';
 
+//SignIn.js
 export const onLogin = ({ email, password }, history) => {
   return dispatch => {
     axios
@@ -28,6 +31,8 @@ export const onLogin = ({ email, password }, history) => {
       });
   };
 };
+
+//Signup.js
 export const onSignUp = (values, history) => {
   return dispatch => {
     axios
@@ -43,7 +48,6 @@ export const onSignUp = (values, history) => {
       });
   };
 };
-
 export const authError = error => {
   return {
     type: AUTH_ERROR,
@@ -51,17 +55,20 @@ export const authError = error => {
   };
 };
 
+//Logout.js
 export const onLogOut = () => async dispatch => {
   localStorage.removeItem('token');
   await axios.get('/api/logout');
   dispatch({ type: UNAUTH_USER });
 };
 
+//App.js
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
+//Review.js
 export const createPool = (values, position, history) => async dispatch => {
   values['position'] = position;
   const res = await axios.post('/api/createPool', values);
@@ -69,15 +76,19 @@ export const createPool = (values, position, history) => async dispatch => {
   dispatch({ type: RESET });
 };
 
+//MyPools.js
 export const fetchMyPools = () => async dispatch => {
   const res = await axios.get('/api/mypools');
   dispatch({ type: MY_POOLS, payload: res.data });
 };
+
+//AllPools.js
 export const fetchAllPools = () => async dispatch => {
   const res = await axios.get('/api/allpools');
   dispatch({ type: ALL_POOLS, payload: res.data });
 };
 
+//Create.js
 export const createChart = values => dispatch => {
   let amount = parseInt(values.amount, 0);
   let ppl = parseInt(values.participants, 0);
@@ -148,42 +159,56 @@ export const createChart = values => dispatch => {
   dispatch({ type: CHART_CREATED, payload: users });
 };
 
+//Chart.js
 export const setSelection = selection => {
   return {
     type: SELECTION,
     payload: selection
   };
 };
-export const fetchPool = id => async dispatch => {
-	const res = await axios.get(`/api/fetchPool/${id}`);
-  let obj = {};
-  obj['amount'] = res.data.amount;
-  obj['participants'] = res.data.numOfParticipants;
-  obj['date'] = res.data.date;
-  obj['rate'] = res.data.rate;
-  dispatch(createChart(obj))
-  dispatch({ type: FETCHED_POOL, payload: res.data });
-};
 export const joinPool = (id, position) => async dispatch => {
-	let obj = {}
-	obj['id'] = id
-	obj['position'] = position
-	const res = await axios.post('/api/joinPool', obj)
+	let obj = {};
+	obj['id'] = id;
+	obj['position'] = position;
+	const res = await axios.post('/api/joinPool', obj);
 	let obj2 = {};
 	obj2['amount'] = res.data.amount;
 	obj2['participants'] = res.data.numOfParticipants;
 	obj2['date'] = res.data.date;
 	obj2['rate'] = res.data.rate;
-	dispatch(createChart(obj2))
+	dispatch(createChart(obj2));
 	dispatch({ type: FETCHED_POOL, payload: res.data });
-}
+};
+export const joined = () => {
+	return {
+		type: JOINED
+	};
+};
+
+//PoolDetail.js
+export const createComment = values => async dispatch => {
+	const res = await axios.post('/api/saveComment', values);
+	dispatch(fetchComments(res.data.pool_id))
+	dispatch({ type: COMMENT_CREATED, payload: res.data });
+};
+export const fetchPool = id => async dispatch => {
+  const res = await axios.get(`/api/fetchPool/${id}`);
+  let obj = {};
+  obj['amount'] = res.data.amount;
+  obj['participants'] = res.data.numOfParticipants;
+  obj['date'] = res.data.date;
+  obj['rate'] = res.data.rate;
+  dispatch(createChart(obj));
+  dispatch({ type: FETCHED_POOL, payload: res.data });
+};
+export const fetchComments = id => async dispatch => {
+	const res = await axios.get(`/api/comments/${id}`);
+  dispatch({ type: FETCHED_COMMENTS, payload: res.data });
+};
+
+//multi
 export const reset = () => {
   return {
     type: RESET
-  };
-};
-export const joined = () => {
-  return {
-    type: JOINED
   };
 };
