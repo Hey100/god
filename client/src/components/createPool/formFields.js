@@ -1,4 +1,11 @@
 export default [
+	{
+		label: 'Category',
+		name: 'category',
+		type: 'text',
+		placeholder: 'Category',
+		noValueError: 'Required Field'
+	},
   {
     label: 'Title',
     name: 'title',
@@ -13,13 +20,6 @@ export default [
     placeholder: 'Description',
     noValueError: 'Required Field'
   },
-  {
-    label: 'Category',
-    name: 'category',
-    type: 'text',
-    placeholder: 'Category',
-    noValueError: 'Required Field'
-  },
   // {
   //   label: 'Picture',
   //   name: 'picture',
@@ -32,6 +32,13 @@ export default [
     type: 'text',
     noValueError: 'Required Field'
   },
+	{
+		label: 'Amount',
+		name: 'amount',
+		type: 'text',
+		placeholder: '$$',
+		noValueError: 'Required Field'
+	},
   {
     label: 'Rate',
     name: 'rate',
@@ -39,10 +46,9 @@ export default [
     noValueError: 'Required Field'
   },
   {
-    label: 'Amount',
-    name: 'amount',
-    type: 'text',
-    placeholder: '$$',
+    label: 'Start Date',
+    name: 'date',
+    type: 'date',
     noValueError: 'Required Field'
   }
 ];

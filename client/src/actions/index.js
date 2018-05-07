@@ -5,8 +5,12 @@ import {
   UNAUTH_USER,
   FETCH_USER,
   MY_POOLS,
+  ALL_POOLS,
   CHART_CREATED,
-  RESET_CHART
+  SELECTION,
+  RESET,
+	FETCHED_POOL,
+	JOINED
 } from './types';
 
 export const onLogin = ({ email, password }, history) => {
@@ -29,7 +33,6 @@ export const onSignUp = (values, history) => {
     axios
       .post('/api/signup', values)
       .then(res => {
-        console.log(res);
         dispatch({ type: AUTH_USER });
         dispatch({ type: FETCH_USER, payload: res.data.user });
         localStorage.setItem('token', res.data.token);
@@ -59,22 +62,28 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const createPool = (values, history) => async dispatch => {
-  await axios.post('/api/createPool', values);
-  history.push('/mypools');
-  // dispatch({ type: POOL_CREATED})
+export const createPool = (values, position, history) => async dispatch => {
+  values['position'] = position;
+  const res = await axios.post('/api/createPool', values);
+  history.push(`/pools/${res.data._id}`);
+  dispatch({ type: RESET });
 };
 
-export const fetchPools = () => async dispatch => {
+export const fetchMyPools = () => async dispatch => {
   const res = await axios.get('/api/mypools');
   dispatch({ type: MY_POOLS, payload: res.data });
 };
+export const fetchAllPools = () => async dispatch => {
+  const res = await axios.get('/api/allpools');
+  dispatch({ type: ALL_POOLS, payload: res.data });
+};
 
 export const createChart = values => dispatch => {
-  let amount = parseInt(values.amount);
-  let ppl = parseInt(values.participants);
+  let amount = parseInt(values.amount, 0);
+  let ppl = parseInt(values.participants, 0);
   let rate = values.rate / 100;
   let term = ppl - 1;
+  let startDate = values.date;
   let cashInterval = amount * rate / term;
   let paymentInterval = cashInterval / term;
   let basePayment = amount / term;
@@ -115,31 +124,66 @@ export const createChart = values => dispatch => {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         }),
-        interestRate: parseFloat(((y - x) / y * 100)).toFixed(2),
-        interestAmount: parseFloat((y - x)).toLocaleString('USD', {
+        interestRate: parseFloat((y - x) / y * 100).toFixed(2),
+        interestAmount: parseFloat(y - x).toLocaleString('USD', {
           style: 'currency',
           currency: 'USD',
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         }),
         fee: parseFloat(amount * 0.01),
-        tcr: parseFloat((x - amount * 0.01)).toLocaleString('USD', {
+        tcr: parseFloat(x - amount * 0.01).toLocaleString('USD', {
           style: 'currency',
           currency: 'USD',
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
-				}),
-				ppl
+        }),
+        startDate,
+        ppl
       };
-			users.push(result);
+      users.push(result);
     }
   };
-	chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
+  chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   dispatch({ type: CHART_CREATED, payload: users });
 };
 
-export const resetChart = () => {
+export const setSelection = selection => {
   return {
-    type: RESET_CHART
+    type: SELECTION,
+    payload: selection
+  };
+};
+export const fetchPool = id => async dispatch => {
+	const res = await axios.get(`/api/fetchPool/${id}`);
+  let obj = {};
+  obj['amount'] = res.data.amount;
+  obj['participants'] = res.data.numOfParticipants;
+  obj['date'] = res.data.date;
+  obj['rate'] = res.data.rate;
+  dispatch(createChart(obj))
+  dispatch({ type: FETCHED_POOL, payload: res.data });
+};
+export const joinPool = (id, position) => async dispatch => {
+	let obj = {}
+	obj['id'] = id
+	obj['position'] = position
+	const res = await axios.post('/api/joinPool', obj)
+	let obj2 = {};
+	obj2['amount'] = res.data.amount;
+	obj2['participants'] = res.data.numOfParticipants;
+	obj2['date'] = res.data.date;
+	obj2['rate'] = res.data.rate;
+	dispatch(createChart(obj2))
+	dispatch({ type: FETCHED_POOL, payload: res.data });
+}
+export const reset = () => {
+  return {
+    type: RESET
+  };
+};
+export const joined = () => {
+  return {
+    type: JOINED
   };
 };

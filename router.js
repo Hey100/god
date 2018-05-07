@@ -21,8 +21,17 @@ module.exports = function(app) {
     const pools = await Pool.find({ _user: req.user.id });
     res.send(pools);
   });
+  app.get('/api/allpools', async (req, res) => {
+    const pools = await Pool.find({});
+    res.send(pools);
+  });
+  app.get('/api/fetchPool/:id', async (req, res, done) => {
+    const pool = await Pool.findById({ _id: req.params.id });
+    res.send(pool);
+  });
   //post
   app.post('/api/createPool', pools.create);
+  app.post('/api/joinPool', pools.join);
   app.post('/api/login', requireSignin, authentication.signin);
   app.post('/api/signup', authentication.signup);
 };

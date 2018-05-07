@@ -28,25 +28,28 @@ const renderInput = (input, type, placeholder) => {
   if (input.name === 'amount') {
     return amount(input);
   }
-  // if (input.name === 'picture') {
-  //   return (
-  //     <input
-	// 			name="picture"
-	// 			onBlur={() => null}
-	// 			onChange={() => null}
-	// 			onDragStart={() => null}
-	// 			onDrop={() => null}
-	// 			onFocus={() => null}
-	// 			value={input.value}
-  //       className="form-in"
-  //       style={{ marginBottom: '2px' }}
-  //       type="file"
-  //       accept="image/*"
-  //     />
-  //   );
-  // }
+  if (input.name === 'picture') {
+    return (
+      <input
+				name="picture"
+				onBlur={() => null}
+				onChange={() => null}
+				onDragStart={() => null}
+				onDrop={() => null}
+				onFocus={() => null}
+				value=""
+        className="form-in"
+        style={{ marginBottom: '2px' }}
+        type="file"
+        accept="image/*"
+      />
+    );
+  }
   if (input.name === 'rate') {
-    return rate(input);
+		return rate(input);
+	}
+  if (input.name === 'description') {
+    return description(input);
   } else {
     return (
       <input
@@ -59,10 +62,15 @@ const renderInput = (input, type, placeholder) => {
     );
   }
 };
+const description = input => {
+  return (
+    <textarea {...input} cols="30" rows="10"></textarea>
+  );
+};
 const participants = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option selected>Number of Contributors</option>
       <option value="5">5</option>
       <option value="7">7</option>
       <option value="9">9</option>
@@ -74,7 +82,7 @@ const participants = input => {
 const category = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option selected>Category</option>
       <option value="Sports">Sports</option>
       <option value="Business">Business</option>
       <option value="Home Improvement">Home Improvement</option>
@@ -85,7 +93,7 @@ const category = input => {
 const rate = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option selected>Interest Rate</option>
       <option value="5">5%</option>
       <option value="7">7%</option>
       <option value="9">9%</option>
@@ -96,13 +104,17 @@ const rate = input => {
 const amount = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option value="Amount" />
       <option value="1000">$1,000</option>
+      <option value="2000">$2,000</option>
+      <option value="3000">$3,000</option>
+      <option value="4000">$4,000</option>
+      <option value="5000">$5,000</option>
+      <option value="6000">$6,000</option>
+      <option value="7000">$7,000</option>
+      <option value="8000">$8,000</option>
+      <option value="9000">$9,000</option>
       <option value="10000">$10,000</option>
-      <option value="15000">$15,000</option>
-      <option value="20000">$20,000</option>
-      <option value="25000">$25,000</option>
-      <option value="30000">$30,000</option>
     </select>
   );
 };
