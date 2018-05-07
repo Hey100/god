@@ -97,6 +97,7 @@ p {
 	justify-content: center;
 	width: 100vw;
 	padding: 0 40px;
+	border-bottom: 1px solid dodgerblue;
 }
 
 .sub-button {
@@ -117,10 +118,6 @@ p {
 	padding: 40px;
 	background-color: mediumturquoise;
 	min-height: 60vh;
-}
-
-.sign {
-	justify-content: center;
 }
 
 .terms {
@@ -390,10 +387,61 @@ img {
 	height: 300px;
 }
 
-.info {
-
+.msg-left {
+	background-color: #FFF;
+	width: 30%;
+	height: 80vh;
+	border-right: 1px solid dodgerblue; 
+	overflow: auto;
 }
 
+.msg-right {
+	background-color: #FFF;
+	display: flex;
+	flex-flow: column nowrap;
+	flex: 1;
+	min-height: 80vh;
+}
+
+.msglst-item {
+	display: flex;
+	height: 100px;
+	padding: 12.5px;
+	align-items: center;
+	justify-content: space-between; 
+	border-bottom: 1px solid dodgerblue;
+	
+}
+.user-thumb {
+	border-radius: 50%;
+	width: 75px;
+	height: 75px;
+}
+
+.chat-container {
+	display: flex;
+	flex: 1;
+}
+
+.chat-form {
+	border-top: 1px solid dodgerblue;
+	padding: 10px;
+	justify-content: space-around;
+	align-content: center;
+	
+}
+.chat-input, .chat-button {
+	border: 1px solid dodgerblue;
+	border-radius: 50px;
+	padding: 10px 20px;
+	margin: 0 10px;
+	color: dodgerblue;
+}
+
+.chat-button:active {
+	color: #FFF;
+	background-color: dodgerblue;
+}
 /* MEDIA */
 
 @media all and (max-width: 768px) {

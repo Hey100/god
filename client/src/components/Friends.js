@@ -31,7 +31,7 @@ class Friends extends Component {
           <h1 className="text-1">FRIENDS LOADING...</h1>
         </div>;
 		}
-		return <div className="tab">
+		return<div className="tab" style={{ flexDirection: 'column', alignItems: 'center' }}>
 			<h1 className="text-1" style={{ textAlign: "center" }}>
 				FRIENDS
 			</h1>
