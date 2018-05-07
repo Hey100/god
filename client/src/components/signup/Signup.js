@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { LockAlertIcon } from "mdi-react";
-import _ from "lodash";
-import * as actions from "../../actions/index";
-import SignUpField from "./SignUpField";
-import formFields from "./formFields";
+import React, { Component } from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { LockAlertIcon } from 'mdi-react';
+import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import * as actions from '../../actions/index';
+import SignUpField from './SignUpField';
+import formFields from './formFields';
 
 class Signup extends Component {
   renderFields() {
@@ -15,17 +16,12 @@ class Signup extends Component {
         <Field
           key={name}
           component={SignUpField}
-          label={label}
           name={name}
           type={type}
-          placeholder={placeholder}
+          placeholder={label}
         />
       );
     });
-  }
-
-  renderEmailAndPassword() {
-    return;
   }
 
   onSubmit = values => {
@@ -33,10 +29,14 @@ class Signup extends Component {
   };
 
   render() {
-    return <div className="section1 form">
+    return (
+      <div className="section1 form">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
+          {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
           <div className="form-sec">
+            <Link to="/signin" className="button">
+              Already a member?
+            </Link>
             <h2 className="text-2">
               Please provide a few details about yourself
             </h2>
@@ -44,38 +44,50 @@ class Signup extends Component {
           </div>
           <div className="form-sec">
             <h2 className="text-2">Save Your Information</h2>
-            <div>
-              Email Address:
-              <Field className="form-in" component="input" name="email" type="text" placeholder="email@example.com" />
-            </div>
-            <div>
-              Password:
-              <Field className="form-in" component="input" name="password" type="password" />
-            </div>
-            <h5 style={{ color: "orange" }}>
+            <Field
+              className="form-in"
+              component="input"
+              name="email"
+              type="text"
+              placeholder="Email"
+            />
+            <Field
+              className="form-in"
+              component="input"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+            <h5 style={{ color: 'orange' }}>
               Must contain at least 8 characters, including 1 number and 1
               uppercase letter
             </h5>
           </div>
           <div className="form-sec">
             <div>
-              <input type="checkbox" name="accept request" /> By checking the box, clicking "agree and see your rate" below, you confirm:
+              <input type="checkbox" name="accept request" /> By checking the
+              box, clicking "agree and see your rate" below, you confirm:
             </div>
             <ul>
               <li>
-                You agree to the <a href="/">
-                  Electronic Communications Policy and Consent
-                </a> and understand that the terms and conditions and other disclosures will be provided to you electronically; and
+                You agree to the{' '}
+                <a href="/">Electronic Communications Policy and Consent</a> and
+                understand that the terms and conditions and other disclosures
+                will be provided to you electronically; and
               </li>
               <li>
-                You agree to the <a className="terms" href="/">
+                You agree to the{' '}
+                <a className="terms" href="/">
                   Credit Report and Information Verification Consent
-                </a>, the <a className="terms" href="/">
-                  Upstart Privacy Policy
-                </a>, the <a className="terms" href="/">
-                  Upstart Privacy Notice
-                </a>, and the <a className="terms" href="/">
-                  Upstart Platform Agreement
+                </a>, the{' '}
+                <a className="terms" href="/">
+                  Collective Capital Privacy Policy
+                </a>, the{' '}
+                <a className="terms" href="/">
+                  Collective Capital Privacy Notice
+                </a>, and the{' '}
+                <a className="terms" href="/">
+                  Collective Capital Platform Agreement
                 </a>.
               </li>
             </ul>
@@ -83,12 +95,14 @@ class Signup extends Component {
               Sign Up
             </button>
             <h5>
-              <LockAlertIcon size={34} color="#000" /> Checking your rate won't affect your credit score!
+              <LockAlertIcon size={34} color="#000" /> Checking your rate won't
+              affect your credit score!
             </h5>
           </div>
           <br />
         </form>
-      </div>;
+      </div>
+    );
   }
 }
 
@@ -107,7 +121,7 @@ export default withRouter(
   connect(null, actions)(
     reduxForm({
       validate,
-      form: "registerForm"
+      form: 'registerForm'
     })(Signup)
   )
 );

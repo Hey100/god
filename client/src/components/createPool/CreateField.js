@@ -70,7 +70,7 @@ const description = input => {
 const participants = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option selected>Number of Contributors</option>
       <option value="5">5</option>
       <option value="7">7</option>
       <option value="9">9</option>
@@ -82,7 +82,7 @@ const participants = input => {
 const category = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option selected>Category</option>
       <option value="Sports">Sports</option>
       <option value="Business">Business</option>
       <option value="Home Improvement">Home Improvement</option>
@@ -93,7 +93,7 @@ const category = input => {
 const rate = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option selected>Interest Rate</option>
       <option value="5">5%</option>
       <option value="7">7%</option>
       <option value="9">9%</option>
@@ -104,7 +104,7 @@ const rate = input => {
 const amount = input => {
   return (
     <select {...input} className="form-in">
-      <option value="" />
+      <option value="Amount" />
       <option value="1000">$1,000</option>
       <option value="2000">$2,000</option>
       <option value="3000">$3,000</option>

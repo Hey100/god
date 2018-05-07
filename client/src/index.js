@@ -12,10 +12,9 @@ const token = localStorage.getItem('token');
 if (token) {
   store.dispatch({ type: AUTH_USER });
 }
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>,
+	</Provider>,
   document.querySelector('#root')
 );

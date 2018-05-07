@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Landing from './Landing';
 import Header from './Header';
-import Login from './Login';
-import Logout from './Logout';
+import Landing from './Landing';
+import SignIn from './SignIn';
 import Signup from './signup/Signup';
+import Logout from './Logout';
 import Dashboard from './Dashboard';
-import MyPools from './MyPools';
 import PoolDetail from './PoolDetail';
 import AllPools from './AllPools';
+import MyPools from './MyPools';
 import NewPool from './createPool/NewPool';
 import Create from './createPool/Create';
 import Review from './createPool/Review';
+import Help from './Help';
 import Footer from './Footer';
 import * as actions from '../actions';
 
@@ -34,9 +35,10 @@ class App extends Component {
             <Route path="/newpool" component={NewPool} />
             <Route path="/create" component={Create} />
             <Route path="/review" component={Review} />
-            <Route path="/login" component={Login} />
+            <Route path="/signin" component={SignIn} />
             <Route path="/logout" component={Logout} />
             <Route path="/signup" component={Signup} />
+            <Route path="/help" component={Help} />
             <Route exact path="/" component={Landing} />
             <Footer />
           </div>
