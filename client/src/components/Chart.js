@@ -8,6 +8,7 @@ import moment from 'moment';
 class Chart extends Component {
   state = {
     counter: 1,
+    joined: false,
     error: ''
   };
 
@@ -24,11 +25,49 @@ class Chart extends Component {
   }
 
   renderInput = (chart, index) => {
-    if (this.props.position >= 0) {
-      if (this.props.position !== index) {
-        return <td style={{ padding: '10px' }}>{index + 1}</td>;
+    if (this.props.user) {
+      const { participants } = this.props.pools.pool;
+      let position1;
+      let position2;
+      let position3;
+      {
+        participants.map(p => {
+          if (p.position === index && p.user === this.props.user._id) {
+            this.props.joined();
+            position1 = (
+              <td style={{ padding: '10px', color: 'tomato' }}>
+                You &#10004;
+              </td>
+            );
+          } else if (p.position === index && p.user !== this.props.user._id) {
+            position2 = (
+              <td style={{ padding: '10px', color: 'tomato' }}>
+                {p.name}
+              </td>
+            );
+          } else {
+            position3 = (
+              <td style={{ padding: '10px' }}>
+                {index + 1} &nbsp;
+                <button
+                  onClick={() => this.props.joinPool(this.props.params, index)}
+                >
+                  Join
+                </button>
+              </td>
+            );
+          }
+        });
+        if (position1) {
+          return position1;
+        } else if (position2) {
+          return position2;
+        } else if (position3 && !this.props.pools.joined) {
+          return position3;
+        } else {
+					return <td style={{ padding: '10px', color: 'seagreen' }}>{index + 1}&nbsp;Open </td>
+        }
       }
-      return <td style={{ padding: '10px' }}>You &#10004;</td>;
     } else {
       if (this.props.onCancel && index !== this.props.pools.selection) {
         return <td style={{ padding: '10px' }}>{index + 1}</td>;
@@ -146,16 +185,8 @@ class Chart extends Component {
   }
 }
 
-const mstp = ({ pools }, ownProps) => {
-  let position;
-  pools.pool
-    ? pools.pool.participants.map(participant => {
-        if (participant.user === ownProps.user._id) {
-          position = participant.position;
-        }
-      })
-    : null;
-  return { pools, position };
+const mstp = ({ pools }) => {
+  return { pools };
 };
 
 export default connect(mstp, actions)(

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 class MyPools extends Component {
   componentDidMount() {
-    this.props.fetchPools();
+		this.props.fetchMyPools();
   }
 
   renderPools() {

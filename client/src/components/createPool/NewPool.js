@@ -8,7 +8,7 @@ import * as actions from '../../actions/index';
 class NewPool extends Component {
   componentDidMount() {
     if (this.props.pools.chart) {
-      this.props.resetChart();
+      this.props.reset();
     }
   }
 

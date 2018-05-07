@@ -43,7 +43,9 @@ class Header extends Component {
             </Link>}
         </div>
         <div className="nav-right">
-          {button}
+          <Link className="button" to={"/pools"}>
+            All Pools
+          </Link>
           <Link className="button" to={"/newpool"}>
             Start a pool
           </Link>

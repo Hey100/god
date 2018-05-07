@@ -5,10 +5,12 @@ import {
   UNAUTH_USER,
   FETCH_USER,
   MY_POOLS,
+  ALL_POOLS,
   CHART_CREATED,
   SELECTION,
-  RESET_CHART,
-  FETCHED_POOL
+  RESET,
+	FETCHED_POOL,
+	JOINED
 } from './types';
 
 export const onLogin = ({ email, password }, history) => {
@@ -31,7 +33,6 @@ export const onSignUp = (values, history) => {
     axios
       .post('/api/signup', values)
       .then(res => {
-        console.log(res);
         dispatch({ type: AUTH_USER });
         dispatch({ type: FETCH_USER, payload: res.data.user });
         localStorage.setItem('token', res.data.token);
@@ -64,18 +65,20 @@ export const fetchUser = () => async dispatch => {
 export const createPool = (values, position, history) => async dispatch => {
   values['position'] = position;
   const res = await axios.post('/api/createPool', values);
-  console.log(res);
   history.push(`/pools/${res.data._id}`);
-  dispatch({ type: RESET_CHART });
+  dispatch({ type: RESET });
 };
 
-export const fetchPools = () => async dispatch => {
+export const fetchMyPools = () => async dispatch => {
   const res = await axios.get('/api/mypools');
   dispatch({ type: MY_POOLS, payload: res.data });
 };
+export const fetchAllPools = () => async dispatch => {
+  const res = await axios.get('/api/allpools');
+  dispatch({ type: ALL_POOLS, payload: res.data });
+};
 
 export const createChart = values => dispatch => {
-	console.log('hit createChart')
   let amount = parseInt(values.amount, 0);
   let ppl = parseInt(values.participants, 0);
   let rate = values.rate / 100;
@@ -161,8 +164,26 @@ export const fetchPool = id => async dispatch => {
   dispatch(createChart(obj))
   dispatch({ type: FETCHED_POOL, payload: res.data });
 };
-export const resetChart = () => {
+export const joinPool = (id, position) => async dispatch => {
+	let obj = {}
+	obj['id'] = id
+	obj['position'] = position
+	const res = await axios.post('/api/joinPool', obj)
+	let obj2 = {};
+	obj2['amount'] = res.data.amount;
+	obj2['participants'] = res.data.numOfParticipants;
+	obj2['date'] = res.data.date;
+	obj2['rate'] = res.data.rate;
+	dispatch(createChart(obj2))
+	dispatch({ type: FETCHED_POOL, payload: res.data });
+}
+export const reset = () => {
   return {
-    type: RESET_CHART
+    type: RESET
+  };
+};
+export const joined = () => {
+  return {
+    type: JOINED
   };
 };

@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		if(this.props.pool.chart) {
-			this.props.resetChart()
+			this.props.reset()
 		}
 	}
 	

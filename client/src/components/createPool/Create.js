@@ -6,11 +6,10 @@ import Chart from '../Chart';
 import _ from 'lodash';
 import * as actions from '../../actions/index';
 import { connect } from 'react-redux';
-// import ReactTable from 'react-table';
 
 class Create extends Component {
   state = {
-    selection: null
+		selection: null
   };
   componentDidMount() {
     window.scrollTo(0, 0);

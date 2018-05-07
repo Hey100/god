@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const participantSchema = new Schema({
 	user: { type: String, required: true },
+	name: {type: String, required: true},
 	position: { type: Number, required: true }
 });
 
