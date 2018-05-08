@@ -20,15 +20,15 @@ const Summary = () => {
 	};
 
 	return <div className="tab">
-			<div className="sumary-card" id="sc1">
-				<h2 className="text-1">Your CC Score:</h2>
-				<h1 className="big-btn">80</h1>
-			</div>
-			<div className="sumary-card" id="sc2">
+			<div className="sumary-card">
+				<div>
+					<h2 className="text-1">Your CC Score:</h2>
+					<h1 className="big-btn">80</h1>
+				</div>
 				<div className="canvas-wrap">
 					<Doughnut data={data} options={options} height="300px" />
 				</div>
-				<div className="info">
+				<div>
 					<h2 className="text-2">TOTAL ALLOWED: $7,000</h2>
 					<h2 className="text-2">TOTAL USED: $4,564</h2>
 					<hr />

@@ -17,24 +17,54 @@ p {
 	margin: 0;
 }
 
-.header {
+/* HEADER */
+
+.navigator {
 	height: 75px;
 	border-bottom: 1px solid dodgerblue;
 	display: flex;
-	flex-flow: row wrap;
+	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 40px;
 }
 
+.nav-right {
+	display: flex;
+	align-items: center;
+}
+
 #title {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	color: navy;
+	color: midnightblue;
 	font-size: 24px;
 }
 
+.nav-button {
+	margin: 0 10px;
+	font-size: 20px;
+	background-color: transparent;
+	color: dodgerblue;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.nav-input {
+	background-color: white;
+	height: 40px;
+	width: 200px;
+	margin: 10px;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	padding-left: 10px;
+	border-radius: 5px;
+}
+
+/* FOOTER  */
+
 .footer {
-	display: flex;
 	flex-flow: column;
 	padding: 0 40px;
 	background-color: #067084;
@@ -44,7 +74,6 @@ p {
 .f-list {
 	display: flex;
 	margin: 20px 0;
-	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -78,9 +107,6 @@ p {
 	margin: 0 10px 40px 10px;
 }
 
-/* GENERAL CLASSES */
-
-
 .super {
 	font-family: Arial, sans-serif;
 	font-style: italic;
@@ -111,8 +137,10 @@ p {
 }
 
 .tab {
+	max-width: 1440px;
+	margin: 0 auto;
 	display: flex;
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 	justify-content: center;
 	align-items: flex-start;
 	padding: 40px;
@@ -182,13 +210,14 @@ p {
 }
 
 .column, .column-r {
+	max-width: 1440px;
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: center;
+	align-items: center;
+	margin: 0 auto; 
 }
 
 .half {
-	border-bottom: 2px solid mediumturquoise;
 	display: flex;
 	flex-direction: column; 
 	flex: 1;
@@ -261,23 +290,14 @@ img {
 	border-radius: 5px;
 }
 
+
+
 .search-bar {
 	width: 100vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	align-content: space-around;
-}
-
-.nav-input {
-	background-color: white;
-	height: 40px;
-	width: 200px;
-	margin: 10px;
-	border: 1px solid dodgerblue;
-	color: dodgerblue;
-	padding-left: 10px;
-	border-radius: 5px;
 }
 
 .results {
@@ -362,29 +382,24 @@ img {
 
 .sumary-card {
 	background-color: #FFF;
-	border-radius: 20px;
-	padding: 40px;
-	margin: 20px;
-	flex: 1;
+	display: flex;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	min-height: 400px;
+	padding: 40px;
 }
 
-#sc1 {
-	max-width: 600px;
-}
-
-#sc2 {
+.sumary-info {
 	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-evenly;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .canvas-wrap {
 	position: relative;
 	height: 300px;
+	margin: 20px 0;
 }
 
 .msg-left {
@@ -442,13 +457,23 @@ img {
 	color: #FFF;
 	background-color: dodgerblue;
 }
+
 /* MEDIA */
 
+
 @media all and (max-width: 768px) {
-	.column, .f-dec, .sub-nav {
+	.column, .f-dec {
 		flex-direction: column;
 		text-align: center;
 	}
+	.sub-nav {
+		justify-content: space-around;
+	}
+
+	.sub-button {
+		padding: 20px 5px;	
+	}
+
 	.column-r {
 		flex-direction: column-reverse;
 	}
@@ -456,33 +481,53 @@ img {
 		width: 50%;
 		margin: -20px;
 	}
-
-	.f-dec-el {
-		margin: 20px 0;
+	.sumary-card {
+		flex-flow: column wrap;
 	}
+	.navigator {
+		flex-direction: column;
+		justify-content: flex-start;
+		height: auto;
+	}
+	.nav-button, .sub-button {
+		padding: 10px;
+	}
+	.f-list {
+		flex-flow: column wrap;
+	}
+	.f-list-el {
+		margin: 10px 0;
+		justify-content: center;
+	}
+	.tab {
+		flex-flow: column wrap;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 10px;
+	}
+	.sumary-card {
+		flex-direction: column;
+		justify-content: center;
+	}
+	.canvas-wrap {
+		margin: 50px 0 -25px 0;
+	}
+}
 
-	#sc2 {
-		flex-wrap: wrap;
+@media all and (max-width: 600px) {
+	.nav-right, .sub-nav {
+		display: flex;
+		flex-direction: column;
 	}
 }
 
 @media all and (max-width: 425px) {
-	.header {
-		height: auto;
-		flex-flow: column wrap;
-		text-align: center;
-		align-items: stretch;
+	.canvas-wrap {
+		width: 250px;
 	}
-
 	.text-1 {
 		font-size: 2em;
 	}
-	
-	.nav-right {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.half > img {
 		width: 100%;
 	}

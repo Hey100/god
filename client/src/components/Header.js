@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { MenuIcon } from 'mdi-react';
 import * as actions from "../actions";
 
 class Header extends Component {
+	state = { menu: false };
 
   renderProfile = () => {
     if (this.props.auth.user) {
@@ -16,42 +18,42 @@ class Header extends Component {
       );
     }
     return null;
-  };
+	};
+	
+	toggleMenu = () => {
+		this.setState({ menu: !this.state.menu });
+	}
 
  render() {
     const loginStatus = this.props.auth.user;
     const button = !loginStatus ? (
-      <Link className="button" to={"/signin"}>
+      <Link className="nav-button" to={"/signin"}>
         Sign In
       </Link>
     ) : (
       [
-        <Link key={1} className="button" to={"/dashboard"}>
+        <Link key={1} className="nav-button" to={"/dashboard"}>
           My Profile
         </Link>,
-        <Link key={2} className="button" to={"/logout"}>
+        <Link key={2} className="nav-button" to={"/logout"}>
           Logout
         </Link>
       ]
     );
-    return <div className="header">
-        <div className="nav-left">
-          {loginStatus ? <Link className="button" id="title" to={"/dashboard"}>
-              CommunityCapital
-            </Link> : <Link className="button" id="title" to={"/"}>
-              CommunityCapital
-            </Link>}
-        </div>
+    return <div className="navigator">
+        {loginStatus ? <Link className="nav-button" id="title" to={"/dashboard"}>
+            CommunityCapital
+          </Link> : <Link className="nav-button" id="title" to={"/"}>
+            CommunityCapital
+          </Link>}
         <div className="nav-right">
-          <Link className="button" to={"/pools"}>
+          <Link className="nav-button" to={"/pools"}>
             All Pools
           </Link>
-          <Link className="button" to={"/newpool"}>
+          <Link className="nav-button" to={"/newpool"}>
             Start a pool
           </Link>
-          {button}
-          <input type="text" className="input" placeholder="search pools.." />
-          {this.renderProfile()}
+					{button}
         </div>
       </div>;
   }
