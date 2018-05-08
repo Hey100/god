@@ -11,18 +11,18 @@ class Review extends Component {
     window.scrollTo(0, 0);
   }
 
-  reviewFields = _.map(formFields, ({ label, name }) => {
-    const values = this.props.formValues;
-    return (
-      <div key={name} className="form-sec">
-        <h5>{label}</h5>
-        <div>{values[name]}</div>
-      </div>
-    );
-  });
+  // reviewFields = _.map(formFields, ({ label, name }) => {
+  //   const values = this.props.formValues;
+  //   return (
+  //     <div key={name} className="form-sec">
+  //       <h5>{label}</h5>
+  //       <div>{values[name]}</div>
+  //     </div>
+  //   );
+  // });
 
   render() {
-    const values = this.props.formValues;
+    const { form } = this.props.pools;
     const { history, createPool, pools } = this.props;
     return (
       <div>
@@ -32,7 +32,7 @@ class Review extends Component {
         {this.reviewFields}
         <Chart chart={this.props.pools.chart} onCancel={this.props.onCancel} />
         <div className="form-sec">
-          <a className="big-btn" onClick={() => createPool(values, pools.selection, history)}>
+          <a className="big-btn" onClick={() => createPool(form, pools.selection, history)}>
             Submit
           </a>
           <button className="button" onClick={this.props.onCancel}>
@@ -44,8 +44,8 @@ class Review extends Component {
   }
 }
 
-const mstp = state => {
-  return { formValues: state.form.poolForm.values, pools: state.pools };
+const mstp = ({pools}) => {
+  return { pools };
 };
 
 export default connect(mstp, actions)(withRouter(Review));

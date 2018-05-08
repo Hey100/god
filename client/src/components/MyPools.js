@@ -27,7 +27,7 @@ class MyPools extends Component {
             <p>{pool.title}</p>
             <p>{pool.category}</p>
             <p>{pool.description}</p>
-            <p>{pool.numOfParticipants}</p>
+						<p>{pool.numOfContributors}</p>
             <p>{pool.rate}</p>
             <p>{this.props.auth.user.first_name}</p>
             <p>{pool.amount}</p>
