@@ -29,24 +29,20 @@ class Chart extends Component {
 
   renderInput = (chart, index) => {
     if (this.props.user) {
-      const { participants } = this.props.pools.pool;
+      const { contributors } = this.props.pools.pool;
       let position1;
       let position2;
       let position3;
       {
-        participants.map(p => {
+        contributors.map(p => {
           if (p.position === index && p.user === this.props.user._id) {
             this.props.joined();
             position1 = (
-              <td style={{ padding: '10px', color: 'tomato' }}>
-                You &#10004;
-              </td>
+              <td style={{ padding: '10px', color: 'tomato' }}>You &#10004;</td>
             );
           } else if (p.position === index && p.user !== this.props.user._id) {
             position2 = (
-              <td style={{ padding: '10px', color: 'tomato' }}>
-                {p.name}
-              </td>
+              <td style={{ padding: '10px', color: 'tomato' }}>{p.name}</td>
             );
           } else {
             position3 = (
@@ -68,7 +64,11 @@ class Chart extends Component {
         } else if (position3 && !this.props.pools.joined) {
           return position3;
         } else {
-					return <td style={{ padding: '10px', color: 'seagreen' }}>{index + 1}&nbsp;Open </td>
+          return (
+            <td style={{ padding: '10px', color: 'seagreen' }}>
+              {index + 1}&nbsp;Open{' '}
+            </td>
+          );
         }
       }
     } else {
@@ -108,6 +108,9 @@ class Chart extends Component {
   render() {
     return (
       <div className="form-sec">
+        {this.props.onSubmit ? (
+          <h2 className="text-2">3. Pick a Position</h2>
+        ) : null}
         <table style={{ border: '1px solid black' }}>
           <tbody>
             <tr>
@@ -178,7 +181,7 @@ class Chart extends Component {
           <button
             className="big-btn"
             type="submit"
-            onClick={this.props.handleSubmit(() => this.handleNext())}
+            onClick={() => this.handleNext()}
           >
             Next
           </button>

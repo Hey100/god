@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import "./styles/allpools.css";
 import "./styles/global.css";
@@ -12,28 +13,41 @@ class AllPools extends Component {
     this.props.fetchAllPools();
   }
 
-  // render() {
-  //   const { allPools } = this.props.pools;
-  //   if (!allPools) {
-  //     return <p>LOADING...</p>;
-  //   }
-  //   return allPools.map(pool => {
-  //     return (
-	// 			<div key={pool._id} className="form-sec">
-  //         <h1>{pool.title}</h1>
-  //         <Link to={`pools/${pool._id}`}>View</Link>
-  //       </div>
-  //     );
-  //   });
-  // }
-	render(){
-		return <div>
-        <h1 className="text-2" style={{ textAlign: "center" }}>
-          COMUNITY
+  renderDate = date => {
+    let newDate = moment(date).calendar();
+    return <h3 key={date}>Start Date: {newDate}</h3>;
+  };
+
+  handleClick = id => {
+    this.props.history.push(`/pools/${id}`);
+  };
+
+  render() {
+    const { allPools } = this.props.pools;
+    if (!allPools) {
+      return <p>LOADING...</p>;
+    }
+    return (
+      <div>
+        <h1 className="text-2" style={{ textAlign: 'center' }}>
+          COMMUNITY
         </h1>
         <div className="all__search-bar">
           Filter by
           <form>
+            <select className="nav-input">
+              <option>Amount</option>
+              <option value="1000">$1,000</option>
+              <option value="2000">$2,000</option>
+              <option value="3000">$3,000</option>
+              <option value="4000">$4,000</option>
+              <option value="5000">$5,000</option>
+              <option value="6000">$6,000</option>
+              <option value="7000">$7,000</option>
+              <option value="8000">$8,000</option>
+              <option value="9000">$9,000</option>
+              <option value="10000">$10,000</option>
+            </select>
             <select className="nav-input">
               <option>Number of Contributors</option>
               <option value="5">5</option>
@@ -63,86 +77,52 @@ class AllPools extends Component {
           </form>
         </div>
         <div className="results">
-          <div className="all__card" onClick={() => alert("all__card1")}>
-						<div
-							className="all__thumbnail"
- 							style={{ 
-								backgroundImage: "url(https://tribwxmi.files.wordpress.com/2013/05/mustache-web.jpeg)"
-							}} 
-							alt=""
-						/> 
-            <div className="card-content"> 
-              <h1>MY MUSTACHE POOL</h1>
-              <h1>by. Evil666</h1>
-							<div className="all__meter">
-								<span style={{ width: '100%' }}></span>
-							</div>
-              <h3>$12,000</h3>
-              <h3>5% max interest</h3>
-              <h3>1 colabs.</h3>
-              <h3>21 days to start</h3>
-            </div>
-          </div>
-          <div className="all__card" onClick={() => alert("all__card2")}>
-						<div
-							className="all__thumbnail"
-							style={{ 
-								backgroundImage: "url(http://www.backpaco.com/wp-content/uploads/2015/04/yosemite-waterfall.jpg)"
-							}}
-							alt=""
-						/>
-            <div className="card-content">
-              <h1>CAMPING</h1>
-              <h1>by. Fatty BoomBoom</h1>
-							<div className="all__meter">
-								<span style={{ width: '80%' }}></span>
-							</div>
-              <h3>$13,000</h3>
-              <h3>8% max interest</h3>
-              <h3>5 colabs.</h3>
-              <h3>11 days to start</h3>
-            </div>
-          </div>
-          <div className="all__card" onClick={() => alert("all__card3")}>
-						<div
-							className="all__thumbnail"
-							style={{ backgroundImage: "url(http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/05/08/fc/top-10-hawaiian-beaches-lanikai-beach.rend.hgtvcom.1280.720.suffix/1491584246278.jpeg)" }}
-							alt=""
-						/>
-            <div className="card-content">
-              <h1>HAWAII TRIP</h1>
-              <h1>by. John Doe</h1>
-							<div className="all__meter">
-								<span style={{ 
-									width: '40%' }}></span>
-							</div>
-              <h3>$4,000</h3>
-              <h3>11% max interest</h3>
-              <h3>2 colabs.</h3>
-              <h3>8 days to start</h3>
-            </div>
-          </div>
-          <div className="all__card" onClick={() => alert("all__card4")}>
-						<div 
-							className="all__thumbnail"
-							style={{ backgroundImage: "url(https://si.wsj.net/public/resources/images/ON-CF689_dollah_M_20170811152733.jpg)" }}
-							alt=""
-						/>
-            <div className="card-content">
-              <h1>WIN A LOTTO</h1>
-              <h1>by. HungarianDude</h1>
-							<div className="all__meter">
-								<span style={{ width: '65%' }}></span>
-							</div>
-              <h3>$8,000</h3>
-              <h3>4% max interest</h3>
-              <h3>9 colabs.</h3>
-              <h3>14 days to start</h3>
-            </div>
-          </div>
+          {allPools.map(pool => {
+						const num = pool.contributors.length;
+            return (
+							<Link key={pool._id} className="all__card"  to={`/pools/${pool._id}`}>
+                <div
+                  className="all__thumbnail"
+                  onClick={() => this.handleClick(pool._id)}
+                  style={{
+                    backgroundImage:
+                      'url(https://tribwxmi.files.wordpress.com/2013/05/mustache-web.jpeg)'
+                  }}
+                  alt=""
+                />
+                <div className="card-content">
+                  <h1 onClick={() => this.handleClick(pool._id)}>
+                    <button> {pool.title}</button>
+                  </h1>
+                  <h1>
+                    by: <button className="button">{pool.creator}</button>
+                  </h1>
+                  <div className="all__meter">
+                    <span style={{ width: '100%' }} />
+                  </div>
+                  <h3>
+                    {parseFloat(pool.amount).toLocaleString('USD', {
+                      style: 'currency',
+                      currency: 'USD',
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    })}
+                  </h3>
+                  <h3>{pool.rate}% max interest</h3>
+                  {num > 1 ? (
+                    <h3>{num} Contributors</h3>
+                  ) : (
+                    <h3>{num} Contributor</h3>
+                  )}
+                  {this.renderDate(pool.date)}
+                </div>
+              </Link>
+							);
+						})}
         </div>
-      </div>;
-	}
+      </div>
+    );
+  }
 }
 
 const mstp = ({ pools }) => {
