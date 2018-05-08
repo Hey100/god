@@ -2,10 +2,14 @@ import React from "react";
 import { TwitterIcon, YoutubeIcon, FacebookIcon } from "mdi-react";
 import { Link } from 'react-router-dom';
 
+import "./styles/footer.css";
+import "./styles/global.css";
+import "./styles/media.css";
+
 const Footer = () => {
-	return <div className="footer">
-      <div className="f-list">
-        <ul className="f-list-el">
+	return <div className="foot">
+      <div className="foot__list">
+        <ul className="foot__list-elem">
           <li>
             <a href="/">
               <TwitterIcon size={34} color="#FFF" />
@@ -22,7 +26,7 @@ const Footer = () => {
             </a>
           </li>
         </ul>
-        <ul className="f-list-el">
+        <ul className="foot__list-elem">
           <li>
             <a href="/">Contact us</a>
           </li>
@@ -42,8 +46,8 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      <div className="f-dec">
-        <p className="f-dec-el">
+      <div className="foot__dec">
+        <p className="foot__dec-elem">
           © 2007–2018 Collective Capital, Inc. Collective Capital™ is a
           registered trademark of Collective Capital, Inc. All Rights
           Reserved. Product name, logo, brands, and other trademarks featured
@@ -57,7 +61,7 @@ const Footer = () => {
           1588622 | Licenses | NMLS Consumer Access Collective Capital Offers,
           Inc. NMLS ID# 1628077 | Licenses | NMLS Consumer Access
         </p>
-        <p className="f-dec-el">
+        <p className="foot__dec-elem">
           Average 2016 Federal tax refund in CA based on data provided by the
           IRS. Average 2016 State tax refund in CA based on data provided by
           the State of California Franchise Tax Board.Average 2016 Federal tax

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 import formFields from './formFields';
 import CreateField from './CreateField';
 import Chart from '../Chart';
-import _ from 'lodash';
 import * as actions from '../../actions/index';
-import { connect } from 'react-redux';
+import "../styles/create.css";
+import "../styles/global.css";
+import "../styles/media.css";
 
 class Create extends Component {
   state = {
@@ -19,11 +22,11 @@ class Create extends Component {
     return _.map(formFields, ({ label, name, type, placeholder }) => {
       return (
         <Field
-          key={name}
+					key={name}
           component={CreateField}
           name={name}
           type={type}
-          placeholder={label}
+					placeholder={label}
         />
       );
     });
@@ -44,27 +47,21 @@ class Create extends Component {
 
   render() {
     return (
-      <div>
-        <div className="section1 form">
-          <div className="form-sec">
-            <h2 className="text-2">Choose Your Options</h2>
-          </div>
-          <form>
-            <div className="form-sec">{this.renderFields()}</div>
-            <div className="form-sec">
-              <button
-                className="button"
-                type="submit"
-                onClick={this.props.handleSubmit(values =>
-                  this.props.createChart(values)
-                )}
-              >
-                Show Chart
-              </button>
-            </div>
-          </form>
-          {this.handleChart()}
-        </div>
+      <div className="form-wrap">
+				<h2 className="text-2">Choose Your Options</h2>
+				<form>
+					{this.renderFields()}
+					<button
+						className="button"
+						type="submit"
+						onClick={this.props.handleSubmit(values =>
+							this.props.createChart(values)
+						)}
+					>
+						Show Chart
+					</button>
+				</form>
+				{this.handleChart()}
       </div>
     );
   }

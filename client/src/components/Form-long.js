@@ -1,6 +1,9 @@
 import React from "react";
 import { LockAlertIcon } from "mdi-react";
 
+import "./styles/global.css";
+import "./styles/media.css";
+
 const Form = () => {
 	return <div className="section1 form">
       <h1 className="text-1">Find Your Options</h1>

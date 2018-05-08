@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { GoogleIcon, FacebookIcon } from "mdi-react";
+
+import "./styles/global.css";
+import "./styles/media.css";
 import * as actions from '../actions/index';
 
 class SignIn extends Component {
@@ -14,7 +17,7 @@ class SignIn extends Component {
   renderAlert() {
     if (this.props.auth.error) {
       return (
-        <div className= "alert alert-danger">
+        <div className= "">
           <strong>Oops!</strong> {this.props.auth.error}
         </div>
       );
@@ -22,24 +25,24 @@ class SignIn extends Component {
   }
 
   render() {
-    return <div className="form">
-        <form className="form-sec" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+    return <div className="form-wrap">
+        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div>
-            <Field className="form-in" type="text" name="email" component="input" placeholder="Email"/>
+            <Field className="form-input" type="text" name="email" component="input" placeholder="Email"/>
           </div>
           <div>
-            <Field className="form-in" type="password" name="password" component="input" placeholder="Password"/>
+            <Field className="form-input" type="password" name="password" component="input" placeholder="Password"/>
           </div>
           <button className="mid-btn" type="submit">
             Login
           </button>
 					<hr className="separator" />
           <button className="mid-btn" style={{ backgroundColor: '#FFF', color: 'tomato', border: '2px solid tomato'}}>
-					Sign Up with Google <GoogleIcon size={28} color="tomato" />
-          </button>
-				<button className="mid-btn" style={{ backgroundColor: '#3B5998', color: 'white'}}>
-					Sign Up with Facebook <FacebookIcon size={28} color="#FFF" />
-          </button>
+						Sign Up with Google <GoogleIcon size={28} color="tomato"/>
+					</button>
+					<button className="mid-btn" style={{ backgroundColor: '#3B5998', color: 'white'}}>
+						Sign Up with Facebook <FacebookIcon size={28} color="#FFF"/>
+					</button>
           {this.renderAlert()}
           <div>
             <Link to="/" className="button cancel">

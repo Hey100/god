@@ -2,6 +2,10 @@ import React,{ Component } from 'react';
 import axios from "axios";
 import _ from "lodash";
 
+import "./styles/friends.css";
+import "./styles/global.css";
+import "./styles/media.css";
+
 class Friends extends Component {
 	state = { friends: null, error: null };
 
@@ -38,17 +42,15 @@ class Friends extends Component {
 			<div className="results">
 				{_.map(this.state.friends, (friend) => {
 					return (
-						<div className="profile-card" style={{ textAlign: 'center' }}>
+						<div className="friend__card" style={{ textAlign: 'center' }}>
 							<div
-								className="profile"
-								style={{
-									backgroundImage: `url(${friend.picture.large})`
-								}}
+								className="friend__image"
+								style={{ backgroundImage: `url(${friend.picture.large})`}}
 								alt=""
 							/>
 							<div className="card-content">
 								<h1 className="text-2">{this.first(friend.name.first)}</h1>
-								<button className="profile-button">MESSAGE</button>
+								<button className="message-button">MESSAGE</button>
 							</div>
 						</div>
 					)

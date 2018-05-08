@@ -2,23 +2,27 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { MenuIcon } from 'mdi-react';
+
+import './styles/header.css';
+import './styles/global.css';
+import './styles/media.css';
 import * as actions from "../actions";
 
 class Header extends Component {
 	state = { menu: false };
 
-  renderProfile = () => {
-    if (this.props.auth.user) {
-      const { first_name, last_name } = this.props.auth.user;
-      const name = first_name + " " + last_name.charAt(0) + ".";
-      return (
-        <Link to="/dashboard" className="btn btn-info btn-md">
-          <span className="glyphicon glyphicon-user" /> {name}
-        </Link>
-      );
-    }
-    return null;
-	};
+  // renderProfile = () => {
+  //   if (this.props.auth.user) {
+  //     const { first_name, last_name } = this.props.auth.user;
+  //     const name = first_name + " " + last_name.charAt(0) + ".";
+  //     return (
+  //       <Link to="/dashboard">
+  //         <span className="glyphicon glyphicon-user" /> {name}
+  //       </Link>
+  //     );
+  //   }
+  //   return null;
+	// };
 	
 	toggleMenu = () => {
 		this.setState({ menu: !this.state.menu });

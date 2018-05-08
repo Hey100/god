@@ -1,0 +1,31 @@
+.navigator {
+	height: 75px;
+	border-bottom: 1px solid dodgerblue;
+	display: flex;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 40px;
+}
+
+.nav-right {
+	display: flex;
+	align-items: center;
+}
+
+#title {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	color: midnightblue;
+	font-size: 24px;
+}
+
+.nav-button {
+	margin: 0 10px;
+	font-size: 20px;
+	background-color: transparent;
+	color: dodgerblue;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+}

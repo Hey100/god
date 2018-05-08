@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index';
 import { Link } from 'react-router-dom';
+
+import "./styles/allpools.css";
+import "./styles/global.css";
+import "./styles/media.css";
+import * as actions from '../actions/index';
 
 class AllPools extends Component {
   componentDidMount() {
@@ -27,7 +31,7 @@ class AllPools extends Component {
         <h1 className="text-2" style={{ textAlign: "center" }}>
           COMUNITY
         </h1>
-        <div className="search-bar">
+        <div className="all__search-bar">
           Filter by
           <form>
             <select className="nav-input">
@@ -59,9 +63,9 @@ class AllPools extends Component {
           </form>
         </div>
         <div className="results">
-          <div className="card" onClick={() => alert("card1")}>
+          <div className="all__card" onClick={() => alert("all__card1")}>
 						<div
-							className="thumbnail"
+							className="all__thumbnail"
  							style={{ 
 								backgroundImage: "url(https://tribwxmi.files.wordpress.com/2013/05/mustache-web.jpeg)"
 							}} 
@@ -70,7 +74,7 @@ class AllPools extends Component {
             <div className="card-content"> 
               <h1>MY MUSTACHE POOL</h1>
               <h1>by. Evil666</h1>
-							<div className="meter">
+							<div className="all__meter">
 								<span style={{ width: '100%' }}></span>
 							</div>
               <h3>$12,000</h3>
@@ -79,9 +83,9 @@ class AllPools extends Component {
               <h3>21 days to start</h3>
             </div>
           </div>
-          <div className="card" onClick={() => alert("card2")}>
+          <div className="all__card" onClick={() => alert("all__card2")}>
 						<div
-							className="thumbnail"
+							className="all__thumbnail"
 							style={{ 
 								backgroundImage: "url(http://www.backpaco.com/wp-content/uploads/2015/04/yosemite-waterfall.jpg)"
 							}}
@@ -90,7 +94,7 @@ class AllPools extends Component {
             <div className="card-content">
               <h1>CAMPING</h1>
               <h1>by. Fatty BoomBoom</h1>
-							<div className="meter">
+							<div className="all__meter">
 								<span style={{ width: '80%' }}></span>
 							</div>
               <h3>$13,000</h3>
@@ -99,16 +103,16 @@ class AllPools extends Component {
               <h3>11 days to start</h3>
             </div>
           </div>
-          <div className="card" onClick={() => alert("card3")}>
+          <div className="all__card" onClick={() => alert("all__card3")}>
 						<div
-							className="thumbnail"
+							className="all__thumbnail"
 							style={{ backgroundImage: "url(http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/05/08/fc/top-10-hawaiian-beaches-lanikai-beach.rend.hgtvcom.1280.720.suffix/1491584246278.jpeg)" }}
 							alt=""
 						/>
             <div className="card-content">
               <h1>HAWAII TRIP</h1>
               <h1>by. John Doe</h1>
-							<div className="meter">
+							<div className="all__meter">
 								<span style={{ 
 									width: '40%' }}></span>
 							</div>
@@ -118,16 +122,16 @@ class AllPools extends Component {
               <h3>8 days to start</h3>
             </div>
           </div>
-          <div className="card" onClick={() => alert("card4")}>
+          <div className="all__card" onClick={() => alert("all__card4")}>
 						<div 
-							className="thumbnail"
+							className="all__thumbnail"
 							style={{ backgroundImage: "url(https://si.wsj.net/public/resources/images/ON-CF689_dollah_M_20170811152733.jpg)" }}
 							alt=""
 						/>
             <div className="card-content">
               <h1>WIN A LOTTO</h1>
               <h1>by. HungarianDude</h1>
-							<div className="meter">
+							<div className="all__meter">
 								<span style={{ width: '65%' }}></span>
 							</div>
               <h3>$8,000</h3>

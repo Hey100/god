@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index';
 import { Link } from 'react-router-dom'
+
+import "./styles/global.css";
+import "./styles/media.css";
+import * as actions from '../actions/index';
 
 class MyPools extends Component {
   componentDidMount() {

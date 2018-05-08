@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
+import "./styles/global.css";
+import "./styles/media.css";
 import * as actions from '../actions/index';
 import Chart from '../components/Chart';
-import moment from 'moment';
 
 class PoolDetail extends Component {
   componentDidMount() {

@@ -1,0 +1,12 @@
+.friend__card {
+	max-width: 300px;
+	background-color: #F2F7F8;
+	margin: 20px;
+}
+
+.friend__image {
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+	background-size: cover;
+}

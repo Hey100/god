@@ -1,6 +1,10 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
+import './styles/sumary.css';
+import './styles/global.css';
+import './styles/media.css';
+
 const Summary = () => {
 	
 	let data = { 
@@ -20,19 +24,21 @@ const Summary = () => {
 	};
 
 	return <div className="tab">
-			<div className="sumary-card">
+			<div className="card">
 				<div>
 					<h2 className="text-1">Your CC Score:</h2>
 					<h1 className="big-btn">80</h1>
 				</div>
-				<div className="canvas-wrap">
-					<Doughnut data={data} options={options} height="300px" />
-				</div>
-				<div>
-					<h2 className="text-2">TOTAL ALLOWED: $7,000</h2>
-					<h2 className="text-2">TOTAL USED: $4,564</h2>
-					<hr />
-					<h2 className="text-2">TOTAL LEFT: $2,436</h2>
+				<div className="sumary__chart">
+					<div className="canvas-wrap">
+						<Doughnut data={data} options={options} height="300px" />
+					</div>
+					<div className="sumary__allowance">
+						<h2 className="text-2">TOTAL ALLOWED: $7,000</h2>
+						<h2 className="text-2">TOTAL USED: $4,564</h2>
+						<hr />
+						<h2 className="text-2">TOTAL LEFT: $2,436</h2>
+					</div>
 				</div>
 			</div>
 		</div>;

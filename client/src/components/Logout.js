@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import * as actions from '../actions'
 import { connect } from 'react-redux'
+
+import "./styles/global.css";
+import "./styles/media.css";
+import * as actions from '../actions'
 
 class Logout extends Component {
 	componentDidMount() {
@@ -9,7 +12,7 @@ class Logout extends Component {
 	
 	render() {
 		return (
-			<div className="section1 sign">
+			<div className="tab">
 				<h1 className="text-1">You have been successfully logged out.</h1>
 			</div>
 		);

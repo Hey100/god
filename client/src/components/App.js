@@ -16,6 +16,7 @@ import Review from './createPool/Review';
 import Help from './Help';
 import Footer from './Footer';
 import * as actions from '../actions';
+import "./styles/global.css";
 
 class App extends Component {
   componentDidMount() {

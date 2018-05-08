@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { reduxForm } from 'redux-form';
-import * as actions from '../actions/index';
 import { connect } from 'react-redux';
 import moment from 'moment';
+
+import "./styles/global.css";
+import "./styles/media.css";
+import * as actions from '../actions/index';
 
 class Chart extends Component {
   state = {

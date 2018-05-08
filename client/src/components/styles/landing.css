@@ -1,0 +1,17 @@
+.land__col, .land__col-r {
+	max-width: 1440px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	margin: 0 auto; 
+}
+
+.land__half {
+	display: flex;
+	flex-direction: column; 
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 40px;
+}

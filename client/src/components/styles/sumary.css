@@ -1,0 +1,12 @@
+.sumary__chart {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center; 
+	align-items: center;
+	padding: 20px 0;
+}
+
+.sumary__allowance {
+	min-width: 300px;
+	text-align: start;
+}
