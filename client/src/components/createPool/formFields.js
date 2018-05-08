@@ -14,7 +14,7 @@ export default [
     noValueError: 'Required Field'
   },
   {
-    label: 'Description',
+    label: 'Please provide a description of your pool.',
     name: 'description',
     type: 'text',
     placeholder: 'Description',

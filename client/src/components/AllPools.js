@@ -8,23 +8,13 @@ class AllPools extends Component {
     this.props.fetchAllPools();
   }
 
-  // render() {
-  //   const { allPools } = this.props.pools;
-  //   if (!allPools) {
-  //     return <p>LOADING...</p>;
-  //   }
-  //   return allPools.map(pool => {
-  //     return (
-  // 			<div key={pool._id} className="form-sec">
-  //         <h1>{pool.title}</h1>
-  //         <Link to={`pools/${pool._id}`}>View</Link>
-  //       </div>
-  //     );
-  //   });
-  // }
   renderDate = date => {
     let newDate = moment(date).calendar();
     return <h3 key={date}>Start Date: {newDate}</h3>;
+  };
+
+  handleClick = id => {
+    this.props.history.push(`/pools/${id}`);
   };
 
   render() {
@@ -81,39 +71,50 @@ class AllPools extends Component {
             <input type="text" className="nav-input" placeholder="search" />
           </form>
         </div>
-        {allPools.map(pool => {
-					console.log(pool)
-          return (
-            <div key={pool._id} className="card" onClick={() => this.props.history.push(`/pools/${pool._id}`)}>
-              <div
-                className="thumbnail"
-                style={{
-                  backgroundImage:
-                    'url(https://tribwxmi.files.wordpress.com/2013/05/mustache-web.jpeg)'
-                }}
-                alt=""
-              />
-              <div className="card-content">
-                <h1>{pool.title}</h1>
-                <h1>by: {pool.creator}</h1>
-                <div className="meter">
-                  <span style={{ width: '100%' }} />
+        <div className="results">
+          {allPools.map(pool => {
+						const num = pool.contributors.length;
+            return (
+              <div key={pool._id} className="card">
+                <div
+                  className="thumbnail"
+                  onClick={() => this.handleClick(pool._id)}
+                  style={{
+                    backgroundImage:
+                      'url(https://tribwxmi.files.wordpress.com/2013/05/mustache-web.jpeg)'
+                  }}
+                  alt=""
+                />
+                <div className="card-content">
+                  <h1 onClick={() => this.handleClick(pool._id)}>
+                    <button> {pool.title}</button>
+                  </h1>
+                  <h1>
+                    by: <button className="button">{pool.creator}</button>
+                  </h1>
+                  <div className="meter">
+                    <span style={{ width: '100%' }} />
+                  </div>
+                  <h3>
+                    {parseFloat(pool.amount).toLocaleString('USD', {
+                      style: 'currency',
+                      currency: 'USD',
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    })}
+                  </h3>
+                  <h3>{pool.rate}% max interest</h3>
+                  {num > 1 ? (
+                    <h3>{num} Contributors</h3>
+                  ) : (
+                    <h3>{num} Contributor</h3>
+                  )}
+                  {this.renderDate(pool.date)}
                 </div>
-                <h3>
-                  {parseFloat(pool.amount).toLocaleString('USD', {
-                    style: 'currency',
-                    currency: 'USD',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                  })}
-                </h3>
-                <h3>{pool.rate}% max interest</h3>
-                <h3>{pool.participants.length} Contributors</h3>
-                {this.renderDate(pool.date)}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     );
   }

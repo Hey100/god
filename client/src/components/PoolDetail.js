@@ -20,8 +20,8 @@ class PoolDetail extends Component {
     this.props.createComment({
       comment: this.state.value,
       pool: this.props.match.params.id
-		});
-		this.setState({ value: '' })
+    });
+    this.setState({ value: '' });
     event.preventDefault();
   };
   handleChange = event => {
@@ -61,7 +61,7 @@ class PoolDetail extends Component {
               <div key={c._id}>
                 <h5>{c.creator}</h5>
                 <p>{c.comment}</p>
-								<hr/>
+                <hr />
               </div>
             );
           })}

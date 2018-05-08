@@ -7,8 +7,8 @@ import {
   MY_POOLS,
   ALL_POOLS,
   CHART_CREATED,
-	COMMENT_CREATED,
-	FETCHED_COMMENTS,
+  COMMENT_CREATED,
+  FETCHED_COMMENTS,
   SELECTION,
   RESET,
   FETCHED_POOL,
@@ -90,9 +90,11 @@ export const fetchAllPools = () => async dispatch => {
 
 //Create.js
 export const createChart = values => dispatch => {
+
   let amount = parseInt(values.amount, 0);
-  let ppl = parseInt(values.participants, 0);
-  let rate = values.rate / 100;
+  let ppl = parseInt(values.contributors, 0);
+	let rate = values.rate / 100;
+
   let term = ppl - 1;
   let startDate = values.date;
   let cashInterval = amount * rate / term;
@@ -156,7 +158,25 @@ export const createChart = values => dispatch => {
     }
   };
   chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
-  dispatch({ type: CHART_CREATED, payload: users });
+  let obj = {};
+  const {
+    title,
+    category,
+    description,
+    contributors,
+    date
+	} = values;
+  obj['info'] = {
+    title,
+    category,
+		description,
+    amount,
+    contributors,
+    rate: rate * 100,
+    date
+  };
+  obj['users'] = users;
+  dispatch({ type: CHART_CREATED, payload: obj });
 };
 
 //Chart.js
@@ -167,42 +187,42 @@ export const setSelection = selection => {
   };
 };
 export const joinPool = (id, position) => async dispatch => {
-	let obj = {};
-	obj['id'] = id;
-	obj['position'] = position;
-	const res = await axios.post('/api/joinPool', obj);
-	let obj2 = {};
-	obj2['amount'] = res.data.amount;
-	obj2['participants'] = res.data.numOfParticipants;
-	obj2['date'] = res.data.date;
-	obj2['rate'] = res.data.rate;
-	dispatch(createChart(obj2));
-	dispatch({ type: FETCHED_POOL, payload: res.data });
+  let obj = {};
+  obj['id'] = id;
+  obj['position'] = position;
+  const res = await axios.post('/api/joinPool', obj);
+  let obj2 = {};
+  obj2['amount'] = res.data.amount;
+  obj2['contributors'] = res.data.numOfContributors;
+  obj2['date'] = res.data.date;
+  obj2['rate'] = res.data.rate;
+  dispatch(createChart(obj2));
+  dispatch({ type: FETCHED_POOL, payload: res.data });
 };
 export const joined = () => {
-	return {
-		type: JOINED
-	};
+  return {
+    type: JOINED
+  };
 };
 
 //PoolDetail.js
 export const createComment = values => async dispatch => {
-	const res = await axios.post('/api/saveComment', values);
-	dispatch(fetchComments(res.data.pool_id))
-	dispatch({ type: COMMENT_CREATED, payload: res.data });
+  const res = await axios.post('/api/saveComment', values);
+  dispatch(fetchComments(res.data.pool_id));
+  dispatch({ type: COMMENT_CREATED, payload: res.data });
 };
 export const fetchPool = id => async dispatch => {
   const res = await axios.get(`/api/fetchPool/${id}`);
   let obj = {};
   obj['amount'] = res.data.amount;
-  obj['participants'] = res.data.numOfParticipants;
+  obj['contributors'] = res.data.numOfContributors;
   obj['date'] = res.data.date;
   obj['rate'] = res.data.rate;
   dispatch(createChart(obj));
   dispatch({ type: FETCHED_POOL, payload: res.data });
 };
 export const fetchComments = id => async dispatch => {
-	const res = await axios.get(`/api/comments/${id}`);
+  const res = await axios.get(`/api/comments/${id}`);
   dispatch({ type: FETCHED_COMMENTS, payload: res.data });
 };
 
