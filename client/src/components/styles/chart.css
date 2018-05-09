@@ -1,0 +1,27 @@
+.chart-wrap {
+	max-width: 1026px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px;
+}
+
+table {
+	margin-bottom: 10px;
+	border-collapse: collapse;
+}
+
+thead {
+	background: linear-gradient(to left, #088DA5, #00E6DC);
+	color: #FFF;
+}
+
+th, td {
+	padding: 20.55px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #F5F5F5;
+}

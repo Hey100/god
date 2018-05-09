@@ -10,12 +10,11 @@ import Dashboard from './Dashboard';
 import PoolDetail from './PoolDetail';
 import AllPools from './AllPools';
 import MyPools from './MyPools';
-import NewPool from './createPool/NewPool';
-import Create from './createPool/Create';
-import Review from './createPool/Review';
+import Create from './Create';
 import Help from './Help';
 import Footer from './Footer';
 import * as actions from '../actions';
+import "./styles/global.css";
 
 class App extends Component {
   componentDidMount() {
@@ -32,9 +31,7 @@ class App extends Component {
             <Route path="/mypools" component={MyPools} />
             <Route exact path="/pools/:id" component={PoolDetail} />
             <Route exact path="/pools" component={AllPools} />
-            <Route path="/newpool" component={NewPool} />
             <Route path="/create" component={Create} />
-            <Route path="/review" component={Review} />
             <Route path="/signin" component={SignIn} />
             <Route path="/logout" component={Logout} />
             <Route path="/signup" component={Signup} />

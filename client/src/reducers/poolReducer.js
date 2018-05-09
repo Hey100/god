@@ -6,6 +6,8 @@ import {
   COMMENT_CREATED,
   FETCHED_COMMENTS,
   RESET,
+  ERROR,
+  RESET_ERROR,
   ALL_POOLS,
   JOINED
 } from '../actions/types';
@@ -14,11 +16,12 @@ const INITIAL_STATE = {
   allPools: null,
   myPools: null,
   chart: null,
-  form: null,
+  form: {},
   joined: false,
   selection: '',
   pool: null,
-  comments: null
+	comments: null,
+	error: ''
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -40,6 +43,10 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, pool: action.payload };
     case FETCHED_COMMENTS:
       return { ...state, comments: action.payload };
+    case ERROR:
+      return { ...state, error: action.payload };
+    case RESET_ERROR:
+      return { ...state, error: '' };
     case RESET:
       return {
         ...state,

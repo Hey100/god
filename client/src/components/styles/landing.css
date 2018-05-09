@@ -1,0 +1,19 @@
+.land__col {
+	max-width: 1440px;
+	min-height: 600px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	margin: 0 auto; 
+	border-bottom: 1px solid lightgray;
+}
+
+.land__half {
+	display: flex;
+	flex-direction: column; 
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 40px;
+}

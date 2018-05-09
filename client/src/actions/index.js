@@ -9,8 +9,10 @@ import {
   CHART_CREATED,
   COMMENT_CREATED,
   FETCHED_COMMENTS,
-  SELECTION,
-  RESET,
+	SELECTION,
+	ERROR,
+	RESET,
+	RESET_ERROR,
   FETCHED_POOL,
   JOINED
 } from './types';
@@ -66,14 +68,6 @@ export const onLogOut = () => async dispatch => {
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
   dispatch({ type: FETCH_USER, payload: res.data });
-};
-
-//Review.js
-export const createPool = (values, position, history) => async dispatch => {
-  values['position'] = position;
-  const res = await axios.post('/api/createPool', values);
-  history.push(`/pools/${res.data._id}`);
-  dispatch({ type: RESET });
 };
 
 //MyPools.js
@@ -178,8 +172,24 @@ export const createChart = values => dispatch => {
   obj['users'] = users;
   dispatch({ type: CHART_CREATED, payload: obj });
 };
+export const setError = (err) => {
+	return { 
+		type: ERROR,
+		payload: err
+	}
+}
+export const createPool = (values, history) => async dispatch => {
+	const res = await axios.post('/api/createPool', values);
+	history.push(`/pools/${res.data._id}`);
+	dispatch({ type: RESET });
+};
 
 //Chart.js
+export const resetError = () => {
+  return {
+    type: RESET_ERROR
+  };
+};
 export const setSelection = selection => {
   return {
     type: SELECTION,

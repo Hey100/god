@@ -1,0 +1,23 @@
+.dash__container {
+	flex-flow: column wrap;
+	background: linear-gradient(to top right, #E5E5E5, #FFF);
+}
+
+.dash__nav {
+	display: flex; 
+	width: 100vw;
+	justify-content: center;
+	padding: 0 40px;
+	background-color: white;
+	border-bottom: 1px solid dodgerblue;
+}
+
+.dash__button {
+	background-color: transparent;
+	color: dodgerblue;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	padding: 20px;
+	text-decoration: none;
+}

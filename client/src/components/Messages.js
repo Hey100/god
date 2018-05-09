@@ -2,6 +2,10 @@ import React,{ Component } from 'react';
 import axios from "axios";
 import _ from "lodash";
 
+import "./styles/messages.css";
+import "./styles/global.css";
+import "./styles/media.css";
+
 class Messages extends Component {
 	state = { friends: null, error: null, input: null };
 	
@@ -39,30 +43,29 @@ class Messages extends Component {
     return (
 			
       <div className="tab" style={{ padding: "0" }}>
-        <div className="msg-left">
+        <div className="message__left">
 					{
 						_.map(this.state.friends, friend => {
 							return (
-								<div className="msglst-item">
-									<img className="user-thumb" src={friend.picture.thumbnail} alt="" />
+								<div className="message__list-item" onClick={() => {}}>
+									<img className="message__thumb" src={friend.picture.thumbnail} alt="" />
 									<h1 className="text-2">{this.first(friend.name.first)}</h1>
-									<button className="profile-button">MESSAGE</button>
 								</div>
 							);
 						})
 					}
 				</div>
-        <div className="msg-right">
-					<div className="chat-container"></div>
-					<form className="chat-form">
+        <div className="message__right">
+					<div className="message__chat-container"></div>
+					<form className="message__chat-form">
 						<input
 							type="text"
-							className="chat-input"
+							className="message__chat-input"
 							value={this.state.input}
 							onTextChange={(newVal) => this.updateValue(newVal)}
 							placeholder="send a message..."
 						/>
-						<button className="chat-button" type="suybmit">SEND</button>
+						<button className="message__chat-button" type="suybmit">SEND</button>
 					</form>
 				</div>
       </div>
