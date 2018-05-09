@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { reduxForm } from 'redux-form';
-import * as actions from '../actions/index';
 import { connect } from 'react-redux';
 import moment from 'moment';
+
+import "./styles/chart.css";
+import "./styles/global.css";
+import "./styles/media.css";
+import * as actions from '../actions/index';
 
 class Chart extends Component {
   state = {
@@ -36,7 +40,7 @@ class Chart extends Component {
           );
         } else {
           position3 = (
-            <td className="tabData">
+            <td>
               {index + 1} &nbsp;
               <button
                 onClick={() => this.props.joinPool(this.props.params, index)}
@@ -62,11 +66,11 @@ class Chart extends Component {
       }
     } else {
       if (this.props.onCancel && index !== this.props.pools.selection) {
-        return <td className="tabData">{index + 1}</td>;
+        return <td>{index + 1}</td>;
       }
       if (index !== this.props.pools.selection) {
         return (
-          <td className="tabData">
+          <td>
             {index + 1}
             <input
               type="radio"
@@ -79,7 +83,7 @@ class Chart extends Component {
           </td>
         );
       }
-      return <td className="tabData">{index + 1} &#10004;</td>;
+      return <td>{index + 1} &#10004;</td>;
     }
   };
 
@@ -88,7 +92,7 @@ class Chart extends Component {
       .add(index, 'months')
       .format('L');
     return (
-      <td className="tabData" key={date}>
+      <td key={date}>
         {newDate}
       </td>
     );
@@ -96,24 +100,26 @@ class Chart extends Component {
 
   render() {
     return (
-      <div className="form-sec">
+      <div className="chart-wrap">
         {!this.props.user ? (
           <h2 className="text-2">3. Pick a Position</h2>
         ) : null}
-        <table style={{ border: '1px solid black' }}>
+        <table>
+					<thead>
+						<tr>
+							<th>Position</th>
+							<th>Base Amount</th>
+							<th>Interest Rate</th>
+							<th>Interest Paid/Earned*</th>
+							<th>Monthly Payment</th>
+							<th>Cash Paid</th>
+							<th>Cash Available</th>
+							<th>Fee**</th>
+							<th>Cash Received</th>
+							<th>Disbursement Date</th>
+						</tr>
+					</thead>
           <tbody>
-            <tr>
-              <th className="tabData">Position</th>
-              <th className="tabData">Base Amount</th>
-              <th className="tabData">Interest Rate</th>
-              <th className="tabData">Interest Paid/Earned*</th>
-              <th className="tabData">Monthly Payment</th>
-              <th className="tabData">Cash Paid</th>
-              <th className="tabData">Cash Available</th>
-              <th className="tabData">Fee**</th>
-              <th className="tabData">Cash Received</th>
-              <th className="tabData">Disbursement Date</th>
-            </tr>
             {_.map(this.props.chart, chart => {
               const {
                 cashReceived,
@@ -131,30 +137,30 @@ class Chart extends Component {
                 <tr key={chart.cashPaid + 1}>
                   {this.renderInput(chart, index)}
                   <td
-                    className="tabData"
+                  
                     key={chart.cashReceived + chart.amount}
                   >
                     {amount}
                   </td>
-                  <td className="tabData" key={interestRate}>
+                  <td key={interestRate}>
                     {interestRate}%
                   </td>
-                  <td className="tabData" key={interestAmount}>
+                  <td key={interestAmount}>
                     {interestAmount}
                   </td>
-                  <td className="tabData" key={monthly}>
+                  <td key={monthly}>
                     {monthly}
                   </td>
-                  <td className="tabData" key={cashPaid - 1}>
+                  <td key={cashPaid - 1}>
                     {cashPaid}
                   </td>
-                  <td className="tabData" key={cashReceived + 1}>
+                  <td key={cashReceived + 1}>
                     {cashReceived}
                   </td>
-                  <td className="tabData" key={monthly + 1}>
+                  <td key={monthly + 1}>
                     ${fee}
                   </td>
-                  <td className="tabData" key={tcr}>
+                  <td key={tcr}>
                     {tcr}
                   </td>
                   {this.renderDate(startDate, index)}

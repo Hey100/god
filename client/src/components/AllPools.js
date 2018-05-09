@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
+
+import "./styles/allpools.css";
+import "./styles/global.css";
+import "./styles/media.css";
+import * as actions from '../actions/index';
 
 class AllPools extends Component {
   componentDidMount() {
@@ -27,7 +32,7 @@ class AllPools extends Component {
         <h1 className="text-2" style={{ textAlign: 'center' }}>
           COMMUNITY
         </h1>
-        <div className="search-bar">
+        <div className="all__search-bar">
           Filter by
           <form>
             <select className="nav-input">
@@ -75,9 +80,9 @@ class AllPools extends Component {
           {allPools.map(pool => {
 						const num = pool.contributors.length;
             return (
-              <div key={pool._id} className="card">
+							<Link key={pool._id} className="all__card"  to={`/pools/${pool._id}`}>
                 <div
-                  className="thumbnail"
+                  className="all__thumbnail"
                   onClick={() => this.handleClick(pool._id)}
                   style={{
                     backgroundImage:
@@ -92,7 +97,7 @@ class AllPools extends Component {
                   <h1>
                     by: <button className="button">{pool.creator}</button>
                   </h1>
-                  <div className="meter">
+                  <div className="all__meter">
                     <span style={{ width: '100%' }} />
                   </div>
                   <h3>
@@ -111,9 +116,9 @@ class AllPools extends Component {
                   )}
                   {this.renderDate(pool.date)}
                 </div>
-              </div>
-            );
-          })}
+              </Link>
+							);
+						})}
         </div>
       </div>
     );

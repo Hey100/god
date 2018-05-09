@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import "./styles/global.css";
+import "./styles/media.css";
 import * as actions from '../actions/index';
 import Chart from './Chart';
 import moment from 'moment';
@@ -58,6 +60,7 @@ class PoolDetail extends Component {
           <form onSubmit={this.handleSubmit}>
             <h1 className="text-1">Join the Conversation</h1>
             <textarea
+							className="form-input textarea" 
               onChange={this.handleChange}
               value={this.state.value}
 							onKeyPress={this.handleKeyPress}

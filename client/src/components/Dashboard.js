@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
+import "./styles/dashboard.css";
+import "./styles/global.css";
+import "./styles/media.css";
 import * as actions from '../actions/index';
 import Summary from './Summary';
 import MyPools from './MyPools';
@@ -49,42 +53,37 @@ class Dashboard extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <div id="dash">
-        <div className="sub-nav">
+      <div className="dash__container">
+        <div className="dash__nav">
           <button
-            className="sub-button"
+            className="dash__button"
             style={this.isActive('summary')}
             onClick={() => this.setState({ section: 'summary' })}
-          >
-            Summary
+					>Summary
           </button>
           <button
-            className="sub-button"
+            className="dash__button"
             style={this.isActive('myPools')}
             onClick={() => this.setState({ section: 'myPools' })}
-          >
-            My pools
+					>My pools
           </button>
           <button
-            className="sub-button"
+            className="dash__button"
             style={this.isActive('bank')}
             onClick={() => this.setState({ section: 'bank' })}
-          >
-            Bank Info
+					>Bank Info
           </button>
           <button
-            className="sub-button"
+            className="dash__button"
             style={this.isActive('friends')}
             onClick={() => this.setState({ section: 'friends' })}
-          >
-            Friends
+					>Friends
           </button>
           <button
-            className="sub-button"
+            className="dash__button"
             style={this.isActive('messages')}
             onClick={() => this.setState({ section: 'messages' })}
-          >
-            Messages
+					>Messages
           </button>
         </div>
         {this.handleSection()}

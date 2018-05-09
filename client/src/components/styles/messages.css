@@ -1,0 +1,58 @@
+.message__left {
+	background-color: #FFF;
+	width: 30%;
+	height: 80vh;
+	border-right: 1px solid dodgerblue; 
+	overflow: auto;
+}
+
+.message__right {
+	background-color: #FFF;
+	display: flex;
+	flex-flow: column nowrap;
+	flex: 1;
+	min-height: 80vh;
+}
+
+.message__list-item {
+	display: flex;
+	height: 100px;
+	align-items: center;
+	border-bottom: 1px solid dodgerblue;
+}
+
+.message__list-item > h1 {
+	margin: 0 20px;
+} 
+
+.message__thumb {
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	margin: 12.5px;
+}
+
+.message__chat-container {
+	display: flex;
+	flex: 1;
+}
+
+.message__chat-form {
+	border-top: 1px solid dodgerblue;
+	padding: 10px;
+	justify-content: space-around;
+	align-content: center;
+	
+}
+.message__chat-input, .message__chat-button {
+	border: 1px solid dodgerblue;
+	border-radius: 50px;
+	padding: 10px 20px;
+	margin: 0 10px;
+	color: dodgerblue;
+}
+
+.message__chat-button:active {
+	color: #FFF;
+	background-color: dodgerblue;
+}

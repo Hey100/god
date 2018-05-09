@@ -1,0 +1,42 @@
+.foot {
+	flex-flow: column;
+	padding: 0 40px;
+	background-color: #067084;
+	color: #FFF;
+}
+
+.foot__list {
+	display: flex;
+	margin: 20px 0;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.foot__list-elem {
+	display: flex;
+	flex-flow: row wrap;
+	list-style-type: none;
+}
+
+.foot__list-elem li a {
+	text-decoration: none;
+	margin: 10px;
+	color: white;
+}
+
+.foot__list-elem li a:hover {
+	color: lightblue;
+	outline: none;
+}
+
+.foot__dec {
+	display: flex;
+	flex-wrap: row wrap;
+	justify-content: space-between;
+}
+
+.foot__dec-elem {
+	flex: 1;
+	font-size: .9em;
+	margin: 0 10px 40px 10px;
+}

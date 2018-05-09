@@ -124,7 +124,7 @@ class Create extends Component {
       return (
         <select
           name="amount"
-          className="form-in"
+          className="form-input select"
           style={{ marginBottom: '2px' }}
           onChange={this.handleChange}
         >
@@ -147,7 +147,7 @@ class Create extends Component {
       return (
         <select
           name="rate"
-          className="form-in"
+          className="form-input select"
           style={{ marginBottom: '2px' }}
           onChange={this.handleChange}
         >
@@ -170,7 +170,7 @@ class Create extends Component {
           <input
             onChange={this.handleChange}
             onMouseDown={this.handleMouseDown}
-            className="form-in"
+            className="form-input"
             style={{ marginBottom: '2px' }}
             type="date"
             name="date"
@@ -275,11 +275,11 @@ class Create extends Component {
     const { error, chart, selection } = this.props.pools;
     const { titleErr, categoryErr, descriptionErr } = this.state;
     return (
-      <div>
+      <div className="form-wrap">
         <div className="form-sec">
           <h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
           <input
-            className="form-in"
+            className="form-input"
             style={{ marginBottom: '2px' }}
             type="text"
             name="title"
@@ -290,7 +290,7 @@ class Create extends Component {
             {titleErr ? <p className="cancel">{titleErr}</p> : null}
           </div>
           <select
-            className="form-in"
+            className="form-input select"
             style={{ marginBottom: '2px' }}
             name="category"
             onChange={this.handleChange}
@@ -306,6 +306,7 @@ class Create extends Component {
           </div>
           <textarea
             name="description"
+						className="form-input textarea"
             cols="40"
             rows="10"
             onChange={this.handleChange}
@@ -319,7 +320,7 @@ class Create extends Component {
           <h2 className="text-2">2. Choose Your Options</h2>
           <select
             name="contributors"
-            className="form-in"
+            className="form-input select"
             style={{ marginBottom: '2px' }}
             onChange={this.handleChange}
           >

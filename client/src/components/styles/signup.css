@@ -1,0 +1,14 @@
+.signup__terms {
+	margin: 20px 0;
+}
+
+.signup__list {
+	margin: 10px 0;
+	list-style-type: none;
+	text-decoration: none;
+}
+
+.signup__terms-text {
+	color: gray;
+	text-decoration: none;
+}

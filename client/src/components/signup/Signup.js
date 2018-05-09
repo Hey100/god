@@ -5,9 +5,13 @@ import { withRouter } from 'react-router';
 import { LockAlertIcon } from 'mdi-react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+
 import * as actions from '../../actions/index';
 import SignUpField from './SignUpField';
 import formFields from './formFields';
+import "../styles/global.css";
+import "../styles/media.css";
+
 
 class Signup extends Component {
   renderFields() {
@@ -30,7 +34,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="section1 form">
+      <div className="form-wrap">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
           <div className="form-sec">
@@ -45,14 +49,14 @@ class Signup extends Component {
           <div className="form-sec">
             <h2 className="text-2">Save Your Information</h2>
             <Field
-              className="form-in"
+              className="form-input"
               component="input"
               name="email"
               type="text"
               placeholder="Email"
             />
             <Field
-              className="form-in"
+              className="form-input"
               component="input"
               name="password"
               type="password"
@@ -63,41 +67,41 @@ class Signup extends Component {
               uppercase letter
             </h5>
           </div>
-          <div className="form-sec">
+          <div className="signup__terms">
             <div>
               <input type="checkbox" name="accept request" /> By checking the
               box, clicking "agree and see your rate" below, you confirm:
             </div>
-            <ul>
+						<ul className="signup__list">
               <li>
                 You agree to the{' '}
-                <a href="/">Electronic Communications Policy and Consent</a> and
+                <a className="signup__terms-text" href="/">Electronic Communications Policy and Consent</a> and
                 understand that the terms and conditions and other disclosures
                 will be provided to you electronically; and
               </li>
               <li>
                 You agree to the{' '}
-                <a className="terms" href="/">
+                <a className="signup__terms-text" href="/">
                   Credit Report and Information Verification Consent
                 </a>, the{' '}
-                <a className="terms" href="/">
+                <a className="signup__terms-text" href="/">
                   Collective Capital Privacy Policy
                 </a>, the{' '}
-                <a className="terms" href="/">
+                <a className="signup__terms-text" href="/">
                   Collective Capital Privacy Notice
                 </a>, and the{' '}
-                <a className="terms" href="/">
+                <a className="signup__terms-text" href="/">
                   Collective Capital Platform Agreement
                 </a>.
               </li>
             </ul>
-            <button className="big-btn" type="submit">
+            <button className="mid-btn" type="submit">
               Sign Up
             </button>
-            <h5>
-              <LockAlertIcon size={34} color="#000" /> Checking your rate won't
-              affect your credit score!
-            </h5>
+            <div className="align-center">
+							<LockAlertIcon size={34} color="#000" />
+							Checking your rate won't affect your credit score!
+            </div>
           </div>
           <br />
         </form>

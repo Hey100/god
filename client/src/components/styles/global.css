@@ -1,0 +1,203 @@
+/* NORMALIZE */
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	font-weight: lighter;
+	font-size: 14px;
+}
+
+*:focus {
+    outline: none;
+}
+
+/* ELEMENTS */
+
+img {
+	width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+form {
+	text-align: center;
+}
+
+/* PUBLIC */
+
+.contain {
+	display: flex;
+	flex-direction: column;
+	background: linear-gradient(to top right, #E5E5E5, #FFF);
+}
+
+.tab {
+	min-height: 60vh;
+	max-width: 1440px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0 auto;
+	padding: 40px;
+}
+
+.card {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background-color: #FFF;
+	padding: 40px;
+	border-radius: 20px;
+	box-shadow: 0px 5px 10px 1px lightgray;
+}
+
+.card-content {
+	padding: 20px;
+}
+
+.nav-input {
+	background-color: white;
+	height: 40px;
+	width: 200px;
+	margin: 10px;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	padding-left: 10px;
+	border-radius: 5px;
+}
+
+.separator { 
+	margin: 20px 0;
+	width: 500px;
+}
+
+.align-center {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 50px;
+}
+
+/* FORM */
+
+.form-wrap {
+	width: 1024px;
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+	margin: 20px auto;
+	padding: 40px;
+	border-radius: 20px;
+	background-color: #FFF;
+	box-shadow: 0px 5px 10px 1px lightgray;
+}
+
+.form-input {
+	width: 500px;
+	height: 50px;
+	margin: 10px;
+	padding: 10px 15px;
+	background-color: white;
+	border: 1px solid#088DA5;
+	border-radius: 5px;
+}
+
+.alert {
+	color: tomato;
+	font-size: 1.5em;
+	font-weight: 600;
+}
+
+.select {
+	height: 50px;
+}
+
+.textarea {
+	height: auto;
+}
+
+/* BUTTON */
+
+.button {
+	margin: 10px;
+	font-size: 20px;
+	background-color: transparent;
+	color: dodgerblue;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.button:hover, .sub-button:hover {
+	color: skyblue;
+}
+
+.mid-btn {
+	width: 500px;
+	height: 50px;
+	margin: 10px;
+	background-color: darkcyan;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 1.5em;
+	color: white;
+	cursor: pointer;
+}
+
+.big-btn {
+	display: block;
+	margin: 20px;
+	padding: 15px 80px;
+	font-size: 2.5em;
+	background-color: darkcyan;
+	border-radius: 10px;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+/* TEXT */
+
+.text-1 {
+	font-size: 4em;
+	font-weight: bolder;
+	padding-top: 4%;
+	margin: 0;
+	color: darkcyan;
+}
+.text-2 {
+	font-size: 2em;
+	padding: 2% 0;
+}
+.text-3 {
+	font-size: .5em;
+	padding: 1% 0;
+}
+
+/* COLORS */
+
+.clear {
+	color: #FFF;
+}
+
+.clear-blue {
+	color: darkcyan;
+}
+
+.cancel {
+	color: tomato;
+}
