@@ -70,14 +70,6 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-//Review.js
-export const createPool = (values, position, history) => async dispatch => {
-  values['position'] = position;
-  const res = await axios.post('/api/createPool', values);
-  history.push(`/pools/${res.data._id}`);
-  dispatch({ type: RESET });
-};
-
 //MyPools.js
 export const fetchMyPools = () => async dispatch => {
   const res = await axios.get('/api/mypools');
@@ -186,6 +178,11 @@ export const setError = (err) => {
 		payload: err
 	}
 }
+export const createPool = (values, history) => async dispatch => {
+	const res = await axios.post('/api/createPool', values);
+	history.push(`/pools/${res.data._id}`);
+	dispatch({ type: RESET });
+};
 
 //Chart.js
 export const resetError = () => {

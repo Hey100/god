@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
-import Chart from '../components/Chart';
+import Chart from './Chart';
 import moment from 'moment';
 
 class PoolDetail extends Component {

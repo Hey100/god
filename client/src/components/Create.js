@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-// import { reduxForm, Field } from 'redux-form';
-// import formFields from './formFields';
-// import CreateField from './CreateField';
-import Chart from '../Chart';
-// import _ from 'lodash';
-import * as actions from '../../actions/index';
+import Chart from './Chart';
+import * as actions from '../actions/index';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -14,20 +10,11 @@ class Create extends Component {
     error: '',
     visible: false
   };
-
-  // renderFields() {
-  //   return _.map(formFields, ({ label, name, type, placeholder }) => {
-  //     return (
-  //       <Field
-  //         key={name}
-  //         component={CreateField}
-  //         name={name}
-  //         type={type}
-  //         placeholder={label}
-  //       />
-  //     );
-  //   });
-  // }
+  componentDidMount() {
+    if (this.props.pools.chart) {
+      this.props.reset();
+    }
+  }
 
   //'handle' Functions
   handleChart = () => {
@@ -43,31 +30,31 @@ class Create extends Component {
     return null;
   };
   handleChange = event => {
-		const { error } = this.props.pools;
-		//resetAll
-		this.props.reset()
-		//if error, reset error
-		error ? this.props.resetError() : null;
-		//hide renderReview()
-		this.setState({ visible: false });
-		//set error states
-		this.setState({ [event.target.name + 'Err']: '' });
-		//if user changes numOfContributors, reset all options & chart
-		if(event.target.name === 'contributors') {
-			this.setState({ amount: null, rate: null, date: null })
-			this.props.reset()
-		}
-		//set value states
+    const { error } = this.props.pools;
+    //resetAll
+    this.props.reset();
+    //if error, reset error
+    error ? this.props.resetError() : null;
+    //hide renderReview()
+    this.setState({ visible: false });
+    //if user changes numOfContributors, reset all options & chart
+    if (event.target.name === 'contributors') {
+      this.setState({ amount: null, rate: null, date: null });
+      this.props.reset();
+    }
+    //set error states
+    this.setState({ [event.target.name + 'Err']: '' });
+    //set value states
     this.setState({ [event.target.name]: event.target.value }, () => {
       if (this.state.date) {
-				//check for future dates
+        //check for future dates
         if (moment(this.state.date).format('L') <= moment().format('L')) {
           this.setState({ dateErr: 'Date must be in the future' });
           this.props.reset();
           return;
         }
-			}
-			//create chart if all states exist
+      }
+      //create chart if all states exist
       if (
         this.state.contributors &&
         this.state.amount &&
@@ -105,6 +92,20 @@ class Create extends Component {
       this.setState({ visible: true });
     }
   }
+  handleSubmit = () => {
+		const { history, createPool, pools } = this.props;
+		let values = {}
+		values['title'] = this.state.title
+		values['description'] = this.state.description
+		values['category'] = this.state.category
+		values['contributors'] = this.state.contributors
+		values['rate'] = this.state.rate
+		values['amount'] = this.state.amount
+		values['date'] = this.state.date
+		values['position'] = pools.selection
+		console.log(values)
+    this.props.createPool(values,history);
+  };
 
   //'render' Functions
   renderAmount = () => {
@@ -260,7 +261,7 @@ class Create extends Component {
       const date = moment(position.startDate, 'YYYY/MM/DD');
       const day = date.format('Do');
       return (
-        <h5 style={{ width: '535px'}}>
+        <h5 style={{ width: '535px' }}>
           *By clicking "Submit", you agree to pay {position.monthly} every {day}{' '}
           of the month (except on your disbursement date) for the next{' '}
           {chart.length} months, upon the commencement of this pool.
@@ -277,8 +278,6 @@ class Create extends Component {
       <div>
         <div className="form-sec">
           <h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
-          {/* <form> */}
-          {/* <div className="form-sec">{this.renderFields()}</div> */}
           <input
             className="form-in"
             style={{ marginBottom: '2px' }}
@@ -335,18 +334,6 @@ class Create extends Component {
           {this.renderRate()}
           {this.renderDate()}
         </div>
-        {/* <div className="form-sec">
-          <button
-            className="button"
-            type="submit"
-            onClick={this.props.handleSubmit(values =>
-              this.props.createChart(values)
-            )}
-          >
-            Show Chart
-          </button>
-        </div> */}
-        {/* </form> */}
         {this.handleChart()}
         {this.renderReview()}
         <div className="form-sec">
@@ -381,27 +368,9 @@ class Create extends Component {
   }
 }
 
-// const validate = values => {
-//   const errors = {};
-
-//   _.each(formFields, ({ name, noValueError }) => {
-//     if (!values[name]) {
-//       errors[name] = noValueError;
-//     }
-//   });
-//   return errors;
-// };
-
 const mstp = ({ pools }) => {
   console.log(pools);
   return { pools };
 };
 
-export default connect(mstp, actions)(
-  // reduxForm({
-  //   validate,
-  //   form: 'poolForm',
-  //   destroyOnUnmount: false
-  // })
-  Create
-);
+export default connect(mstp, actions)(Create);

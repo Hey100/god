@@ -97,7 +97,7 @@ class Chart extends Component {
   render() {
     return (
       <div className="form-sec">
-        {this.props.onSubmit ? (
+        {!this.props.user ? (
           <h2 className="text-2">3. Pick a Position</h2>
         ) : null}
         <table style={{ border: '1px solid black' }}>
@@ -164,7 +164,7 @@ class Chart extends Component {
           </tbody>
         </table>
         <p>*Amount before platform fee</p>
-        <p>**1% Platform Fee</p>
+        <p>**1% Platform Fee (administered on Disbursement Date)</p>
       </div>
     );
   }
