@@ -9,7 +9,7 @@ class AllPools extends Component {
   }
 
   renderDate = date => {
-    let newDate = moment(date).calendar();
+    let newDate = moment(date).format('L');
     return <h3 key={date}>Start Date: {newDate}</h3>;
   };
 

@@ -26,7 +26,7 @@ const Summary = () => {
 			</div>
 			<div className="sumary-card" id="sc2">
 				<div className="canvas-wrap">
-					<Doughnut data={data} options={options} height="300px" />
+					<Doughnut data={data} options={options} height={300} />
 				</div>
 				<div className="info">
 					<h2 className="text-2">TOTAL ALLOWED: $7,000</h2>

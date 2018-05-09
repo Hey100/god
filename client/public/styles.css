@@ -158,6 +158,9 @@ p {
 	border: 1px solid lightgray;
 	border-radius: 10px;
 }
+.tabData {
+	padding: 10px
+}
 
 .clear {
 	color: #FFF;

@@ -9,8 +9,10 @@ import {
   CHART_CREATED,
   COMMENT_CREATED,
   FETCHED_COMMENTS,
-  SELECTION,
-  RESET,
+	SELECTION,
+	ERROR,
+	RESET,
+	RESET_ERROR,
   FETCHED_POOL,
   JOINED
 } from './types';
@@ -178,8 +180,19 @@ export const createChart = values => dispatch => {
   obj['users'] = users;
   dispatch({ type: CHART_CREATED, payload: obj });
 };
+export const setError = (err) => {
+	return { 
+		type: ERROR,
+		payload: err
+	}
+}
 
 //Chart.js
+export const resetError = () => {
+  return {
+    type: RESET_ERROR
+  };
+};
 export const setSelection = selection => {
   return {
     type: SELECTION,

@@ -28,12 +28,23 @@ class PoolDetail extends Component {
     this.setState({ value: event.target.value });
   };
 
+  handleKeyPress = (event) => {
+		if(event.key === 'Enter' && this.state.value !== '') {
+			this.props.createComment({
+				comment: this.state.value,
+				pool: this.props.match.params.id
+			});
+			this.setState({ value: '' });
+			event.preventDefault();
+		}
+	}
+
   render() {
     const { pools } = this.props;
     if (!pools.pool || !pools.chart || !pools.comments) {
       return <p>Loading...</p>;
     }
-    const date = moment(pools.pool.date).calendar();
+    const date = moment(pools.pool.date).format('L');
     return (
       <div>
         <h1 className="text-1">Title: {pools.pool.title}</h1>
@@ -49,10 +60,14 @@ class PoolDetail extends Component {
             <textarea
               onChange={this.handleChange}
               value={this.state.value}
+							onKeyPress={this.handleKeyPress}
               cols="30"
               rows="5"
             />
-            <input type="submit" value="Submit" />
+            <input
+              type="submit"
+              value="Submit"
+            />
           </form>
         </div>
         <div className="form-sec">

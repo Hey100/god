@@ -11,15 +11,15 @@ class Review extends Component {
     window.scrollTo(0, 0);
   }
 
-  // reviewFields = _.map(formFields, ({ label, name }) => {
-  //   const values = this.props.formValues;
-  //   return (
-  //     <div key={name} className="form-sec">
-  //       <h5>{label}</h5>
-  //       <div>{values[name]}</div>
-  //     </div>
-  //   );
-  // });
+  reviewFields = _.map(formFields, ({ label, name }) => {
+    const values = this.props.formValues;
+    return (
+      <div key={name} className="form-sec">
+        <h5>{label}</h5>
+        <div>{values[name]}</div>
+      </div>
+    );
+  });
 
   render() {
     const { form } = this.props.pools;
