@@ -40,7 +40,7 @@ const renderInput = (input, type, placeholder) => {
         onDrop={() => null}
         onFocus={() => null}
         value=""
-        className="form-in"
+        className="form-input"
         style={{ marginBottom: '2px' }}
         type="file"
         accept="image/*"
@@ -55,7 +55,7 @@ const renderInput = (input, type, placeholder) => {
   } else {
     return (
       <input
-        className="form-in"
+        className="form-input"
         {...input}
         style={{ marginBottom: '2px' }}
         type={type}
@@ -65,11 +65,11 @@ const renderInput = (input, type, placeholder) => {
   }
 };
 const description = (input, placeholder) => {
-  return <textarea {...input} cols="40" rows="10" placeholder={placeholder}/>;
+	return <textarea {...input} className="form-input textarea" cols="40" rows="10" placeholder={placeholder}/>;
 };
 const participants = input => {
   return (
-    <select {...input} className="form-in">
+    <select {...input} className="form-input select">
       <option selected value="">
         Number of Contributors
       </option>
@@ -83,7 +83,7 @@ const participants = input => {
 };
 const category = input => {
   return (
-    <select {...input} className="form-in">
+    <select {...input} className="form-input select">
       <option selected value="">
         Category
       </option>
@@ -96,7 +96,7 @@ const category = input => {
 };
 const rate = input => {
   return (
-    <select {...input} className="form-in">
+    <select {...input} className="form-input select">
       <option selected value="">
         Interest Rate
       </option>
@@ -109,7 +109,7 @@ const rate = input => {
 };
 const amount = input => {
   return (
-    <select {...input} className="form-in">
+    <select {...input} className="form-input select">
       <option selected value="">
         Amount
       </option>

@@ -25,19 +25,19 @@ class Review extends Component {
     const { form } = this.props.pools;
     const { history, createPool, pools } = this.props;
     return (
-      <div>
+      <div className="form-wrap">
         <div className="form-sec">
           <h2 className="text-2">Review Your Pool</h2>
         </div>
         {this.reviewFields}
         <Chart chart={this.props.pools.chart} onCancel={this.props.onCancel} />
-        <div className="form-sec">
+				<div className="align-center">
+					<button className="button cancel" onClick={this.props.onCancel}>
+						Back
+          </button>
           <a className="big-btn" onClick={() => createPool(form, pools.selection, history)}>
             Submit
           </a>
-          <button className="button" onClick={this.props.onCancel}>
-            Back
-          </button>
         </div>
       </div>
     );

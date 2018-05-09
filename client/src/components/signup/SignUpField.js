@@ -14,7 +14,7 @@ export default ({
 				renderDropdown(input)
 			) : (
 				<input
-					className="form-in"
+					className="form-input"
 					{...input}
 					style={{ marginBottom: '2px' }}
 					type={type}
@@ -30,7 +30,7 @@ export default ({
 
 const renderDropdown = (input) => {
 	return (
-	<select {...input} className="form-in">
+	<select {...input} className="form-input select">
           <option value="" />
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>

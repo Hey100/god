@@ -50,6 +50,7 @@ class PoolDetail extends Component {
           <form onSubmit={this.handleSubmit}>
             <h1 className="text-1">Join the Conversation</h1>
             <textarea
+							className="form-input textarea" 
               onChange={this.handleChange}
               value={this.state.value}
               cols="30"

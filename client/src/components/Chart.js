@@ -4,6 +4,7 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import "./styles/chart.css";
 import "./styles/global.css";
 import "./styles/media.css";
 import * as actions from '../actions/index';
@@ -46,7 +47,7 @@ class Chart extends Component {
             );
           } else {
             position3 = (
-              <td style={{ padding: '10px' }}>
+              <td>
                 {index + 1} &nbsp;
                 <button
                   onClick={() => this.props.joinPool(this.props.params, index)}
@@ -73,12 +74,11 @@ class Chart extends Component {
       }
     } else {
       if (this.props.onCancel && index !== this.props.pools.selection) {
-        return <td style={{ padding: '10px' }}>{index + 1}</td>;
+        return <td>{index + 1}</td>;
       }
       if (index !== this.props.pools.selection) {
         return (
-          <td style={{ padding: '10px' }}>
-            {index + 1}
+          <td>
             <input
               type="radio"
               name="position"
@@ -90,7 +90,7 @@ class Chart extends Component {
           </td>
         );
       }
-      return <td style={{ padding: '10px' }}>{index + 1} &#10004;</td>;
+      return <td>{index + 1} &#10004;</td>;
     }
   };
 
@@ -99,7 +99,7 @@ class Chart extends Component {
       .add(index, 'months')
       .calendar();
     return (
-      <td style={{ padding: '10px' }} key={date}>
+      <td key={date}>
         {newDate}
       </td>
     );
@@ -107,24 +107,26 @@ class Chart extends Component {
 
   render() {
     return (
-      <div className="form-sec">
+      <div className="chart-wrap">
         {this.props.onSubmit ? (
           <h2 className="text-2">3. Pick a Position</h2>
         ) : null}
-        <table style={{ border: '1px solid black' }}>
+        <table>
+					<thead>
+						<tr>
+							<th>Position</th>
+							<th>Base Amount</th>
+							<th>Interest Rate</th>
+							<th>Interest Paid/Earned*</th>
+							<th>Monthly Payment</th>
+							<th>Cash Paid</th>
+							<th>Cash Available</th>
+							<th>Fee**</th>
+							<th>Cash Received</th>
+							<th>Disbursement Date</th>
+						</tr>
+					</thead>
           <tbody>
-            <tr>
-              <th style={{ padding: '10px' }}>Position</th>
-              <th style={{ padding: '10px' }}>Base Amount</th>
-              <th style={{ padding: '10px' }}>Interest Rate</th>
-              <th style={{ padding: '10px' }}>Interest Paid/Earned*</th>
-              <th style={{ padding: '10px' }}>Monthly Payment</th>
-              <th style={{ padding: '10px' }}>Cash Paid</th>
-              <th style={{ padding: '10px' }}>Cash Available</th>
-              <th style={{ padding: '10px' }}>Fee**</th>
-              <th style={{ padding: '10px' }}>Cash Received</th>
-              <th style={{ padding: '10px' }}>Disbursement Date</th>
-            </tr>
             {_.map(this.props.chart, chart => {
               const {
                 cashReceived,
@@ -141,42 +143,23 @@ class Chart extends Component {
               return (
                 <tr key={chart.cashPaid + 1}>
                   {this.renderInput(chart, index)}
-                  <td
-                    style={{ padding: '10px' }}
-                    key={chart.cashReceived + chart.amount}
-                  >
-                    {amount}
-                  </td>
-                  <td style={{ padding: '10px' }} key={interestRate}>
-                    {interestRate}%
-                  </td>
-                  <td style={{ padding: '10px' }} key={interestAmount}>
-                    {interestAmount}
-                  </td>
-                  <td style={{ padding: '10px' }} key={monthly}>
-                    {monthly}
-                  </td>
-                  <td style={{ padding: '10px' }} key={cashPaid - 1}>
-                    {cashPaid}
-                  </td>
-                  <td style={{ padding: '10px' }} key={cashReceived + 1}>
-                    {cashReceived}
-                  </td>
-                  <td style={{ padding: '10px' }} key={monthly + 1}>
-                    ${fee}
-                  </td>
-                  <td style={{ padding: '10px' }} key={tcr}>
-                    {tcr}
-                  </td>
+                  <td key={chart.cashReceived + chart.amount}>{amount}</td>
+                  <td key={interestRate}>{interestRate}%</td>
+                  <td key={interestAmount}>{interestAmount}</td>
+                  <td key={monthly}>{monthly}</td>
+                  <td key={cashPaid - 1}>{cashPaid}</td>
+                  <td key={cashReceived + 1}>{cashReceived}</td>
+                  <td key={monthly + 1}>${fee}</td>
+                  <td key={tcr}>{tcr}</td>
                   {this.renderDate(startDate, index)}
                 </tr>
               );
             })}
           </tbody>
         </table>
-        <p>*Amount before platform fee</p>
-        <p>**1% Platform Fee</p>
-        {this.state.error ? <p className="cancel">{this.state.error}</p> : null}
+				<p>*Amount before platform fee</p>
+				<p>**1% Platform Fee</p>
+        {this.state.error ? <p className="alert">{this.state.error}</p> : null}
         {!this.props.onCancel && !this.props.user ? (
           <button
             className="big-btn"

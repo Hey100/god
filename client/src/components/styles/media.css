@@ -22,16 +22,16 @@
 		background-color: transparent;
 		box-shadow: none;
 	}
-	.land__col, .foot__dec {
-		flex-direction: column;
+	.land__col {
 		text-align: center;
-	}
-	.land__col-r {
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 	.land__half > img {
 		width: 50%;
 		margin: -20px;
+	}
+	.reverse {
+		flex-direction: column-reverse;
 	}
 	.dash__nav {
 		justify-content: space-around;

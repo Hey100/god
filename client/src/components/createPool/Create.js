@@ -83,8 +83,7 @@ class Create extends Component {
       return (
         <select
           name="amount"
-          className="form-in"
-          style={{ marginBottom: '2px' }}
+          className="form-input select"
           onChange={this.handleChange}
         >
           <option selected value="">
@@ -108,8 +107,7 @@ class Create extends Component {
       return (
         <select
           name="rate"
-          className="form-in"
-          style={{ marginBottom: '2px' }}
+          className="form-input select"
           onChange={this.handleChange}
         >
           <option value="">Rate</option>
@@ -128,7 +126,7 @@ class Create extends Component {
       return (
         <input
           onChange={this.handleChange}
-          className="form-in"
+          className="form-input"
           style={{ marginBottom: '2px' }}
           type="date"
           name="date"
@@ -143,8 +141,8 @@ class Create extends Component {
     return (
         <div className="form-wrap">
 					<h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
-					<input className="form-in" style={{ marginBottom: "2px" }} type="text" name="title" placeholder="Title" onChange={this.handleChange} />
-					<select className="form-in" style={{ marginBottom: "2px" }} name="category" onChange={this.handleChange}>
+					<input className="form-input" type="text" name="title" placeholder="Title" onChange={this.handleChange} />
+					<select className="form-input select" name="category" onChange={this.handleChange}put>
 						<option selected value="">
 							Category
 						</option>
@@ -153,9 +151,9 @@ class Create extends Component {
 						<option value="Home Improvement">Home Improvement</option>
 						<option value="Travel">Travel</option>
 					</select>
-					<textarea name="description" cols="40" rows="10" onChange={this.handleChange} placeholder="Please provide a description of your pool" />
+					<textarea name="description" className="form-input textarea" cols="40" rows="10" onChange={this.handleChange} placeholder="Please provide a description of your pool" />
 					<h2 className="text-2">2. Choose Your Options</h2>
-					<select name="contributors" className="form-in" style={{ marginBottom: "2px" }} onChange={this.handleChange}>
+					<select name="contributors" className="form-input select" onChange={this.handleChange}put>
 						<option selected value="">
 							Number of Contributors
 						</option>
@@ -168,9 +166,7 @@ class Create extends Component {
 					{this.renderAmount()}
 					{this.renderRate()}
 					{this.renderDate()}
-					<div>
-						{this.handleChart()}
-					</div>
+					{this.handleChart()}
 				</div>
 		);
   }

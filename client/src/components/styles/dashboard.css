@@ -1,6 +1,6 @@
-#dash {
+.dash__container {
 	flex-flow: column wrap;
-	background: linear-gradient(to top right, #E5E5E5, #FFF, #FFF);
+	background: linear-gradient(to top right, #E5E5E5, #FFF);
 }
 
 .dash__nav {

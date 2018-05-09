@@ -13,7 +13,7 @@ const Form = () => {
           <h5>Choose an amount between $1,000 and $10,000</h5>
 					<div>
 						Amount:
-						<input className="input" type="text" name="lastname" placeholder="$" />
+						<input className="form-input" type="text" name="lastname" placeholder="$" />
 					</div>
         </div>
 
@@ -23,13 +23,13 @@ const Form = () => {
               Please provide a few details about yourself
             </h2>
             First name: (use legal name)
-            <input className="input" type="text" name="firstname" />
+            <input className="form-input" type="text" name="firstname" />
             <br />
             Last name:
-            <input className="input" type="text" name="lastname" />
+            <input className="form-input" type="text" name="lastname" />
             <br />
             Suffix: (if applicable)
-            <select name="suffix" className="input">
+            <select name="suffix" className="form-input select">
               <option value="" selected="selected" />
               <option value="i">I</option>
               <option value="ii">II</option>
@@ -45,19 +45,19 @@ const Form = () => {
             </select>
             <br />
             Date of birth:
-            <input className="input" type="text" name="dateofbirth" />
+            <input className="form-input" type="text" name="dateofbirth" />
             <br />
             Street Address:
-            <input className="input" type="text" name="street" />
+            <input className="form-input" type="text" name="street" />
             <br />
             Apartment/Suite:
-            <input className="input" type="text" name="apt" />
+            <input className="form-input" type="text" name="apt" />
             <br />
             City:
-            <input className="input" type="text" name="city" />
+            <input className="form-input" type="text" name="city" />
             <br />
             State:
-            <select name="state" className="input">
+            <select name="state" className="form-input select">
               <option value="" selected="selected" />
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
@@ -113,10 +113,10 @@ const Form = () => {
             </select>
             <br />
             Zip Code:
-            <input className="input" type="text" name="zip" />
+            <input className="form-input" type="text" name="zip" />
             <br />
             Phone Number:
-            <input className="input" type="text" name="phone" />
+            <input className="form-input" type="text" name="phone" />
             <br />
           </div>
           <input type="checkbox" name="authorize" value="authorize" />
@@ -128,7 +128,7 @@ const Form = () => {
           <h2 className="text-2">What is your highest level of education?</h2>
           <h5>Include degrees in which you are currently enrolled</h5>
           Degree Program:
-          <select name="degree" className="input">
+          <select name="degree" className="form-input select">
             <option value="" selected="selected" />
             <option label="Less than high school" value="Less than high school">
               Less than high school
@@ -173,7 +173,7 @@ const Form = () => {
           <h2 className="text-2">What is your primary source of income?</h2>
           <h5>Do not include income from your spouce or household</h5>
           Income Type:
-          <select className="input">
+          <select className="form-input select">
             <option value="?" selected="selected" />
             <option label="Employed - Salary" value="employed_salary">
               Employed - Salary
@@ -205,10 +205,10 @@ const Form = () => {
         <div className="form-sec">
           <h2 className="text-2">How much do you have in savings?</h2>
           Checking &amp; Savings:
-          <input className="input" type="text" name="savings" placeholder="$" />
+          <input className="form-input" type="text" name="savings" placeholder="$" />
           <br />
           Investment Accounts: (if applicable)
-          <input className="input" type="text" name="investments" placeholder="$" />
+          <input className="form-input" type="text" name="investments" placeholder="$" />
           <br />
         </div>
 
@@ -247,17 +247,17 @@ const Form = () => {
           </div>
 					<div>	
 						<input type="radio" name="feature" value="other" />
-						<input className="input" type="text" placeholder="something else" />
+						<input className="form-input" type="text" placeholder="something else" />
           </div>
         </div>
 
         <div className="form-sec">
           <h2 className="text-2">Save Your Information</h2>
           Email Address:
-          <input className="input" type="text" name="email" />
+          <input className="form-input" type="text" name="email" />
           <br />
           Password:
-          <input className="input" type="text" name="password" />
+          <input className="form-input" type="text" name="password" />
           <br />
           <h5>
             Must contain at least 8 characters, including 1 number and 1

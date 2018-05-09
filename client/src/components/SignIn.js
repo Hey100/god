@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { GoogleIcon, FacebookIcon } from "mdi-react";
 
+import "./styles/signin.css";
 import "./styles/global.css";
 import "./styles/media.css";
 import * as actions from '../actions/index';
@@ -17,8 +18,8 @@ class SignIn extends Component {
   renderAlert() {
     if (this.props.auth.error) {
       return (
-        <div className= "">
-          <strong>Oops!</strong> {this.props.auth.error}
+        <div className="alert">
+					Oops! {this.props.auth.error}
         </div>
       );
     }
@@ -36,14 +37,13 @@ class SignIn extends Component {
           <button className="mid-btn" type="submit">
             Login
           </button>
-					<hr className="separator" />
-          <button className="mid-btn" style={{ backgroundColor: '#FFF', color: 'tomato', border: '2px solid tomato'}}>
-						Sign Up with Google <GoogleIcon size={28} color="tomato"/>
+					{this.renderAlert()}
+					<button className="mid-btn google align-center">
+						Sign Up with Google &nbsp;<GoogleIcon size={28} color="tomato"/>
 					</button>
-					<button className="mid-btn" style={{ backgroundColor: '#3B5998', color: 'white'}}>
-						Sign Up with Facebook <FacebookIcon size={28} color="#FFF"/>
+					<button className="mid-btn facebook align-center">
+						Sign Up with Facebook &nbsp;<FacebookIcon size={28} color="#FFF"/>
 					</button>
-          {this.renderAlert()}
           <div>
             <Link to="/" className="button cancel">
               Cancel

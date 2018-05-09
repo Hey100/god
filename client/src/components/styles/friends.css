@@ -10,3 +10,20 @@
 	overflow: hidden;
 	background-size: cover;
 }
+
+.message-button {
+	background-color: darkcyan;
+	color: white;
+	border-radius: 20px;
+	border: none;
+	padding: 10px 20px;
+	margin: 10px;
+	transition: scale, .1s;
+	transition: background-color, .2s;
+}
+
+.message-button:hover {
+	transform: scale(1.1);
+	background-color: rgb(51, 170, 170);
+	cursor: pointer;
+}

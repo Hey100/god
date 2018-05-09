@@ -10,3 +10,9 @@
 	min-width: 300px;
 	text-align: start;
 }
+
+.canvas-wrap {
+	position: relative;
+	height: 300px;
+	margin: 20px 0;
+}
