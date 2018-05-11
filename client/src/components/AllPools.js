@@ -10,7 +10,6 @@ import * as actions from '../actions/index';
 
 class AllPools extends Component {
   componentDidMount() {
-		console.log(this.props.history)
     this.props.fetchAllPools();
   }
 

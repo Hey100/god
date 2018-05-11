@@ -46,12 +46,10 @@ class PoolDetail extends Component {
     if (!pools.pool || !pools.chart || !pools.comments) {
       return <p>Loading...</p>;
     }
-    // if (!pools.pool || !pools.chart) {
-    //   return <p>Loading...</p>;
-    // }
     const date = moment(pools.pool.date).format('L');
     return (
       <div>
+				{pools.createError ? <h1 className="cancel">{pools.createError}</h1> : null}
         <h1 className="text-1">Title: {pools.pool.title}</h1>
         <h5>Start Date: {date}</h5>
         <Chart

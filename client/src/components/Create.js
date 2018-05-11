@@ -114,7 +114,8 @@ class Create extends Component {
 		values['endDate'] = endDate
 		values['monthly'] = chart[pools.selection].monthly;
 		values['disburseAmount'] = chart[pools.selection].tcr;
-    createPool(values, history);
+		createPool(values, history);
+		window.scrollTo(0, 0);
   };
 
   //'render' Functions
@@ -280,11 +281,12 @@ class Create extends Component {
   };
 
   render() {
-    const { error, chart, selection } = this.props.pools;
+    const { error, chart, selection, createError } = this.props.pools;
     const { titleErr, categoryErr, descriptionErr } = this.state;
     return (
       <div className="form-wrap">
         <div className="form-sec">
+					{createError ? <h1 className="cancel">{createError}</h1> : null}
           <h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
           <input
             className="form-input"

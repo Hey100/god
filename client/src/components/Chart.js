@@ -22,6 +22,7 @@ class Chart extends Component {
   }
 
   renderInput = (chart, index) => {
+		console.log(chart)
     if (this.props.user) {
       const { contributors } = this.props.pools.pool;
       let position1;
@@ -42,7 +43,7 @@ class Chart extends Component {
             <td>
               {index + 1} &nbsp;
               <button
-                onClick={() => this.props.joinPool(this.props.params, index)}
+                onClick={() => this.props.joinPool(this.props.params, index, chart.amount)}
               >
                 Join
               </button>
@@ -95,7 +96,16 @@ class Chart extends Component {
         {newDate}
       </td>
     );
-  };
+	};
+	
+	parse = num => {
+		return parseFloat(num).toLocaleString('USD', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2
+		});
+	};
 
   render() {
     return (
@@ -136,31 +146,30 @@ class Chart extends Component {
                 <tr key={chart.cashPaid + 1}>
                   {this.renderInput(chart, index)}
                   <td
-                  
                     key={chart.cashReceived + chart.amount}
                   >
-                    {amount}
+                    {this.parse(amount)}
                   </td>
                   <td key={interestRate}>
                     {interestRate}%
                   </td>
                   <td key={interestAmount}>
-                    {interestAmount}
+                    {this.parse(interestAmount)}
                   </td>
                   <td key={monthly}>
-                    {monthly}
+                    {this.parse(monthly)}
                   </td>
                   <td key={cashPaid - 1}>
-                    {cashPaid}
+                    {this.parse(cashPaid)}
                   </td>
                   <td key={cashReceived + 1}>
-                    {cashReceived}
+                    {this.parse(cashReceived)}
                   </td>
                   <td key={monthly + 1}>
                     ${fee}
                   </td>
                   <td key={tcr}>
-                    {tcr}
+                    {this.parse(tcr)}
                   </td>
                   {this.renderDate(startDate, index)}
                 </tr>

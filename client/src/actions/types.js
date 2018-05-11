@@ -10,6 +10,7 @@ export const MY_POOLS = 'my_pools';
 export const FETCHED_POOL = 'fetched_pool';
 export const FETCHED_COMMENTS = 'fetched_comments';
 export const JOINED = 'joined';
+export const CREATE_ERROR = 'create_error';
 export const CHART_CREATED = 'chart_created';
 export const COMMENT_CREATED = 'comment_created';
 export const PAYMENT_CREATED = 'payment_created';

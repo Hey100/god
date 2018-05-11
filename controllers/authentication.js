@@ -40,7 +40,7 @@ exports.signup = function(req, res, next) {
       zip: req.body.zip,
       phone: req.body.phone,
       savingsQ: req.body.savingsQ,
-			incomeQ: req.body.incomeQ,
+      incomeQ: req.body.incomeQ,
       email: email,
       password: password
     });
@@ -48,24 +48,28 @@ exports.signup = function(req, res, next) {
     user.save(err => {
       if (err) {
         return next(err);
-			}
+      }
       res.send({ token: tokenForUser(user), user });
     });
   });
 };
 
 exports.update = async (req, res, done) => {
-	console.log(parseInt(req.body.amount), typeof req.body.amount);
-	console.log(req.user.usedAmount, typeof req.user.usedAmount);
-	console.log(req.user.mlimit, typeof req.user.mlimit);
-	const amount = parseInt(req.body.amount)
-	
-	if((amount + req.user.usedAmount) < req.user.mlimit) {
-		console.log('updating')
-		req.user.usedAmount += amount
-		const user = await req.user.save()
-		res.send(user)
-	} else {
-		res.send('Participating in this pool exceeds your limit')
-	}
-}
+	console.log(req.body)
+  console.log(parseInt(req.body.amount), typeof req.body.amount);
+  console.log(req.user.usedAmount, typeof req.user.usedAmount);
+  console.log(req.user.mlimit, typeof req.user.mlimit);
+	const amount = parseInt(req.body.amount);
+	console.log(amount)
+
+  if (amount + req.user.usedAmount < req.user.mlimit) {
+    console.log('updating');
+    req.user.usedAmount += amount;
+    const user = await req.user.save();
+    res.send(user);
+  } else {
+    return res
+      .status(422)
+      .send({ error: 'Participating in this pool exceeds your limit' });
+  }
+};
