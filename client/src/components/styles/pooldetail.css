@@ -1,0 +1,58 @@
+.pool__comments-wrap {	
+	width: 66%;
+	margin: 20px;
+	padding: 20px 40px;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.pool__comment {
+	display: flex;
+	flex-wrap: nowrap;
+	border-radius: 5px;
+	background: linear-gradient(left, rgba(229, 229, 229, 0.2),rgba(229, 229, 229, 0.4));	
+	margin: 10px;
+	text-align: start;
+}
+
+.pool__comment-thumb {
+	width: 40px;
+	height: 40px;
+	margin: 10px;
+	border-radius: 50%;
+	vertical-align: top;
+}
+
+.pool__comment-text {
+	margin: 10px 10px 10px 0;
+}
+
+.pool__comment-text > h5 {
+	color: dodgerblue;
+	font-size: 1em;
+}
+
+.pool__comment-text > p {
+	color: gray;
+	font-size: 1em;
+}
+
+
+.pool__form-input {
+	height: 50px;
+	width: 500px;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	border-radius: 5px;
+	padding: 10px 20px;
+	margin: 10px;
+}
+
+.pool__form-submit {
+	height: 50px;
+	width: 100px;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	border-radius: 5px;
+	padding: 10px;
+}

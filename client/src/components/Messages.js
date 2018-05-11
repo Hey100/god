@@ -42,7 +42,7 @@ class Messages extends Component {
 		}
     return (
 			
-      <div className="tab" style={{ padding: "0" }}>
+      <div className="message__wrap">
         <div className="message__left">
 					{
 						_.map(this.state.friends, friend => {

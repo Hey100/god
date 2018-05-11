@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import "./styles/allpools.css";
@@ -28,7 +27,7 @@ class AllPools extends Component {
       return <p>LOADING...</p>;
     }
     return (
-      <div>
+      <div className="form-wrap">
         <h1 className="text-2" style={{ textAlign: 'center' }}>
           COMMUNITY
         </h1>
@@ -79,8 +78,9 @@ class AllPools extends Component {
         <div className="results">
           {allPools.map(pool => {
 						const num = pool.contributors.length;
+						const title = pool.title;
             return (
-							<Link key={pool._id} className="all__card"  to={`/pools/${pool._id}`}>
+							<div key={pool._id} className="all__card">
                 <div
                   className="all__thumbnail"
                   onClick={() => this.handleClick(pool._id)}
@@ -92,10 +92,10 @@ class AllPools extends Component {
                 />
                 <div className="card-content">
                   <h1 onClick={() => this.handleClick(pool._id)}>
-                    <button> {pool.title}</button>
+                    {title.toUpperCase()}
                   </h1>
                   <h1>
-                    by: <button className="button">{pool.creator}</button>
+                    by:<button className="button text-3">{pool.creator}</button>
                   </h1>
                   <div className="all__meter">
                     <span style={{ width: '100%' }} />
@@ -116,7 +116,7 @@ class AllPools extends Component {
                   )}
                   {this.renderDate(pool.date)}
                 </div>
-              </Link>
+              </div>
 							);
 						})}
         </div>

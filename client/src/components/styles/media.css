@@ -64,7 +64,7 @@
 
 
 @media all and (max-width: 600px) {
-	.nav-right, .dash-nav {
+	.nav-right, .dash__nav {
 		display: flex;
 		flex-direction: column;
 	}

@@ -40,14 +40,7 @@ class Chart extends Component {
           );
         } else {
           position3 = (
-            <td>
-              {index + 1} &nbsp;
-              <button
-                onClick={() => this.props.joinPool(this.props.params, index)}
-              >
-                Join
-              </button>
-            </td>
+            <td><button onClick={() => this.props.joinPool(this.props.params, index)}>Join</button></td>
           );
         }
       });
@@ -60,7 +53,7 @@ class Chart extends Component {
       } else {
         return (
           <td style={{ padding: '10px', color: 'seagreen' }}>
-            {index + 1}&nbsp;Open{' '}
+            Open{' '}
           </td>
         );
       }
@@ -71,7 +64,6 @@ class Chart extends Component {
       if (index !== this.props.pools.selection) {
         return (
           <td>
-            {index + 1}
             <input
               type="radio"
               name="position"
@@ -100,78 +92,71 @@ class Chart extends Component {
 
   render() {
     return (
-      <div className="chart-wrap">
-        {!this.props.user ? (
-          <h2 className="text-2">3. Pick a Position</h2>
-        ) : null}
-        <table>
-					<thead>
-						<tr>
-							<th>Position</th>
-							<th>Base Amount</th>
-							<th>Interest Rate</th>
-							<th>Interest Paid/Earned*</th>
-							<th>Monthly Payment</th>
-							<th>Cash Paid</th>
-							<th>Cash Available</th>
-							<th>Fee**</th>
-							<th>Cash Received</th>
-							<th>Disbursement Date</th>
-						</tr>
-					</thead>
-          <tbody>
-            {_.map(this.props.chart, chart => {
-              const {
-                cashReceived,
-                cashPaid,
-                monthly,
-                amount,
-                interestRate,
-                interestAmount,
-                fee,
-                tcr,
-                startDate
-              } = chart;
-              let index = this.props.chart.indexOf(chart);
-              return (
-                <tr key={chart.cashPaid + 1}>
-                  {this.renderInput(chart, index)}
-                  <td
-                  
-                    key={chart.cashReceived + chart.amount}
-                  >
-                    {amount}
-                  </td>
-                  <td key={interestRate}>
-                    {interestRate}%
-                  </td>
-                  <td key={interestAmount}>
-                    {interestAmount}
-                  </td>
-                  <td key={monthly}>
-                    {monthly}
-                  </td>
-                  <td key={cashPaid - 1}>
-                    {cashPaid}
-                  </td>
-                  <td key={cashReceived + 1}>
-                    {cashReceived}
-                  </td>
-                  <td key={monthly + 1}>
-                    ${fee}
-                  </td>
-                  <td key={tcr}>
-                    {tcr}
-                  </td>
-                  {this.renderDate(startDate, index)}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <p>*Amount before platform fee</p>
-        <p>**1% Platform Fee (administered on Disbursement Date)</p>
-      </div>
+			<table>
+				<thead>
+					<tr>
+						<th>Position</th>
+						<th>Base Amount</th>
+						<th>Interest Rate</th>
+						<th>Interest Paid/Earned*</th>
+						<th>Monthly Payment</th>
+						<th>Cash Paid</th>
+						<th>Cash Available</th>
+						<th>Fee**</th>
+						<th>Cash Received</th>
+						<th>Disbursement Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					{_.map(this.props.chart, chart => {
+						const {
+							cashReceived,
+							cashPaid,
+							monthly,
+							amount,
+							interestRate,
+							interestAmount,
+							fee,
+							tcr,
+							startDate
+						} = chart;
+						let index = this.props.chart.indexOf(chart);
+						return (
+							<tr key={chart.cashPaid + 1}>
+								{this.renderInput(chart, index)}
+								<td
+								
+									key={chart.cashReceived + chart.amount}
+								>
+									{amount}
+								</td>
+								<td key={interestRate}>
+									{interestRate}%
+								</td>
+								<td key={interestAmount}>
+									{interestAmount}
+								</td>
+								<td key={monthly}>
+									{monthly}
+								</td>
+								<td key={cashPaid - 1}>
+									{cashPaid}
+								</td>
+								<td key={cashReceived + 1}>
+									{cashReceived}
+								</td>
+								<td key={monthly + 1}>
+									${fee}
+								</td>
+								<td key={tcr}>
+									{tcr}
+								</td>
+								{this.renderDate(startDate, index)}
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
     );
   }
 }
