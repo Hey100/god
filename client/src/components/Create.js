@@ -34,7 +34,7 @@ class Create extends Component {
 					/>
 					<p>*Amount before platform fee</p>
 					<p>**1% Platform Fee (administered on Disbursement Date)</p>
-				</div >
+				</div>
       );
     }
     return null;
@@ -102,18 +102,30 @@ class Create extends Component {
       this.setState({ visible: true });
     }
   }
-  handleSubmit = () => {
-		const { history, createPool, pools } = this.props;
-		let values = {}
-		values['title'] = this.state.title
-		values['description'] = this.state.description
-		values['category'] = this.state.category
-		values['contributors'] = this.state.contributors
-		values['rate'] = this.state.rate
-		values['amount'] = this.state.amount
-		values['date'] = this.state.date
-		values['position'] = pools.selection
-    this.props.createPool(values,history);
+  handleSubmit = chart => {
+    const { history, createPool, pools } = this.props;
+    const startDate = moment(chart[pools.selection].startDate).format('L');
+    const dDate = moment(chart[pools.selection].startDate)
+      .add(pools.selection, 'months')
+      .format('L');
+    const endDate = moment(chart[pools.selection].startDate)
+      .add(chart.length - 1, 'months')
+      .format('L');
+    let values = {};
+    values['title'] = this.state.title;
+    values['description'] = this.state.description;
+    values['category'] = this.state.category;
+    values['contributors'] = this.state.contributors;
+    values['rate'] = this.state.rate;
+    values['amount'] = this.state.amount;
+		values['position'] = pools.selection;
+    values['startDate'] = moment(this.state.date).format('L');
+		values['dDate'] = dDate
+		values['endDate'] = endDate
+		values['monthly'] = chart[pools.selection].monthly;
+		values['disburseAmount'] = chart[pools.selection].tcr;
+		createPool(values, history);
+		window.scrollTo(0, 0);
   };
 
   //'render' Functions
@@ -228,25 +240,23 @@ class Create extends Component {
 									<th>Fee</th>
 									<th>Cash Received</th>
 									<th>Disbursement Date</th>
-									<th>Disbursement Amount</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>{position.amount}</td>
+									<td>{this.parse(position.amount)}</td>
 									<td>{position.interestRate}%</td>
-									<td>{position.interestAmount}</td>
-									<td>{position.monthly}</td>
-									<td>{position.cashPaid}</td>
-									<td>{position.cashReceived}</td>
+									<td>{this.parse(position.interestAmount)}</td>
+									<td>{this.parse(position.monthly)}</td>
+									<td>{this.parse(position.cashPaid)}</td>
+									<td>{this.parse(position.cashReceived)}</td>
 									<td>${position.fee}</td>
-									<td>{position.tcr}</td>
+									<td>{this.parse(position.tcr)}</td>
 									<td>
 										{moment(position.startDate)
 											.add(selection, 'months')
 											.format('L')}
 									</td>
-									<td>{position.amount}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -270,13 +280,23 @@ class Create extends Component {
       );
     }
     return null;
-  };
+	};
+	
+	parse = num => {
+		return parseFloat(num).toLocaleString('USD', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2
+		});
+	};
 
   render() {
-    const { error, chart, selection } = this.props.pools;
+    const { error, chart, selection, createError } = this.props.pools;
     const { titleErr, categoryErr, descriptionErr } = this.state;
     return (
       <div className="form-wrap">
+				{createError ? <h1 className="cancel">{createError}</h1> : null}
 				<h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
 				<input
 					className="form-input"
@@ -345,14 +365,16 @@ class Create extends Component {
 						</button>
 					) : null
 				) : (
-					<button
-						className="big-btn"
-						type="submit"
-						onClick={() => this.handleSubmit()}
-					>
-						Submit*
-					</button>
-					// this.renderAgreement(chart, selection)
+					<div>
+						<button
+							className="big-btn"
+							type="submit"
+							onClick={() => this.handleSubmit(chart)}
+						>
+							Submit*
+						</button>
+						{this.renderAgreement(chart, selection)}
+					</div>
 				)
 			}
       </div>
@@ -361,7 +383,6 @@ class Create extends Component {
 }
 
 const mstp = ({ pools }) => {
-  console.log(pools);
   return { pools };
 };
 

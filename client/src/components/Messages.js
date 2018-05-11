@@ -13,7 +13,6 @@ class Messages extends Component {
   componentDidMount() {
     axios.get("https://randomuser.me/api/?results=10")
       .then(response => {
-        console.log(response.data);
         this.setState({ friends: response.data.results });
       })
       .catch(error => {

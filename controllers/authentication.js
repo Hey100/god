@@ -48,8 +48,22 @@ exports.signup = function(req, res, next) {
     user.save(err => {
       if (err) {
         return next(err);
-			}
+      }
       res.send({ token: tokenForUser(user), user });
     });
   });
+};
+
+exports.update = async (req, res, done) => {
+  const amount = parseInt(req.body.amount);
+
+  if (amount + req.user.usedAmount < req.user.mlimit) {
+    req.user.usedAmount += amount;
+    const user = await req.user.save();
+    res.send(user);
+  } else {
+    return res
+      .status(422)
+      .send({ error: 'Participating in this pool exceeds your limit' });
+  }
 };

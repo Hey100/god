@@ -8,11 +8,14 @@ import {
   ALL_POOLS,
   CHART_CREATED,
   COMMENT_CREATED,
+  PAYMENT_CREATED,
   FETCHED_COMMENTS,
-	SELECTION,
-	ERROR,
-	RESET,
-	RESET_ERROR,
+  FETCHED_PAYMENTS,
+  SELECTION,
+  ERROR,
+  CREATE_ERROR,
+  RESET,
+  RESET_ERROR,
   FETCHED_POOL,
   JOINED
 } from './types';
@@ -84,10 +87,9 @@ export const fetchAllPools = () => async dispatch => {
 
 //Create.js
 export const createChart = values => dispatch => {
-
   let amount = parseInt(values.amount, 0);
   let ppl = parseInt(values.contributors, 0);
-	let rate = values.rate / 100;
+  let rate = values.rate / 100;
 
   let term = ppl - 1;
   let startDate = values.date;
@@ -107,44 +109,14 @@ export const createChart = values => dispatch => {
       let y = amount + cashInterval * [i];
       let z = basePayment + paymentInterval * [i];
       let result = {
-        cashReceived: parseFloat(x).toLocaleString('USD', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }),
-        cashPaid: parseFloat(y).toLocaleString('USD', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }),
-        monthly: parseFloat(z).toLocaleString('USD', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }),
-        amount: parseFloat(amount).toLocaleString('USD', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }),
+        cashReceived: x ,
+        cashPaid: y,
+        monthly: z,
+				amount,
         interestRate: parseFloat((y - x) / y * 100).toFixed(2),
-        interestAmount: parseFloat(y - x).toLocaleString('USD', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }),
+        interestAmount: (y - x),
         fee: parseFloat(amount * 0.01),
-        tcr: parseFloat(x - amount * 0.01).toLocaleString('USD', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }),
+        tcr: (x - amount * 0.01),
         startDate,
         ppl
       };
@@ -153,17 +125,11 @@ export const createChart = values => dispatch => {
   };
   chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   let obj = {};
-  const {
-    title,
-    category,
-    description,
-    contributors,
-    date
-	} = values;
+  const { title, category, description, contributors, date } = values;
   obj['info'] = {
     title,
     category,
-		description,
+    description,
     amount,
     contributors,
     rate: rate * 100,
@@ -172,16 +138,32 @@ export const createChart = values => dispatch => {
   obj['users'] = users;
   dispatch({ type: CHART_CREATED, payload: obj });
 };
-export const setError = (err) => {
-	return { 
-		type: ERROR,
-		payload: err
-	}
-}
+export const setError = err => {
+  return {
+    type: ERROR,
+    payload: err
+  };
+};
 export const createPool = (values, history) => async dispatch => {
-	const res = await axios.post('/api/createPool', values);
-	history.push(`/pools/${res.data._id}`);
-	dispatch({ type: RESET });
+  try {
+    await dispatch(updateUser(values));
+    const res = await axios.post('/api/createPool', values);
+    history.push(`/pools/${res.data._id}`);
+    values['poolId'] = res.data._id;
+    dispatch(createPayment(values));
+    dispatch({ type: RESET });
+  } catch (error) {
+    const err = error.response.data.error;
+    dispatch({ type: CREATE_ERROR, payload: err });
+  }
+};
+export const createPayment = values => async dispatch => {
+  await axios.post('/api/createPayment', values);
+  dispatch({ type: PAYMENT_CREATED });
+};
+const updateUser = values => async dispatch => {
+  const res = await axios.post('/api/updateUser', values);
+  dispatch({ type: FETCH_USER, payload: res.data });
 };
 
 //Chart.js
@@ -196,18 +178,23 @@ export const setSelection = selection => {
     payload: selection
   };
 };
-export const joinPool = (id, position) => async dispatch => {
-  let obj = {};
-  obj['id'] = id;
-  obj['position'] = position;
-  const res = await axios.post('/api/joinPool', obj);
-  let obj2 = {};
-  obj2['amount'] = res.data.amount;
-  obj2['contributors'] = res.data.numOfContributors;
-  obj2['date'] = res.data.date;
-  obj2['rate'] = res.data.rate;
-  dispatch(createChart(obj2));
-  dispatch({ type: FETCHED_POOL, payload: res.data });
+export const joinPool = (id, position, amount) => async dispatch => {
+  let amountObj = { amount };
+  try {
+		await dispatch(updateUser(amountObj));
+    let obj = { id, position };
+    const res = await axios.post('/api/joinPool', obj);
+    let obj2 = {};
+    obj2['amount'] = res.data.amount;
+    obj2['contributors'] = res.data.numOfContributors;
+    obj2['date'] = res.data.date;
+    obj2['rate'] = res.data.rate;
+    dispatch(createChart(obj2));
+    dispatch({ type: FETCHED_POOL, payload: res.data });
+  } catch (error) {
+    const err = error.response.data.error;
+    dispatch({ type: CREATE_ERROR, payload: err });
+  }
 };
 export const joined = () => {
   return {
@@ -218,7 +205,7 @@ export const joined = () => {
 //PoolDetail.js
 export const createComment = values => async dispatch => {
   const res = await axios.post('/api/saveComment', values);
-  dispatch(fetchComments(res.data.pool_id));
+  dispatch(fetchComments(res.data._pool));
   dispatch({ type: COMMENT_CREATED, payload: res.data });
 };
 export const fetchPool = id => async dispatch => {
@@ -234,6 +221,12 @@ export const fetchPool = id => async dispatch => {
 export const fetchComments = id => async dispatch => {
   const res = await axios.get(`/api/comments/${id}`);
   dispatch({ type: FETCHED_COMMENTS, payload: res.data });
+};
+
+//Summary.js
+export const fetchPayments = () => async dispatch => {
+  const res = await axios.get('/api/payments');
+  dispatch({ type: FETCHED_PAYMENTS, payload: res.data });
 };
 
 //multi

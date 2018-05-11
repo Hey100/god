@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const participantSchema = new Schema({
+const contributorSchema = new Schema({
 	user: { type: String, required: true },
 	name: {type: String, required: true},
 	position: { type: Number, required: true }
 });
 
-module.exports = participantSchema;
+module.exports = contributorSchema;

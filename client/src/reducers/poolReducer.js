@@ -4,9 +4,11 @@ import {
   SELECTION,
   FETCHED_POOL,
   COMMENT_CREATED,
-  FETCHED_COMMENTS,
+	FETCHED_COMMENTS,
+	PAYMENT_CREATED,
   RESET,
-  ERROR,
+	ERROR,
+	CREATE_ERROR,
   RESET_ERROR,
   ALL_POOLS,
   JOINED
@@ -21,7 +23,8 @@ const INITIAL_STATE = {
   selection: '',
   pool: null,
 	comments: null,
-	error: ''
+	error: '',
+	createError: ''
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -43,6 +46,10 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, pool: action.payload };
     case FETCHED_COMMENTS:
       return { ...state, comments: action.payload };
+		case PAYMENT_CREATED:
+      return state;
+    case CREATE_ERROR:
+      return { ...state, createError: action.payload };
     case ERROR:
       return { ...state, error: action.payload };
     case RESET_ERROR:

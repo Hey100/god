@@ -12,7 +12,6 @@ class Friends extends Component {
 	componentDidMount() {
 		axios.get("https://randomuser.me/api/?results=5")
 			.then(response => {
-				console.log(response.data)
 				this.setState({ friends: response.data.results })
 			})
 			.catch(error => {

@@ -23,7 +23,7 @@ class Dashboard extends Component {
   handleSection = () => {
     switch (this.state.section) {
       case 'summary':
-        return <Summary />;
+        return <Summary history={this.props.history} />;
       case 'myPools':
         return <MyPools />;
       case 'bank':

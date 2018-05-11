@@ -23,7 +23,7 @@ class PoolDetail extends Component {
   handleSubmit = event => {
     this.props.createComment({
       comment: this.state.value,
-      pool: this.props.match.params.id
+      poolId: this.props.match.params.id
     });
     this.setState({ value: '' });
     event.preventDefault();
@@ -36,7 +36,7 @@ class PoolDetail extends Component {
 		if(event.key === 'Enter' && this.state.value !== '') {
 			this.props.createComment({
 				comment: this.state.value,
-				pool: this.props.match.params.id
+				poolId: this.props.match.params.id
 			});
 			this.setState({ value: '' });
 			event.preventDefault();
@@ -51,6 +51,7 @@ class PoolDetail extends Component {
     const date = moment(pools.pool.date).format('L');
     return (
       <div className="form-wrap">
+				{pools.createError ? <h1 className="cancel">{pools.createError}</h1> : null}
         <h1 className="text-1">{pools.pool.title}</h1>
         <h2 className="text-2">Starting: {date}</h2>
         <h2 className="text-2">Description: {pools.pool.description}</h2>
