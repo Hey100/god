@@ -21,7 +21,7 @@ class PoolDetail extends Component {
   handleSubmit = event => {
     this.props.createComment({
       comment: this.state.value,
-      pool: this.props.match.params.id
+      poolId: this.props.match.params.id
     });
     this.setState({ value: '' });
     event.preventDefault();
@@ -34,7 +34,7 @@ class PoolDetail extends Component {
 		if(event.key === 'Enter' && this.state.value !== '') {
 			this.props.createComment({
 				comment: this.state.value,
-				pool: this.props.match.params.id
+				poolId: this.props.match.params.id
 			});
 			this.setState({ value: '' });
 			event.preventDefault();
@@ -46,6 +46,9 @@ class PoolDetail extends Component {
     if (!pools.pool || !pools.chart || !pools.comments) {
       return <p>Loading...</p>;
     }
+    // if (!pools.pool || !pools.chart) {
+    //   return <p>Loading...</p>;
+    // }
     const date = moment(pools.pool.date).format('L');
     return (
       <div>

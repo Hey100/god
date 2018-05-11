@@ -12,7 +12,11 @@ export const FETCHED_COMMENTS = 'fetched_comments';
 export const JOINED = 'joined';
 export const CHART_CREATED = 'chart_created';
 export const COMMENT_CREATED = 'comment_created';
+export const PAYMENT_CREATED = 'payment_created';
 export const SELECTION = 'selection';
 export const RESET_ERROR = 'reset_error';
 export const ERROR = 'error';
 export const RESET = 'reset';
+
+//dashboard reducer
+export const FETCHED_PAYMENTS = 'fetched_payments'

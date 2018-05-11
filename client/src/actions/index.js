@@ -8,11 +8,13 @@ import {
   ALL_POOLS,
   CHART_CREATED,
   COMMENT_CREATED,
-  FETCHED_COMMENTS,
-	SELECTION,
-	ERROR,
-	RESET,
-	RESET_ERROR,
+  PAYMENT_CREATED,
+	FETCHED_COMMENTS,
+	FETCHED_PAYMENTS,
+  SELECTION,
+  ERROR,
+  RESET,
+  RESET_ERROR,
   FETCHED_POOL,
   JOINED
 } from './types';
@@ -84,10 +86,9 @@ export const fetchAllPools = () => async dispatch => {
 
 //Create.js
 export const createChart = values => dispatch => {
-
   let amount = parseInt(values.amount, 0);
   let ppl = parseInt(values.contributors, 0);
-	let rate = values.rate / 100;
+  let rate = values.rate / 100;
 
   let term = ppl - 1;
   let startDate = values.date;
@@ -153,17 +154,11 @@ export const createChart = values => dispatch => {
   };
   chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   let obj = {};
-  const {
-    title,
-    category,
-    description,
-    contributors,
-    date
-	} = values;
+  const { title, category, description, contributors, date } = values;
   obj['info'] = {
     title,
     category,
-		description,
+    description,
     amount,
     contributors,
     rate: rate * 100,
@@ -172,17 +167,29 @@ export const createChart = values => dispatch => {
   obj['users'] = users;
   dispatch({ type: CHART_CREATED, payload: obj });
 };
-export const setError = (err) => {
-	return { 
-		type: ERROR,
-		payload: err
-	}
-}
-export const createPool = (values, history) => async dispatch => {
-	const res = await axios.post('/api/createPool', values);
-	history.push(`/pools/${res.data._id}`);
-	dispatch({ type: RESET });
+export const setError = err => {
+  return {
+    type: ERROR,
+    payload: err
+  };
 };
+export const createPool = (values, history) => async dispatch => {
+  const res = await axios.post('/api/createPool', values);
+  history.push(`/pools/${res.data._id}`);
+  values['poolId'] = res.data._id;
+	dispatch(createPayment(values));
+	dispatch(updateUser(values))
+  dispatch({ type: RESET });
+};
+export const createPayment = values => async dispatch => {
+  await axios.post('/api/createPayment', values);
+  dispatch({ type: PAYMENT_CREATED });
+};
+const updateUser = (values) => async dispatch => {
+	const res = await axios.post('/api/updateUser', values)
+	console.log(res)
+	dispatch({ type: FETCH_USER, payload: res.data })
+}
 
 //Chart.js
 export const resetError = () => {
@@ -218,7 +225,7 @@ export const joined = () => {
 //PoolDetail.js
 export const createComment = values => async dispatch => {
   const res = await axios.post('/api/saveComment', values);
-  dispatch(fetchComments(res.data.pool_id));
+  dispatch(fetchComments(res.data._pool));
   dispatch({ type: COMMENT_CREATED, payload: res.data });
 };
 export const fetchPool = id => async dispatch => {
@@ -234,6 +241,12 @@ export const fetchPool = id => async dispatch => {
 export const fetchComments = id => async dispatch => {
   const res = await axios.get(`/api/comments/${id}`);
   dispatch({ type: FETCHED_COMMENTS, payload: res.data });
+};
+
+//Summary.js
+export const fetchPayments = () => async dispatch => {
+	const res = await axios.get('/api/payments');
+  dispatch({ type: FETCHED_PAYMENTS, payload: res.data });
 };
 
 //multi

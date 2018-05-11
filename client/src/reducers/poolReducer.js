@@ -4,7 +4,8 @@ import {
   SELECTION,
   FETCHED_POOL,
   COMMENT_CREATED,
-  FETCHED_COMMENTS,
+	FETCHED_COMMENTS,
+	PAYMENT_CREATED,
   RESET,
   ERROR,
   RESET_ERROR,
@@ -43,6 +44,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, pool: action.payload };
     case FETCHED_COMMENTS:
       return { ...state, comments: action.payload };
+		case PAYMENT_CREATED:
+      return state;
     case ERROR:
       return { ...state, error: action.payload };
     case RESET_ERROR:

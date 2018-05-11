@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Pool = require('../models/pool');
-const ParticipantSchema = require('../models/participant');
+const ContributorSchema = require('../models/contributor');
 
 exports.create = function(req, res, done) {
   const {
@@ -10,7 +10,7 @@ exports.create = function(req, res, done) {
     contributors,
     rate,
     amount,
-    date,
+    startDate,
     position
 	} = req.body;
 	const name = req.user.first_name + " " + req.user.last_name.charAt(0) + "."
@@ -22,7 +22,7 @@ exports.create = function(req, res, done) {
 		contributors: [{ user: req.user.id, position, name }],
     rate,
     amount,
-		date,
+		startDate,
 		creator: name,
     _user: req.user.id
   });

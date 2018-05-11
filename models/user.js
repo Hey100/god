@@ -16,8 +16,9 @@ const userSchema = new Schema({
   incomeQ: { type: String, required: true },
   email: { type: String, unique: true, lowercase: true, require: true },
   password: { type: String, required: true },
-  ccScore: { type: Number, default: 80 },
-  mlimit: { type: Number, default: 700 }
+	ccScore: { type: Number, required: true, default: 80 },
+	mlimit: { type: Number, required: true, default: 7000 },
+	usedAmount: {type: Number, required: true, default: 0 }
 });
 
 userSchema.pre('save', function(next) {

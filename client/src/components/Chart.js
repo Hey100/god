@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -120,7 +119,7 @@ class Chart extends Component {
 						</tr>
 					</thead>
           <tbody>
-            {_.map(this.props.chart, chart => {
+						{this.props.chart.map(chart => {
               const {
                 cashReceived,
                 cashPaid,

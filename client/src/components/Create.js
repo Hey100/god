@@ -92,19 +92,29 @@ class Create extends Component {
       this.setState({ visible: true });
     }
   }
-  handleSubmit = () => {
-		const { history, createPool, pools } = this.props;
-		let values = {}
-		values['title'] = this.state.title
-		values['description'] = this.state.description
-		values['category'] = this.state.category
-		values['contributors'] = this.state.contributors
-		values['rate'] = this.state.rate
-		values['amount'] = this.state.amount
-		values['date'] = this.state.date
-		values['position'] = pools.selection
-		console.log(values)
-    this.props.createPool(values,history);
+  handleSubmit = chart => {
+    const { history, createPool, pools } = this.props;
+    const startDate = moment(chart[pools.selection].startDate).format('L');
+    const dDate = moment(chart[pools.selection].startDate)
+      .add(pools.selection, 'months')
+      .format('L');
+    const endDate = moment(chart[pools.selection].startDate)
+      .add(chart.length - 1, 'months')
+      .format('L');
+    let values = {};
+    values['title'] = this.state.title;
+    values['description'] = this.state.description;
+    values['category'] = this.state.category;
+    values['contributors'] = this.state.contributors;
+    values['rate'] = this.state.rate;
+    values['amount'] = this.state.amount;
+		values['position'] = pools.selection;
+    values['startDate'] = moment(this.state.date).format('L');
+		values['dDate'] = dDate
+		values['endDate'] = endDate
+		values['monthly'] = chart[pools.selection].monthly;
+		values['disburseAmount'] = chart[pools.selection].tcr;
+    createPool(values, history);
   };
 
   //'render' Functions
@@ -220,32 +230,30 @@ class Create extends Component {
             <table style={{ border: '1px solid black' }}>
               <tbody>
                 <tr>
-                  <th className="tabData">Base Amount</th>
-                  <th className="tabData">Interest Rate</th>
-                  <th className="tabData">Interest Paid/Earned</th>
-                  <th className="tabData">Monthly Payment</th>
-                  <th className="tabData">Cash Paid</th>
-                  <th className="tabData">Cash Available</th>
-                  <th className="tabData">Fee</th>
-                  <th className="tabData">Cash Received</th>
-                  <th className="tabData">Disbursement Date</th>
-                  <th className="tabData">Disbursement Amount</th>
+                  <th>Base Amount</th>
+                  <th>Interest Rate</th>
+                  <th>Interest Paid/Earned</th>
+                  <th>Monthly Payment</th>
+                  <th>Cash Paid</th>
+                  <th>Cash Available</th>
+                  <th>Fee</th>
+                  <th>Disbursement Amount</th>
+                  <th>Disbursement Date</th>
                 </tr>
                 <tr>
-                  <td className="tabData">{position.amount}</td>
-                  <td className="tabData">{position.interestRate}%</td>
-                  <td className="tabData">{position.interestAmount}</td>
-                  <td className="tabData">{position.monthly}</td>
-                  <td className="tabData">{position.cashPaid}</td>
-                  <td className="tabData">{position.cashReceived}</td>
-                  <td className="tabData">${position.fee}</td>
-                  <td className="tabData">{position.tcr}</td>
-                  <td className="tabData">
+                  <td>{position.amount}</td>
+                  <td>{position.interestRate}%</td>
+                  <td>{position.interestAmount}</td>
+                  <td>{position.monthly}</td>
+                  <td>{position.cashPaid}</td>
+                  <td>{position.cashReceived}</td>
+                  <td>${position.fee}</td>
+                  <td>{position.tcr}</td>
+                  <td>
                     {moment(position.startDate)
                       .add(selection, 'months')
                       .format('L')}
                   </td>
-                  <td className="tabData">{position.amount}</td>
                 </tr>
               </tbody>
             </table>
@@ -306,7 +314,7 @@ class Create extends Component {
           </div>
           <textarea
             name="description"
-						className="form-input textarea"
+            className="form-input textarea"
             cols="40"
             rows="10"
             onChange={this.handleChange}
@@ -356,7 +364,7 @@ class Create extends Component {
               <button
                 className="big-btn"
                 type="submit"
-                onClick={() => this.handleSubmit()}
+                onClick={() => this.handleSubmit(chart)}
               >
                 Submit*
               </button>
@@ -370,7 +378,6 @@ class Create extends Component {
 }
 
 const mstp = ({ pools }) => {
-  console.log(pools);
   return { pools };
 };
 
