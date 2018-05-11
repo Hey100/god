@@ -3,12 +3,15 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 40px;
+	padding: 40px 0;
 }
 
 table {
-	margin-bottom: 10px;
 	border-collapse: collapse;
+	margin-bottom: 10px;
+	border: 1px solid #088DA5;
+	overflow-x: auto;
+	overflow-y: initial;
 }
 
 thead {
@@ -18,8 +21,11 @@ thead {
 
 th, td {
 	padding: 20.55px;
-	vertical-align: middle;
 	text-align: center;
+}
+
+td {
+	color: #088DA5;
 }
 
 tbody tr:nth-child(even) {

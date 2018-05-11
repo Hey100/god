@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const Comment = require('../models/comment')
 
 exports.create = function(req, res, done) {
-	console.log(req.body)
 	const name = req.user.first_name + ' ' + req.user.last_name.charAt(0) + '.';
 	const comment = new Comment ({
 		comment: req.body.comment,

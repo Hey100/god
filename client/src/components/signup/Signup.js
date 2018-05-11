@@ -9,9 +9,8 @@ import _ from 'lodash';
 import * as actions from '../../actions/index';
 import SignUpField from './SignUpField';
 import formFields from './formFields';
-import "../styles/global.css";
-import "../styles/media.css";
-
+import '../styles/global.css';
+import '../styles/media.css';
 
 class Signup extends Component {
   renderFields() {
@@ -36,48 +35,45 @@ class Signup extends Component {
     return (
       <div className="form-wrap">
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          {/* <form onSubmit={this.props.handleSubmit(values => console.log(values) */}
-          <div className="form-sec">
-            <Link to="/signin" className="button">
-              Already a member?
-            </Link>
-            <h2 className="text-2">
-              Please provide a few details about yourself
-            </h2>
-            {this.renderFields()}
-          </div>
-          <div className="form-sec">
-            <h2 className="text-2">Save Your Information</h2>
-            <Field
-              className="form-input"
-              component="input"
-              name="email"
-              type="text"
-              placeholder="Email"
-            />
-            <Field
-              className="form-input"
-              component="input"
-              name="password"
-              type="password"
-              placeholder="Password"
-            />
-            <h5 style={{ color: 'orange' }}>
-              Must contain at least 8 characters, including 1 number and 1
-              uppercase letter
-            </h5>
-          </div>
+          <Link to="/signin" className="button">
+            Already a member?
+          </Link>
+          <h2 className="text-2">
+            Please provide a few details about yourself
+          </h2>
+          {this.renderFields()}
+          <h2 className="text-2">Save Your Information</h2>
+          <Field
+            className="form-input"
+            component="input"
+            name="email"
+            type="text"
+            placeholder="Email"
+          />
+          <Field
+            className="form-input"
+            component="input"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
+          <h5 style={{ color: 'orange' }}>
+            Must contain at least 8 characters, including 1 number and 1
+            uppercase letter
+          </h5>
           <div className="signup__terms">
             <div>
               <input type="checkbox" name="accept request" /> By checking the
               box, clicking "agree and see your rate" below, you confirm:
             </div>
-						<ul className="signup__list">
+            <ul className="signup__list">
               <li>
                 You agree to the{' '}
-                <a className="signup__terms-text" href="/">Electronic Communications Policy and Consent</a> and
-                understand that the terms and conditions and other disclosures
-                will be provided to you electronically; and
+                <a className="signup__terms-text" href="/">
+                  Electronic Communications Policy and Consent
+                </a>{' '}
+                and understand that the terms and conditions and other
+                disclosures will be provided to you electronically; and
               </li>
               <li>
                 You agree to the{' '}
@@ -99,8 +95,8 @@ class Signup extends Component {
               Sign Up
             </button>
             <div className="align-center">
-							<LockAlertIcon size={34} color="#000" />
-							Checking your rate won't affect your credit score!
+              <LockAlertIcon size={34} color="#000" />
+              Checking your rate won't affect your credit score!
             </div>
           </div>
           <br />

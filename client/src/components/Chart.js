@@ -3,9 +3,9 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import "./styles/chart.css";
-import "./styles/global.css";
-import "./styles/media.css";
+import './styles/chart.css';
+import './styles/global.css';
+import './styles/media.css';
 import * as actions from '../actions/index';
 
 class Chart extends Component {
@@ -22,7 +22,6 @@ class Chart extends Component {
   }
 
   renderInput = (chart, index) => {
-		console.log(chart)
     if (this.props.user) {
       const { contributors } = this.props.pools.pool;
       let position1;
@@ -43,7 +42,9 @@ class Chart extends Component {
             <td>
               {index + 1} &nbsp;
               <button
-                onClick={() => this.props.joinPool(this.props.params, index, chart.amount)}
+                onClick={() =>
+                  this.props.joinPool(this.props.params, index, chart.amount)
+                }
               >
                 Join
               </button>
@@ -58,11 +59,7 @@ class Chart extends Component {
       } else if (position3 && !this.props.pools.joined) {
         return position3;
       } else {
-        return (
-          <td style={{ padding: '10px', color: 'seagreen' }}>
-            {index + 1}&nbsp;Open{' '}
-          </td>
-        );
+        return <td style={{ padding: '10px', color: 'seagreen' }}>Open </td>;
       }
     } else {
       if (this.props.onCancel && index !== this.props.pools.selection) {
@@ -71,7 +68,6 @@ class Chart extends Component {
       if (index !== this.props.pools.selection) {
         return (
           <td>
-            {index + 1}
             <input
               type="radio"
               name="position"
@@ -91,95 +87,68 @@ class Chart extends Component {
     let newDate = moment(date)
       .add(index, 'months')
       .format('L');
-    return (
-      <td key={date}>
-        {newDate}
-      </td>
-    );
-	};
-	
-	parse = num => {
-		return parseFloat(num).toLocaleString('USD', {
-			style: 'currency',
-			currency: 'USD',
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2
-		});
-	};
+    return <td key={date}>{newDate}</td>;
+  };
+
+  parse = num => {
+    return parseFloat(num).toLocaleString('USD', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
 
   render() {
     return (
-      <div className="chart-wrap">
-        {!this.props.user ? (
-          <h2 className="text-2">3. Pick a Position</h2>
-        ) : null}
-        <table>
-					<thead>
-						<tr>
-							<th>Position</th>
-							<th>Base Amount</th>
-							<th>Interest Rate</th>
-							<th>Interest Paid/Earned*</th>
-							<th>Monthly Payment</th>
-							<th>Cash Paid</th>
-							<th>Cash Available</th>
-							<th>Fee**</th>
-							<th>Cash Received</th>
-							<th>Disbursement Date</th>
-						</tr>
-					</thead>
-          <tbody>
-						{this.props.chart.map(chart => {
-              const {
-                cashReceived,
-                cashPaid,
-                monthly,
-                amount,
-                interestRate,
-                interestAmount,
-                fee,
-                tcr,
-                startDate
-              } = chart;
-              let index = this.props.chart.indexOf(chart);
-              return (
-                <tr key={chart.cashPaid + 1}>
-                  {this.renderInput(chart, index)}
-                  <td
-                    key={chart.cashReceived + chart.amount}
-                  >
-                    {this.parse(amount)}
-                  </td>
-                  <td key={interestRate}>
-                    {interestRate}%
-                  </td>
-                  <td key={interestAmount}>
-                    {this.parse(interestAmount)}
-                  </td>
-                  <td key={monthly}>
-                    {this.parse(monthly)}
-                  </td>
-                  <td key={cashPaid - 1}>
-                    {this.parse(cashPaid)}
-                  </td>
-                  <td key={cashReceived + 1}>
-                    {this.parse(cashReceived)}
-                  </td>
-                  <td key={monthly + 1}>
-                    ${fee}
-                  </td>
-                  <td key={tcr}>
-                    {this.parse(tcr)}
-                  </td>
-                  {this.renderDate(startDate, index)}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <p>*Amount before platform fee</p>
-        <p>**1% Platform Fee (administered on Disbursement Date)</p>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Base Amount</th>
+            <th>Interest Rate</th>
+            <th>Interest Paid/Earned*</th>
+            <th>Monthly Payment</th>
+            <th>Cash Paid</th>
+            <th>Cash Available</th>
+            <th>Fee**</th>
+            <th>Cash Received</th>
+            <th>Disbursement Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.chart.map(chart => {
+            const {
+              cashReceived,
+              cashPaid,
+              monthly,
+              amount,
+              interestRate,
+              interestAmount,
+              fee,
+              tcr,
+              startDate
+            } = chart;
+            let index = this.props.chart.indexOf(chart);
+            return (
+              <tr key={chart.cashPaid + 1}>
+                {this.renderInput(chart, index)}
+                <td key={chart.cashReceived + chart.amount}>
+                  {this.parse(amount)}
+                </td>
+                <td key={interestRate}>{interestRate}%</td>
+                <td key={interestAmount}>{this.parse(interestAmount)}</td>
+                <td key={monthly}>{this.parse(monthly)}</td>
+                <td key={cashPaid - 1}>{this.parse(cashPaid)}</td>
+                <td key={cashReceived + 1}>{this.parse(cashReceived)}</td>
+                <td key={monthly + 1}>${fee}</td>
+                <td key={tcr}>{this.parse(tcr)}</td>
+                {this.renderDate(startDate, index)}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     );
   }
 }

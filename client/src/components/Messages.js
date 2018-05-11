@@ -13,7 +13,6 @@ class Messages extends Component {
   componentDidMount() {
     axios.get("https://randomuser.me/api/?results=10")
       .then(response => {
-        console.log(response.data);
         this.setState({ friends: response.data.results });
       })
       .catch(error => {
@@ -42,7 +41,7 @@ class Messages extends Component {
 		}
     return (
 			
-      <div className="tab" style={{ padding: "0" }}>
+      <div className="message__wrap">
         <div className="message__left">
 					{
 						_.map(this.state.friends, friend => {

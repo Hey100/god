@@ -55,15 +55,9 @@ exports.signup = function(req, res, next) {
 };
 
 exports.update = async (req, res, done) => {
-	console.log(req.body)
-  console.log(parseInt(req.body.amount), typeof req.body.amount);
-  console.log(req.user.usedAmount, typeof req.user.usedAmount);
-  console.log(req.user.mlimit, typeof req.user.mlimit);
-	const amount = parseInt(req.body.amount);
-	console.log(amount)
+  const amount = parseInt(req.body.amount);
 
   if (amount + req.user.usedAmount < req.user.mlimit) {
-    console.log('updating');
     req.user.usedAmount += amount;
     const user = await req.user.save();
     res.send(user);

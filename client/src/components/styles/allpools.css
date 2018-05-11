@@ -1,5 +1,4 @@
 .all__search-bar {
-	width: 100vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -15,7 +14,6 @@
 
 .all__card:hover {
 	transform: scale(1.1);
-	cursor: pointer;
 }
 
 .all__thumbnail {
@@ -23,6 +21,7 @@
 	height: 150px;
 	overflow: hidden;
 	background-size: cover;
+	cursor: pointer;
 }
 
 .all__meter { 
