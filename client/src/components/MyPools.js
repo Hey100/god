@@ -10,44 +10,47 @@ class MyPools extends Component {
   componentDidMount() {
 		this.props.fetchMyPools();
   }
-  renderPools() {
-		if(!this.props.pools[0]){
-			return(
-				<div className="tab">
-					<h1 className="text-1">You don't have pools yet...</h1>
-				</div>
-			);
-		}
-    return this.props.pools.reverse().map(pool => {
-      return (
-        <div className="card darken-1" key={pool._id}>
-          <div className="card-content">
-						<Link 
-							to={`/pools/${pool._id}`}
-						>
+  handlePools() {
+		if (this.props.pools && this.props.auth.user) {
+			if (!this.props.pools[0]) {
+				return (
+					<h1 className="text-1">
+						Your are not part of any pool yet...
+					</h1>
+				);
+			}
+			return this.props.pools.reverse().map(pool => {
+				return (
+					<div className="card" key={pool._id}>
+						<Link to={`/pools/${pool._id}`}>
 							{pool.title}
 						</Link>
-            <p>{pool.title}</p>
-            <p>{pool.category}</p>
-            <p>{pool.description}</p>
+						<p>{pool.title}</p>
+						<p>{pool.category}</p>
+						<p>{pool.description}</p>
 						<p>{pool.numOfContributors}</p>
-            <p>{pool.rate}</p>
-            <p>{this.props.auth.user.first_name}</p>
-            <p>{pool.amount}</p>
-          </div>
-        </div>
-      );
-    });
+						<p>{pool.rate}</p>
+						<p>{this.props.auth.user.first_name}</p>
+						<p>{pool.amount}</p>
+					</div>
+				);
+			});
+		} else {
+			return (
+				<h1 className="text-1">Your pools are loading...</h1>
+			)
+		}
   }
 
   render() {
-    if (this.props.pools && this.props.auth.user) {
-      return <div className="tab">{this.renderPools()}</div>;
-    } else {
-      return <div className="tab">
-				<h1 className="text-1">Loading...</h1>
-			</div>;
-    }
+		return <div className="tab">
+			<h1 className="tab-title">
+				My Pools
+			</h1>
+			<div className="tab-box">
+				{this.handlePools()}
+			</div>
+		</div>;
   }
 }
 

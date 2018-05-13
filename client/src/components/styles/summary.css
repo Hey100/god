@@ -1,0 +1,27 @@
+.summary__score {
+	flex-direction: column;
+	justify-content: center; 
+	align-items: center;
+	text-align: center;
+	padding: 20px;
+}
+
+.summary__score > h1 {
+	font-size: 5em;
+	background-color: #6DC666;
+}
+
+.summary__donut {
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.summary__allowance {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+}
+
+.summary__allowance > h2 {
+	justify-content: space-between;
+}
