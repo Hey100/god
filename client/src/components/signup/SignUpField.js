@@ -31,7 +31,7 @@ export default ({
 const renderDropdown = (input) => {
 	return (
 	<select {...input} className="form-input select">
-          <option value="" />
+					<option value="">State</option>
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>
           <option value="AS">American Samoa</option>

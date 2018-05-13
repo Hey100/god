@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   AUTH_USER,
   AUTH_ERROR,
-  UNAUTH_USER,
+	UNAUTH_USER,
+	RESET_AUTH_ERROR,
   FETCH_USER,
   MY_POOLS,
   ALL_POOLS,
@@ -38,26 +39,29 @@ export const onLogin = ({ email, password }, history) => {
 };
 
 //Signup.js
-export const onSignUp = (values, history) => {
-  return dispatch => {
-    axios
-      .post('/api/signup', values)
-      .then(res => {
-        dispatch({ type: AUTH_USER });
-        dispatch({ type: FETCH_USER, payload: res.data.user });
-        localStorage.setItem('token', res.data.token);
-        history.push('/dashboard');
-      })
-      .catch(({ response }) => {
-        dispatch(authError(response.data.error));
-      });
-  };
+export const onSignUp = (values, history) => async dispatch => {
+  try {
+		const res = await axios.post('/api/signup', values);
+		console.log(res)
+		dispatch({ type: AUTH_USER });
+		dispatch({ type: FETCH_USER, payload: res.data.user });
+		localStorage.setItem('token', res.data.token);
+		history.push('/dashboard');
+  } catch (error) {
+    dispatch(authError(error.response.data));
+  }
+
 };
 export const authError = error => {
   return {
     type: AUTH_ERROR,
     payload: error
   };
+};
+export const resetAuthError = () => {
+	return {
+		type: RESET_AUTH_ERROR
+	};
 };
 
 //Logout.js
@@ -92,7 +96,7 @@ export const createChart = values => dispatch => {
   let rate = values.rate / 100;
 
   let term = ppl - 1;
-  let startDate = values.date;
+  let startDate = values.startDate;
   let cashInterval = amount * rate / term;
   let paymentInterval = cashInterval / term;
   let basePayment = amount / term;
@@ -109,14 +113,14 @@ export const createChart = values => dispatch => {
       let y = amount + cashInterval * [i];
       let z = basePayment + paymentInterval * [i];
       let result = {
-        cashReceived: x ,
+        cashReceived: x,
         cashPaid: y,
         monthly: z,
-				amount,
+        amount,
         interestRate: parseFloat((y - x) / y * 100).toFixed(2),
-        interestAmount: (y - x),
+        interestAmount: y - x,
         fee: parseFloat(amount * 0.01),
-        tcr: (x - amount * 0.01),
+        tcr: x - amount * 0.01,
         startDate,
         ppl
       };
@@ -125,7 +129,7 @@ export const createChart = values => dispatch => {
   };
   chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
   let obj = {};
-  const { title, category, description, contributors, date } = values;
+  const { title, category, description, contributors } = values;
   obj['info'] = {
     title,
     category,
@@ -133,7 +137,7 @@ export const createChart = values => dispatch => {
     amount,
     contributors,
     rate: rate * 100,
-    date
+    startDate
   };
   obj['users'] = users;
   dispatch({ type: CHART_CREATED, payload: obj });
@@ -178,17 +182,21 @@ export const setSelection = selection => {
     payload: selection
   };
 };
-export const joinPool = (id, position, amount) => async dispatch => {
-  let amountObj = { amount };
+export const joinPool = (poolId, position, chart) => async dispatch => {
+  console.log(chart);
+  console.log(poolId);
+  console.log(position);
   try {
-		await dispatch(updateUser(amountObj));
-    let obj = { id, position };
+    await dispatch(updateUser(chart));
+    let obj = { poolId, position };
     const res = await axios.post('/api/joinPool', obj);
+    console.log(res.data);
     let obj2 = {};
     obj2['amount'] = res.data.amount;
     obj2['contributors'] = res.data.numOfContributors;
-    obj2['date'] = res.data.date;
+    obj2['startDate'] = res.data.startDate;
     obj2['rate'] = res.data.rate;
+    dispatch(createPayment(chart));
     dispatch(createChart(obj2));
     dispatch({ type: FETCHED_POOL, payload: res.data });
   } catch (error) {
@@ -213,7 +221,7 @@ export const fetchPool = id => async dispatch => {
   let obj = {};
   obj['amount'] = res.data.amount;
   obj['contributors'] = res.data.numOfContributors;
-  obj['date'] = res.data.date;
+  obj['startDate'] = res.data.startDate;
   obj['rate'] = res.data.rate;
   dispatch(createChart(obj));
   dispatch({ type: FETCHED_POOL, payload: res.data });

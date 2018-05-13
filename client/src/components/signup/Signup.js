@@ -13,6 +13,17 @@ import '../styles/global.css';
 import '../styles/media.css';
 
 class Signup extends Component {
+  state = {
+    agree: false
+  };
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+  componentWillUnmount() {
+    this.props.resetAuthError();
+  }
+
   renderFields() {
     return _.map(formFields, ({ label, name, type, placeholder }) => {
       return (
@@ -28,12 +39,26 @@ class Signup extends Component {
   }
 
   onSubmit = values => {
+    if (!this.state.agree) {
+      this.setState({
+        agreeErr: 'You must agree to our terms and conditions before signing up'
+      });
+    } else {
+    }
     this.props.onSignUp(values, this.props.history);
+  };
+
+  handleChange = event => {
+    this.state.agreeErr ? this.setState({ agreeErr: '' }) : null;
+    this.setState({ agree: !this.state.agree });
   };
 
   render() {
     return (
       <div className="form-wrap">
+        {this.props.auth.error ? (
+          <h2 className="alert">{this.props.auth.error}</h2>
+        ) : null}
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <Link to="/signin" className="button">
             Already a member?
@@ -62,9 +87,15 @@ class Signup extends Component {
             uppercase letter
           </h5>
           <div className="signup__terms">
+            <h2 className="alert">{this.state.agreeErr}</h2>
             <div>
-              <input type="checkbox" name="accept request" /> By checking the
-              box, clicking "agree and see your rate" below, you confirm:
+              <input
+                onChange={this.handleChange}
+                type="checkbox"
+                name="accept request"
+              />{' '}
+              By checking the box, clicking "agree and see your rate" below, you
+              confirm:
             </div>
             <ul className="signup__list">
               <li>
@@ -114,11 +145,18 @@ const validate = values => {
       errors[name] = noValueError;
     }
   });
+  if (errors['address2']) {
+    errors['address2'] = null;
+  }
   return errors;
 };
 
+const mstp = ({ auth }) => {
+  return { auth };
+};
+
 export default withRouter(
-  connect(null, actions)(
+  connect(mstp, actions)(
     reduxForm({
       validate,
       form: 'registerForm'

@@ -9,7 +9,6 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// mongoose.connect('mongodb://localhost:27017/localStrategyTest');
 mongoose.connect(
   'mongodb://Michael:pe0pool@ds163689.mlab.com:63689/peopool'
 );

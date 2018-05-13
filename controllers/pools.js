@@ -35,10 +35,10 @@ exports.create = function(req, res, done) {
 };
 
 exports.join = function(req, res, done) {
-	Pool.findById(req.body.id, function(err, pool) {
+	Pool.findById(req.body.poolId, function(err, pool) {
 		if(err) return done(err)
 		const name = req.user.first_name+" "+ req.user.last_name.charAt(0)+"."
-		pool.contributors.push({ user: req.user.id, name, position: req.body.position,  })
+		pool.contributors.push({ user: req.user.id, name, position: req.body.position })
 		pool.save(err => {
 			if(err) return done(err)
 			res.send(pool)

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import moment from 'moment';
+// import Modal from 'react-modal';
 
 import './styles/chart.css';
 import './styles/global.css';
@@ -12,7 +13,8 @@ class Chart extends Component {
   state = {
     counter: 1,
     joined: false,
-    error: ''
+    error: '',
+    visible: false
   };
 
   selection(selection) {
@@ -21,9 +23,54 @@ class Chart extends Component {
     this.props.setSelection(selection);
   }
 
+  renderModal = (index, chart) => {
+    console.log(chart.monthly);
+    const months = this.props.pools.chart.length;
+    const date = moment(chart.startDate, 'YYYY/MM/DD');
+    const day = date.format('Do');
+    if (this.state.visible) {
+      return (
+        <div className="modal">
+          <h5 style={{ width: '535px' }}>
+            *By clicking "Submit", you agree to pay {this.parse(chart.monthly)}{' '}
+            every {day} of the month (except on your disbursement date) for the
+            next {months} months, upon the commencement of this pool.
+          </h5>
+          <button
+            className="button"
+            onClick={() => this.props.joinPool(this.props.params, index, chart. this.props.title)}
+          >
+            Submit
+          </button>
+          <button className="cancel" onClick={() => this.changeVisibility()}>
+            Cancel
+          </button>
+        </div>
+      );
+    } else return null;
+  };
+
+  changeVisibility = () => {
+    this.setState({ visible: !this.state.visible });
+  };
+
   renderInput = (chart, index) => {
     if (this.props.user) {
-      const { contributors } = this.props.pools.pool;
+      // const months = this.props.pools.chart.length;
+      // const date = moment(chart.startDate, 'YYYY/MM/DD');
+      // const day = date.format('Do');
+      const { params, title } = this.props;
+			const { contributors } = this.props.pools.pool;
+			chart['startDate'] = moment(chart.startDate).format('L');
+			chart['dDate'] = moment(chart.startDate)
+				.add(index, 'months')
+				.format('L');
+			chart['endDate'] = moment(chart.startDate)
+				.add(index - 1, 'months')
+				.format('L');
+			chart['poolId'] = params
+			chart['disburseAmount'] = chart.tcr;
+			chart['title'] = title
       let position1;
       let position2;
       let position3;
@@ -41,9 +88,11 @@ class Chart extends Component {
           position3 = (
             <td>
               {index + 1} &nbsp;
+              {/* {this.renderModal(index, chart)} */}
+              {/* <button onClick={() => this.changeVisibility()}>Join</button> */}
               <button
                 onClick={() =>
-                  this.props.joinPool(this.props.params, index, chart.amount)
+                  this.props.joinPool(params, index, chart)
                 }
               >
                 Join
@@ -131,18 +180,16 @@ class Chart extends Component {
             } = chart;
             let index = this.props.chart.indexOf(chart);
             return (
-              <tr key={chart.cashPaid + 1}>
+              <tr key={chart.cashPaid}>
                 {this.renderInput(chart, index)}
-                <td key={chart.cashReceived + chart.amount}>
-                  {this.parse(amount)}
-                </td>
-                <td key={interestRate}>{interestRate}%</td>
-                <td key={interestAmount}>{this.parse(interestAmount)}</td>
-                <td key={monthly}>{this.parse(monthly)}</td>
-                <td key={cashPaid - 1}>{this.parse(cashPaid)}</td>
-                <td key={cashReceived + 1}>{this.parse(cashReceived)}</td>
-                <td key={monthly + 1}>${fee}</td>
-                <td key={tcr}>{this.parse(tcr)}</td>
+                <td>{this.parse(amount)}</td>
+                <td>{interestRate}%</td>
+                <td>{this.parse(interestAmount)}</td>
+                <td>{this.parse(monthly)}</td>
+                <td>{this.parse(cashPaid)}</td>
+                <td>{this.parse(cashReceived)}</td>
+                <td>${fee}</td>
+                <td>{this.parse(tcr)}</td>
                 {this.renderDate(startDate, index)}
               </tr>
             );

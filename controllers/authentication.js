@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jwt-simple');
 const config = require('../config');
+const _ = require('lodash')
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
@@ -13,7 +14,10 @@ exports.signin = function(req, res, next) {
 
 exports.signup = function(req, res, next) {
   const email = req.body.email;
-  const password = req.body.password;
+	const password = req.body.password;
+	const phone = req.body.phone.replace(/[^a-zA-Z0-9 ]/g, "");
+	const first_name = _.capitalize(req.body.first_name)
+	const last_name = _.capitalize(req.body.last_name)
 
   if (!email || !password) {
     return res
@@ -30,15 +34,15 @@ exports.signup = function(req, res, next) {
       return res.status(422).send({ error: 'Email is already in use' });
     }
     const user = new User({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
+      first_name,
+      last_name,
       dob: req.body.dob,
       address1: req.body.address1,
       address2: req.body.address2,
       city: req.body.city,
       state: req.body.state,
       zip: req.body.zip,
-      phone: req.body.phone,
+      phone,
       savingsQ: req.body.savingsQ,
       incomeQ: req.body.incomeQ,
       email: email,
@@ -55,15 +59,15 @@ exports.signup = function(req, res, next) {
 };
 
 exports.update = async (req, res, done) => {
-  const amount = parseInt(req.body.amount);
+  const monthly = parseInt(req.body.monthly);
 
-  if (amount + req.user.usedAmount < req.user.mlimit) {
-    req.user.usedAmount += amount;
+  if (monthly + req.user.usedAmount <= req.user.mlimit) {
+    req.user.usedAmount += monthly;
     const user = await req.user.save();
     res.send(user);
   } else {
     return res
       .status(422)
-      .send({ error: 'Participating in this pool exceeds your limit' });
+      .send({ error: 'Participating in this pool exceeds your monthly limit' });
   }
 };

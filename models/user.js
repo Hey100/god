@@ -7,7 +7,7 @@ const userSchema = new Schema({
   last_name: { type: String, required: true },
   dob: { type: String, required: true },
   address1: { type: String, required: true },
-  address2: { type: String, required: true },
+  address2: { type: String },
   city: { type: String, required: true },
   state: { type: String, required: true },
   zip: { type: Number, required: true },
@@ -17,7 +17,7 @@ const userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true, require: true },
   password: { type: String, required: true },
 	ccScore: { type: Number, required: true, default: 80 },
-	mlimit: { type: Number, required: true, default: 7000 },
+	mlimit: { type: Number, required: true, default: 700 },
 	usedAmount: {type: Number, required: true, default: 0 }
 });
 

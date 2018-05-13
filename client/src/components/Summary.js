@@ -24,7 +24,7 @@ class Summary extends Component {
     const disbursementInfo = (
       <h5>
         {now < moment(payment.dDate) ? 'You will receive ' : 'You received '}
-        {payment.disburseAmount} on {dDate}
+        {this.parseII(payment.disburseAmount)} on {dDate}
       </h5>
     );
     if (now > endDate) {
@@ -37,7 +37,7 @@ class Summary extends Component {
           <div>
             {disbursementInfo}
             <h5>
-              {payment.monthly} will be due on {parseInt(nowMonth, 0) + 1}/{
+              {this.parseII(payment.monthly)} will be due on {parseInt(nowMonth, 0) + 1}/{
                 poolDay
               }
             </h5>
@@ -47,7 +47,7 @@ class Summary extends Component {
         return (
           <div>
             <h5>
-              {payment.monthly} is due on {nowMonth}/{poolDay}
+              {this.parseII(payment.monthly)} is due on {nowMonth}/{poolDay}
             </h5>
             {disbursementInfo}
           </div>
@@ -57,7 +57,7 @@ class Summary extends Component {
       return (
         <div>
           <h5>
-            {payment.monthly} is due on {parseInt(nowMonth, 0) + 1}/{poolDay}
+            {this.parseII(payment.monthly)} is due on {parseInt(nowMonth, 0) + 1}/{poolDay}
           </h5>
           {disbursementInfo}
         </div>
@@ -71,6 +71,14 @@ class Summary extends Component {
       currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
+    });
+  };
+  parseII = num => {
+    return parseFloat(num).toLocaleString('USD', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     });
   };
 
