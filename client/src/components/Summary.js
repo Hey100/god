@@ -27,24 +27,19 @@ class Summary extends Component {
         {this.parseII(payment.disburseAmount)} on {dDate}
       </h5>
     );
-    if (now < endDate) {
-      console.log('continue');
-			this.props.calculateLimit({ monthly: payment.monthly, id: payment._id})
-    }
-    if (now > endDate && !payment.expired) {
-			console.log('calculating')
-      this.props.calculateLimit({ monthly: payment.monthly, id: payment._id})
-      /* continue */
-    }
-    if (nowDay <= poolDay) {
+    if (now > endDate) {
+      return <i>This pool ended on {endDate.format('L')}</i>;
+    } else if (now < endDate && !payment.expired) {
+      this.props.calculateLimit({ monthly: payment.monthly, id: payment._id });
+			return <i>This pool ended on {endDate.format('L')}</i>;
+    } else if (nowDay <= poolDay) {
       if (nowMonth === dMonth) {
         return (
           <div>
             {disbursementInfo}
             <h5>
-              {this.parseII(payment.monthly)} will be due on {parseInt(nowMonth, 0) + 1}/{
-                poolDay
-              }
+              {this.parseII(payment.monthly)} will be due on{' '}
+              {parseInt(nowMonth, 0) + 1}/{poolDay}
             </h5>
           </div>
         );
@@ -62,7 +57,8 @@ class Summary extends Component {
       return (
         <div>
           <h5>
-            {this.parseII(payment.monthly)} is due on {parseInt(nowMonth, 0) + 1}/{poolDay}
+            {this.parseII(payment.monthly)} is due on{' '}
+            {parseInt(nowMonth, 0) + 1}/{poolDay}
           </h5>
           {disbursementInfo}
         </div>
@@ -89,16 +85,16 @@ class Summary extends Component {
 
   render() {
     const { payments } = this.props.dash;
-		const { ccScore, mlimit, usedAmount } = this.props.auth.user;
+    const { ccScore, mlimit, usedAmount } = this.props.auth.user;
     // if (!payments) {
     //   return <div>LOADING>>>>>>></div>;
-		// }
-		const usage = ((usedAmount / mlimit)* 100).toFixed(0)
+    // }
+    const usage = (usedAmount / mlimit * 100).toFixed(0);
     let data = {
         labels: ['Spent', 'Remaining'],
         datasets: [
           {
-            data: [usedAmount, (mlimit-usedAmount)],
+            data: [usedAmount, mlimit - usedAmount],
             backgroundColor: ['#72E5BE', '#FAFAFA'],
             borderColor: ['transparent', 'transparent']
           }
@@ -131,7 +127,9 @@ class Summary extends Component {
             <h2 className="text-2">TOTAL ALLOWED: {this.parse(mlimit)}</h2>
             <h2 className="text-2">TOTAL USED: {this.parse(usedAmount)}</h2>
             <hr />
-            <h2 className="text-2">TOTAL LEFT: {this.parse(mlimit - usedAmount)}</h2>
+            <h2 className="text-2">
+              TOTAL LEFT: {this.parse(mlimit - usedAmount)}
+            </h2>
           </div>
         </div>
         <div style={{ paddingLeft: '50px' }}>
@@ -162,25 +160,25 @@ class Summary extends Component {
 const mstp = ({ auth, dash }) => {
   return { auth, dash };
   // return (
-	// 	<div className="tab">
-	// 		<div className="card">
-	// 			<div>
-	// 				<h2 className="text-1">Your CC Score:</h2>
-	// 				<h1 className="big-btn">80</h1>
-	// 			</div>
-	// 			<div className="canvas-wrap">
-	// 				<Doughnut data={data} options={options} height={300} />
-	// 			</div>
-	// 			<div className="sumary__chart">
-	// 				<div className="sumary__allowance">
-	// 					<h2 className="text-2">TOTAL ALLOWED: $7,000</h2>
-	// 					<h2 className="text-2">TOTAL USED: $4,564</h2>
-	// 					<hr />
-	// 					<h2 className="text-2">TOTAL LEFT: $2,436</h2>
-	// 				</div>
-	// 			</div>
-	// 		</div>
-	// 	</div>
+  // 	<div className="tab">
+  // 		<div className="card">
+  // 			<div>
+  // 				<h2 className="text-1">Your CC Score:</h2>
+  // 				<h1 className="big-btn">80</h1>
+  // 			</div>
+  // 			<div className="canvas-wrap">
+  // 				<Doughnut data={data} options={options} height={300} />
+  // 			</div>
+  // 			<div className="sumary__chart">
+  // 				<div className="sumary__allowance">
+  // 					<h2 className="text-2">TOTAL ALLOWED: $7,000</h2>
+  // 					<h2 className="text-2">TOTAL USED: $4,564</h2>
+  // 					<hr />
+  // 					<h2 className="text-2">TOTAL LEFT: $2,436</h2>
+  // 				</div>
+  // 			</div>
+  // 		</div>
+  // 	</div>
   // );
 };
 

@@ -27,14 +27,22 @@ exports.create = function(req, res, done) {
   });
 };
 
-exports.calculate = async function(req, res, done) {
+exports.calculate = async (req, res, done) => {
   console.log(req.body, 'yay');
-  Payment.findById(req.body.id , (err, payment) => {
-		if(err) console.log(err)
-		// payment.update({
-		// 	expired: true
-		// })
-		// await payment.save()
-		// res.send(payment)
-	});
+	Payment.findByIdAndUpdate(
+		req.body.id,
+		{ $set: { expired: true } },
+		{ new: true },
+		async (err, payment) => {
+			if (err) return done(err);
+		}
+	);
+try {
+		req.user.usedAmount -= req.body.monthly;
+		const user = await req.user.save();
+		console.log(user)
+		res.send(user);
+  } catch (error) {
+    res.status(422);
+  }
 };
