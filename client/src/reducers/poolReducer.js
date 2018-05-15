@@ -60,7 +60,8 @@ export default function(state = INITIAL_STATE, action) {
         chart: null,
         selection: '',
         pool: null,
-        joined: false
+				joined: false,
+				createError: ''
       };
     default:
       return state;

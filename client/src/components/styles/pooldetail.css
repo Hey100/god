@@ -1,16 +1,53 @@
+.pool__box {
+	flex-direction: column;
+	align-items: center;
+	padding-top: 0px;
+}
+
+.pool__details {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	width: calc(100% - 40px);
+}
+
+.pool__card {
+	flex: 1;
+	min-height: 400px;
+	margin: 40px 0;
+	padding: 40px;
+	background: linear-gradient(to top right, #EDEDED, #FAFAFA);
+}
+
+.pool__thumb {
+	width: 600px;
+	margin-right: 40px;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center;
+}
+
+.pool__text {
+	font-size: 2em;
+	color: gray;
+	margin-bottom: 20px;
+}
+
 .pool__comments-wrap {	
-	width: 66%;
+	display: flex;
+	flex-direction: column;
 	margin: 20px;
 	padding: 20px 40px;
-	border-radius: 20px;
+	justify-content: center;
 	text-align: center;
+	background: linear-gradient(to top right, #EDEDED, #FAFAFA);
 }
 
 .pool__comment {
 	display: flex;
 	flex-wrap: nowrap;
 	border-radius: 5px;
-	background: linear-gradient(left, rgba(229, 229, 229, 0.2),rgba(229, 229, 229, 0.4));	
+	background: linear-gradient(to left, rgba(229, 229, 229, 0.2),rgba(229, 229, 229, 0.4));	
 	margin: 10px;
 	text-align: start;
 }
@@ -41,18 +78,20 @@
 .pool__form-input {
 	height: 50px;
 	width: 500px;
-	border: 1px solid dodgerblue;
-	color: dodgerblue;
-	border-radius: 5px;
 	padding: 10px 20px;
 	margin: 10px;
+	border: 1px solid dodgerblue;
+	border-radius: 5px;
+	background-color: white;
+	color: dodgerblue;
 }
 
 .pool__form-submit {
 	height: 50px;
 	width: 100px;
+	padding: 10px;
 	border: 1px solid dodgerblue;
 	color: dodgerblue;
+	background-color: white;
 	border-radius: 5px;
-	padding: 10px;
 }

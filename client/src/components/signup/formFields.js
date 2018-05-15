@@ -30,8 +30,7 @@ export default [
     label: 'Address Line#2',
     name: 'address2',
     type: 'text',
-    placeholder: 'Enter a Location',
-    noValueError: 'Required Field'
+    placeholder: 'Enter a Location'
   },
   {
     label: 'City',
@@ -49,8 +48,8 @@ export default [
   {
     label: 'Zip Code',
     name: 'zip',
-		type: 'text',
-		placeholder: 'Zip Code',
+    type: 'text',
+    placeholder: 'Zip Code',
     noValueError: 'Required Field'
   },
   {

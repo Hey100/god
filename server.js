@@ -9,13 +9,13 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// mongoose.connect('mongodb://localhost:27017/localStrategyTest');
 mongoose.connect(
   'mongodb://Michael:pe0pool@ds163689.mlab.com:63689/peopool'
 );
 
 //app setup
 app.use(morgan('combined'));
+app.use('/uploads', express.static('uploads'))
 app.use(cors());
 app.use(
   cookieSession({
@@ -26,7 +26,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(bodyParser.json({ type: '*/*' }));
+app.use(bodyParser.json());
 router(app);
 
 const port = process.env.PORT || 5000;

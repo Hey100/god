@@ -13,6 +13,7 @@ const poolSchema = new Schema({
   amount: { type: String, required: true },
   startDate: { type: Date, required: true },
   creator: { type: String, required: true },
+  poolPic: { type: String, required: true },
   _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 

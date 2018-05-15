@@ -23,23 +23,23 @@ class Summary extends Component {
     const nowMonth = moment().format("M");
     const disbursementInfo = (
       <h5>
-        {now < moment(payment.dDate) ? "You will receive " : "You received "}
-        {payment.disburseAmount} on {dDate}
+        {now < moment(payment.dDate) ? 'You will receive ' : 'You received '}
+        {this.parseII(payment.disburseAmount)} on {dDate}
       </h5>
     );
     if (now > endDate) {
-      console.log("continue");
-      /* continue */
-    }
-    if (nowDay <= poolDay) {
+      return <i>This pool ended on {endDate.format('L')}</i>;
+    } else if (now < endDate && !payment.expired) {
+      this.props.calculateLimit({ monthly: payment.monthly, id: payment._id });
+			return <i>This pool ended on {endDate.format('L')}</i>;
+    } else if (nowDay <= poolDay) {
       if (nowMonth === dMonth) {
         return (
           <div>
             {disbursementInfo}
             <h5>
-              {payment.monthly} will be due on {parseInt(nowMonth, 0) + 1}/{
-                poolDay
-              }
+              {this.parseII(payment.monthly)} will be due on{' '}
+              {parseInt(nowMonth, 0) + 1}/{poolDay}
             </h5>
           </div>
         );
@@ -47,7 +47,7 @@ class Summary extends Component {
         return (
           <div>
             <h5>
-              {payment.monthly} is due on {nowMonth}/{poolDay}
+              {this.parseII(payment.monthly)} is due on {nowMonth}/{poolDay}
             </h5>
             {disbursementInfo}
           </div>
@@ -57,7 +57,8 @@ class Summary extends Component {
       return (
         <div>
           <h5>
-            {payment.monthly} is due on {parseInt(nowMonth, 0) + 1}/{poolDay}
+            {this.parseII(payment.monthly)} is due on{' '}
+            {parseInt(nowMonth, 0) + 1}/{poolDay}
           </h5>
           {disbursementInfo}
         </div>
@@ -72,7 +73,15 @@ class Summary extends Component {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     });
-	};
+  };
+  parseII = num => {
+    return parseFloat(num).toLocaleString('USD', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
 	
 	handleSchedule = () => {
 		const { payments } = this.props.dash;
@@ -86,7 +95,7 @@ class Summary extends Component {
 							onClick={() => {
 								this.props.history.push(`/pools/${payment._pool}`);
 							}}
-							className="button"
+							className="link"
 						>{payment.title}
 						</button>
 						{this.renderSchedule(payment)}
@@ -104,8 +113,8 @@ class Summary extends Component {
         datasets: [
           {
             data: [usedAmount, mlimit - usedAmount],
-            backgroundColor: ["#72E5BE", "#FAFAFA"],
-            borderColor: ["transparent", "transparent"]
+            backgroundColor: ['#72E5BE', '#FAFAFA'],
+            borderColor: ['transparent', 'transparent']
           }
         ]
       },
@@ -127,11 +136,11 @@ class Summary extends Component {
       <div className="tab">
         <h1 className="tab-title">Home</h1>
         <div className="tab-box">
-					<div className="card info-1 summary__score">
+					<div className="card summary__score">
 						<h2 className="text-2">Your Community Capital score is:</h2>
 						<h1 className="big-btn">{ccScore}</h1>
 					</div>
-					<div className="card info-1">
+					<div className="card">
 						<div className="summary__donut">
 							<Doughnut data={data} options={options} height={300} />
 						</div>
@@ -144,7 +153,7 @@ class Summary extends Component {
 							</h2>
 						</div>
 					</div>
-					<div className="card info-2">
+					<div className="card">
 						<h2 className="text-2">Contribution Schedule:</h2>
 						{this.handleSchedule()}
 					</div>
