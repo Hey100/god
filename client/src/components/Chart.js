@@ -24,7 +24,6 @@ class Chart extends Component {
   }
 
   renderModal = (index, chart) => {
-    console.log(chart.monthly);
     const months = this.props.pools.chart.length;
     const date = moment(chart.startDate, 'YYYY/MM/DD');
     const day = date.format('Do');

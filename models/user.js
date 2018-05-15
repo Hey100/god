@@ -14,7 +14,7 @@ const userSchema = new Schema({
   phone: { type: Number, required: true },
   savingsQ: { type: String, required: true },
   incomeQ: { type: String, required: true },
-  email: { type: String, unique: true, lowercase: true, require: true },
+  email: { type: String, unique: true, lowercase: true, required: true },
   password: { type: String, required: true },
 	ccScore: { type: Number, required: true, default: 80 },
 	mlimit: { type: Number, required: true, default: 700 },
@@ -22,6 +22,7 @@ const userSchema = new Schema({
 });
 
 userSchema.pre('save', function(next) {
+	if (!this.isModified('password')) return next();
   const user = this;
 
   bcrypt.genSalt(10, function(err, salt) {

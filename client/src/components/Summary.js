@@ -29,7 +29,7 @@ class Summary extends Component {
     );
     if (now > endDate) {
       return <i>This pool ended on {endDate.format('L')}</i>;
-    } else if (now < endDate && !payment.expired) {
+    } else if (now > endDate && !payment.expired) {
       this.props.calculateLimit({ monthly: payment.monthly, id: payment._id });
 			return <i>This pool ended on {endDate.format('L')}</i>;
     } else if (nowDay <= poolDay) {

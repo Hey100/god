@@ -26,11 +26,9 @@ class PoolDetail extends Component {
   };
 
   handleSubmit = event => {
-    console.log('handling');
     if (!this.props.auth.user) {
       this.redirect();
     } else {
-      console.log('creating comment');
       this.props.createComment({
         comment: this.state.value,
         poolId: this.props.match.params.id

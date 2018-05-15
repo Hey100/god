@@ -3,7 +3,6 @@ const Pool = require('../models/pool');
 const ContributorSchema = require('../models/contributor');
 
 exports.create = function(req, res, done) {
-	console.log(req.body)
   const {
     title,
     description,
