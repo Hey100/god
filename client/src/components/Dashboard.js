@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { HomeIcon, ChartGanttIcon, BankIcon, AccountMultipleIcon, ForumIcon } from "mdi-react";
 
+import "./styles/media.css";
 import "./styles/dashboard.css";
 import "./styles/global.css";
-import "./styles/media.css";
 import * as actions from '../actions/index';
 import Summary from './Summary';
 import MyPools from './MyPools';
@@ -12,7 +13,7 @@ import Friends from './Friends';
 import Messages from './Messages';
 
 class Dashboard extends Component {
-  state = { section: 'summary' };
+  state = { section: "summary" };
 
   componentDidMount() {
     if (this.props.pool.chart) {
@@ -22,19 +23,26 @@ class Dashboard extends Component {
 
   handleSection = () => {
     switch (this.state.section) {
-      case 'summary':
+      case "summary":
         return <Summary history={this.props.history} />;
-      case 'myPools':
+      case "myPools":
         return <MyPools />;
-      case 'bank':
+      case "bank":
         return (
           <div className="tab">
-            <h1 className="text-1">BANK INFO</h1>
+						<h1 className="tab-title">
+							Banking Information
+						</h1>
+						<div className="tab-box">
+							<h1 className="text-1">
+								No Information has been added yet...
+							</h1>
+						</div>
           </div>
         );
-      case 'friends':
+      case "friends":
         return <Friends />;
-      case 'messages':
+      case "messages":
         return <Messages />;
       default:
         return <p>ERROR</p>;
@@ -43,9 +51,15 @@ class Dashboard extends Component {
 
   isActive = button => {
     if (this.state.section === button) {
-      return { color: 'skyblue' };
+      return { backgroundColor: "dodgerblue", color: "white" };
     }
-    return;
+  };
+
+  isActiveIcon = button => {
+    if (this.state.section === button) {
+      return "white";
+		}
+		return "dodgerblue";
   };
 
   render() {
@@ -57,33 +71,41 @@ class Dashboard extends Component {
         <div className="dash__nav">
           <button
             className="dash__button"
-            style={this.isActive('summary')}
-            onClick={() => this.setState({ section: 'summary' })}
-					>Summary
+            style={this.isActive("summary")}
+            onClick={() => this.setState({ section: "summary" })}
+          >
+            <HomeIcon size={44} color={this.isActiveIcon("summary")} />
           </button>
           <button
             className="dash__button"
-            style={this.isActive('myPools')}
-            onClick={() => this.setState({ section: 'myPools' })}
-					>My pools
+            style={this.isActive("myPools")}
+            onClick={() => this.setState({ section: "myPools" })}
+          >
+            <ChartGanttIcon size={44} color={this.isActiveIcon("myPools")} />
           </button>
           <button
             className="dash__button"
-            style={this.isActive('bank')}
-            onClick={() => this.setState({ section: 'bank' })}
-					>Bank Info
+            style={this.isActive("bank")}
+            onClick={() => this.setState({ section: "bank" })}
+          >
+            <BankIcon size={44} color={this.isActiveIcon("bank")} />
           </button>
           <button
             className="dash__button"
-            style={this.isActive('friends')}
-            onClick={() => this.setState({ section: 'friends' })}
-					>Friends
+            style={this.isActive("friends")}
+            onClick={() => this.setState({ section: "friends" })}
+          >
+            <AccountMultipleIcon
+              size={44}
+              color={this.isActiveIcon("friends")}
+            />
           </button>
           <button
             className="dash__button"
-            style={this.isActive('messages')}
-            onClick={() => this.setState({ section: 'messages' })}
-					>Messages
+            style={this.isActive("messages")}
+            onClick={() => this.setState({ section: "messages" })}
+          >
+            <ForumIcon size={44} color={this.isActiveIcon("messages")} />
           </button>
         </div>
         {this.handleSection()}

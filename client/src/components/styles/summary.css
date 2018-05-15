@@ -1,0 +1,38 @@
+.summary__score {
+	flex-direction: column;
+	justify-content: center; 
+	align-items: center;
+	text-align: center;
+	padding: 20px;
+}
+
+.summary__score > h1 {
+	font-size: 5em;
+	background-color: #6DC666;
+}
+
+.summary__donut {
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.summary__allowance {
+	min-width: 300px;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	margin: 10px;
+}
+
+.summary__allowance > h2 {
+	justify-content: space-between;
+}
+
+@media all and (min-width: 320px) {
+	.summary__allowance {
+		min-width: 250px;
+	}	
+	.summary__score {
+		padding: 5px;
+	}
+}

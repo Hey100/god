@@ -1,11 +1,13 @@
-.google {
-	background-color: #FFF;
-	color: tomato;
-	border: 2px solid tomato;
+.signin__form {
 	margin-top: 40px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.facebook {
-	background-color: #3b5998;
-	color: white;
+.google {
+	background-color: white;
+	color: #F90101;
+	border: 1px solid #F90101;
+	margin-top: 40px;
 }

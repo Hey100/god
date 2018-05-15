@@ -9,6 +9,7 @@ import _ from 'lodash';
 import * as actions from '../../actions/index';
 import SignUpField from './SignUpField';
 import formFields from './formFields';
+import '../styles/signup.css';
 import '../styles/global.css';
 import '../styles/media.css';
 
@@ -55,83 +56,83 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="form-wrap">
-        {this.props.auth.error ? (
-          <h2 className="alert">{this.props.auth.error}</h2>
-        ) : null}
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <Link to="/signin" className="button">
-            Already a member?
-          </Link>
-          <h2 className="text-2">
-            Please provide a few details about yourself
-          </h2>
-          {this.renderFields()}
-          <h2 className="text-2">Save Your Information</h2>
-          <Field
-            className="form-input"
-            component="input"
-            name="email"
-            type="text"
-            placeholder="Email"
-          />
-          <Field
-            className="form-input"
-            component="input"
-            name="password"
-            type="password"
-            placeholder="Password"
-          />
-          <h5 style={{ color: 'orange' }}>
-            Must contain at least 8 characters, including 1 number and 1
-            uppercase letter
-          </h5>
-          <div className="signup__terms">
-            <h2 className="alert">{this.state.agreeErr}</h2>
-            <div>
-              <input
-                onChange={this.handleChange}
-                type="checkbox"
-                name="accept request"
-              />{' '}
-              By checking the box, clicking "agree and see your rate" below, you
-              confirm:
-            </div>
-            <ul className="signup__list">
-              <li>
-                You agree to the{' '}
-                <a className="signup__terms-text" href="/">
-                  Electronic Communications Policy and Consent
-                </a>{' '}
-                and understand that the terms and conditions and other
-                disclosures will be provided to you electronically; and
-              </li>
-              <li>
-                You agree to the{' '}
-                <a className="signup__terms-text" href="/">
-                  Credit Report and Information Verification Consent
-                </a>, the{' '}
-                <a className="signup__terms-text" href="/">
-                  Collective Capital Privacy Policy
-                </a>, the{' '}
-                <a className="signup__terms-text" href="/">
-                  Collective Capital Privacy Notice
-                </a>, and the{' '}
-                <a className="signup__terms-text" href="/">
-                  Collective Capital Platform Agreement
-                </a>.
-              </li>
-            </ul>
-            <button className="mid-btn" type="submit">
-              Sign Up
-            </button>
-            <div className="align-center">
-              <LockAlertIcon size={34} color="#000" />
-              Checking your rate won't affect your credit score!
-            </div>
-          </div>
-          <br />
-        </form>
+      <div className="tab">
+				<div className="tab-box">
+					<form className="signup__form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+						<Link to="/signin" className="link">
+							Already a member?
+						</Link>
+						<h2 className="text-2">
+							Please provide a few details about yourself
+						</h2>
+						{this.renderFields()}
+						<h2 className="text-2">Save Your Information</h2>
+						<Field
+							className="form-input"
+							component="input"
+							name="email"
+							type="text"
+							placeholder="Email"
+						/>
+						<Field
+							className="form-input"
+							component="input"
+							name="password"
+							type="password"
+							placeholder="Password"
+						/>
+						<Field
+							className="form-input"
+							component="input"
+							name="c_password"
+							type="c_password"
+							placeholder="Confirm password"
+						/>
+						<h5 className="warning">
+							Must contain at least 8 characters, including 1 number and 1
+							uppercase letter
+						</h5>
+						<div className="signup__terms">
+							<div id="signup__agreement">
+								<input type="checkbox" name="accept request" /> By checking the
+								box, clicking "agree and see your rate" below, you confirm:
+							</div>
+							<ul className="signup__list">
+								<li>
+									You agree to the{' '}
+									<a className="signup__terms-text" href="/">
+										Electronic Communications Policy and Consent
+									</a>{' '}
+									and understand that the terms and conditions and other
+									disclosures will be provided to you electronically; and
+								</li>
+								<li>
+									You agree to the{' '}
+									<a className="signup__terms-text" href="/">
+										Credit Report and Information Verification Consent
+									</a>, the{' '}
+									<a className="signup__terms-text" href="/">
+										Collective Capital Privacy Policy
+									</a>, the{' '}
+									<a className="signup__terms-text" href="/">
+										Collective Capital Privacy Notice
+									</a>, and the{' '}
+									<a className="signup__terms-text" href="/">
+										Collective Capital Platform Agreement
+									</a>.
+								</li>
+							</ul>
+							<button className="mid-btn" type="submit">
+								Agree and see rates
+							</button>
+							<div className="align-center">
+								<LockAlertIcon size={34} color="#000" />
+								Checking your rate won't affect your credit score!
+							</div>
+						</div>
+						<br />
+					</form>
+				</div>
       </div>
     );
   }

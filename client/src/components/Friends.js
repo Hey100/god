@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import axios from "axios";
 import _ from "lodash";
+import { MessageIcon, InformationIcon } from "mdi-react";
 
 import "./styles/friends.css";
 import "./styles/global.css";
@@ -26,20 +27,30 @@ class Friends extends Component {
 	render() {
 		if (this.state.error) {
 			return <div className="tab">
-          <h1 className="text-1">there was an error! try again</h1>
-        </div>;
+				<h1 className="tab-title" style={{ textAlign: "center" }}>
+					Friends
+				</h1>
+				<div className="tab-box">
+          <h1 className="text-1">There was an error! please try again</h1>
+				</div>
+			</div>;
 		}
 		if (!this.state.friends) {
 			return <div className="tab">
-          <h1 className="text-1">FRIENDS LOADING...</h1>
-        </div>;
+				<h1 className="tab-title" style={{ textAlign: "center" }}>
+					Friends
+				</h1>
+				<div className="tab-box">
+					<h1 className="text-1">Loading friends...</h1>
+				</div>
+			</div>;
 		}
-		return<div className="tab" style={{ flexDirection: 'column', alignItems: 'center' }}>
-			<h1 className="text-1" style={{ textAlign: "center" }}>
-				FRIENDS
+		return <div className="tab">
+			<h1 className="tab-title" style={{ textAlign: "center" }}>
+				Friends
 			</h1>
-			<div className="results">
-				{_.map(this.state.friends, (friend) => {
+			<div className="tab-box">
+				{_.map(this.state.friends, friend => {
 					return (
 						<div className="friend__card" style={{ textAlign: 'center' }}>
 							<div
@@ -47,10 +58,9 @@ class Friends extends Component {
 								style={{ backgroundImage: `url(${friend.picture.large})`}}
 								alt=""
 							/>
-							<div className="card-content">
-								<h1 className="text-2">{this.first(friend.name.first)}</h1>
-								<button className="message-button">MESSAGE</button>
-							</div>
+							<h1 className="text-2">{this.first(friend.name.first)}</h1>
+							<button className="friend__card-button"><MessageIcon size={44} color="dodgerblue" /></button>
+							<button className="friend__card-button"><InformationIcon size={44} color="dodgerblue" /></button>
 						</div>
 					)
 				})}

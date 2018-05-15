@@ -17,3 +17,19 @@
 	text-align: center;
 	padding: 40px;
 }
+
+
+@media all and (max-width: 768px) {
+
+	.land__col {
+		text-align: center;
+		flex-direction: column;
+	}
+	.land__half > img {
+		width: 50%;
+		margin: -20px;
+	}
+	.reverse {
+		flex-direction: column-reverse;
+	}
+}

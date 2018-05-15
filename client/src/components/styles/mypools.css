@@ -1,0 +1,72 @@
+
+.my__card {
+	display: flex;
+	flex: 1;
+	margin: 40px;
+	background: linear-gradient(to top right, #EDEDED, #FAFAFA)
+}
+
+.my__thumb {
+	width: 150px;
+	height: 100%;
+	margin-right: 20px;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center;		
+}
+
+.my__content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	min-width: 200px;
+}
+
+.my__content h2 {
+	font-size: 1.75em;
+	color: gray;
+	margin: 10px;
+	min-width: 80px;
+}
+
+.my__content > div {
+	display: flex;
+
+}
+
+@media all and  (max-width: 1440px) {
+	.my__thumb {
+		width: 200px;
+	}
+
+	.my__content {
+		flex-wrap: wrap; 
+	}
+}
+
+@media all and  (max-width: 1024px) {
+	.my__content {
+		flex-flow: column nowrap;
+	}
+}
+
+@media all and  (max-width: 900px) {
+	.my__card {
+		flex-flow: column nowrap;
+	}
+
+	.my__thumb {
+		width: 100%;
+		height: 200px;
+		background-position: center;
+
+	}
+}
+
+
+@media all and (max-width: 375px) {
+	.my__content > h2:nth-child(2) {
+		display: none;
+	}
+}

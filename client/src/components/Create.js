@@ -236,75 +236,62 @@ class Create extends Component {
       return (
         <div className="form-review">
           <h2 className="text-2">4. Review Your Pool</h2>
-          <p className="form-display">
-            <span>Title:</span> {this.state.title}
-          </p>
-          <p className="form-display">
-            <span>Category:</span> {this.state.category}
-          </p>
-          <p className="form-display">
-            <span>Description:</span> {this.state.description}
-          </p>
-          <p className="form-display">
-            <span>Number of Contributors:</span> {this.state.contributors}
-          </p>
-          <p className="form-display">
-            <span>Amount:</span>{' '}
-            {parseFloat(this.state.amount).toLocaleString('USD', {
-              style: 'currency',
-              currency: 'USD',
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0
-            })}
-          </p>
-          <p className="form-display">
-            <span>Rate:</span> {this.state.rate}%
-          </p>
-          <p className="form-display">
-            <span>Start Date:</span> {moment(this.state.startDate).format('L')}
-          </p>
-          <div className="chart-wrap">
-            <h2 className="text-2">
-              <span>Your Position:</span>
-            </h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Base Amount</th>
-                  <th>Interest Rate</th>
-                  <th>Interest Paid/Earned</th>
-                  <th>Monthly Payment</th>
-                  <th>Cash Paid</th>
-                  <th>Cash Available</th>
-                  <th>Fee</th>
-                  <th>Cash Received</th>
-                  <th>Disbursement Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{this.parse(position.amount)}</td>
-                  <td>{position.interestRate}%</td>
-                  <td>{this.parse(position.interestAmount)}</td>
-                  <td>{this.parse(position.monthly)}</td>
-                  <td>{this.parse(position.cashPaid)}</td>
-                  <td>{this.parse(position.cashReceived)}</td>
-                  <td>${position.fee}</td>
-                  <td>{this.parse(position.tcr)}</td>
-                  <td>
-                    {moment(position.startDate)
-                      .add(selection, 'months')
-                      .format('L')}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+					<p className="form-display"><span>Title:</span> {this.state.title}</p>
+					<p className="form-display"><span>Category:</span> {this.state.category}</p>
+					<p className="form-display"><span>Description:</span> {this.state.description}</p>
+					<p className="form-display"><span>Number of Contributors:</span> {this.state.contributors}</p>
+					<p className="form-display">
+					<span>Amount:</span>{' '}
+						{parseFloat(this.state.amount).toLocaleString('USD', {
+							style: 'currency',
+							currency: 'USD',
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})}
+					</p>
+					<p className="form-display"><span>Rate:</span> {this.state.rate}%</p>
+					<p className="form-display"><span>Start Date:</span> {moment(this.state.date).format('L')}</p>
+          <div className="">
+						<h2 className="text-2"><span>Your Position:</span></h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Base Amount</th>
+									<th>Interest Rate</th>
+									<th>Interest Paid/Earned</th>
+									<th>Monthly Payment</th>
+									<th>Cash Paid</th>
+									<th>Cash Available</th>
+									<th>Fee</th>
+									<th>Cash Received</th>
+									<th>Disbursement Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{this.parse(position.amount)}</td>
+									<td>{position.interestRate}%</td>
+									<td>{this.parse(position.interestAmount)}</td>
+									<td>{this.parse(position.monthly)}</td>
+									<td>{this.parse(position.cashPaid)}</td>
+									<td>{this.parse(position.cashReceived)}</td>
+									<td>${position.fee}</td>
+									<td>{this.parse(position.tcr)}</td>
+									<td>
+										{moment(position.startDate)
+											.add(selection, 'months')
+											.format('L')}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
         </div>
       );
     }
     return null;
-  };
+	};
+	
   renderAgreement = (chart, selection) => {
     if (selection >= 0) {
       const position = chart[selection];
@@ -334,94 +321,100 @@ class Create extends Component {
     const { error, chart, selection, createError } = this.props.pools;
     const { titleErr, categoryErr, descriptionErr, imageErr } = this.state;
     return (
-      <div className="form-wrap">
-        {createError ? <h1 className="cancel">{createError}</h1> : null}
-        <h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
-        <input
-          className="form-input"
-          type="text"
-          name="title"
-          placeholder="Title"
-          onChange={this.handleChange}
-        />
-        <div className="alert">
-          {titleErr ? <p className="cancel">{titleErr}</p> : null}
-        </div>
-        <select
-          className="form-input select"
-          name="category"
-          onChange={this.handleChange}
-        >
-          <option value="">Category</option>
-          <option value="Business">Business</option>
-          <option value="Sports">Sports</option>
-          <option value="Home Improvement">Home Improvement</option>
-          <option value="Travel">Travel</option>
-        </select>
-        <div className="alert">
-          {categoryErr ? <p className="cancel">{categoryErr}</p> : null}
-        </div>
-        <textarea
-          name="description"
-          className="form-input textarea"
-          cols="40"
-          rows="10"
-          onChange={this.handleChange}
-          placeholder="Please provide a description of your pool"
-        />
-        <div className="alert">
-          {descriptionErr ? <p className="cancel">{descriptionErr}</p> : null}
-        </div>
-        <input type="file" onChange={this.handeChangeII} />
+      <div className="tab">
+				<h1 className="tab-title">
+					Start a pool
+				</h1>
+				<div className="tab-box-v">
+
+					{createError ? <h1 className="cancel">{createError}</h1> : null}
+					<h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
+					<input
+						className="form-input"
+						type="text"
+						name="title"
+						placeholder="Title"
+						onChange={this.handleChange}
+					/>
+					<div className="alert">
+						{titleErr ? <p className="cancel">{titleErr}</p> : null}
+					</div>
+					<select
+						className="form-input select"
+						name="category"
+						onChange={this.handleChange}
+					>
+						<option value="">Category</option>
+						<option value="Business">Business</option>
+						<option value="Sports">Sports</option>
+						<option value="Home Improvement">Home Improvement</option>
+						<option value="Travel">Travel</option>
+					</select>
+					<div className="alert">
+						{categoryErr ? <p className="cancel">{categoryErr}</p> : null}
+					</div>
+					<textarea
+						name="description"
+						className="form-input textarea"
+						cols="40"
+						rows="10"
+						onChange={this.handleChange}
+						placeholder="Please provide a description of your pool"
+					/>
+					<div className="alert">
+						{descriptionErr ? <p className="cancel">{descriptionErr}</p> : null}
+					</div>
+					<input type="file" onChange={this.handeChangeII} />
         <button onClick={() => this.upload()}>Upload</button>
         <div className="alert">
           {imageErr ? <p className="cancel">{imageErr}</p> : null}
         </div>
-        {this.state.path ? <img src={this.state.path} /> : null}
-        <h2 className="text-2">2. Choose Your Options</h2>
-        <select
-          name="contributors"
-          className="form-input select"
-          onChange={this.handleChange}
-        >
-          <option value="">Number of Contributors</option>
-          <option value="5">5 contributors</option>
-          <option value="7">7 contributors</option>
-          <option value="9">9 contributors</option>
-          <option value="11">11 contributors</option>
-          <option value="13">13 contributors</option>
-        </select>
-        {this.renderAmount()}
-        {this.renderRate()}
-        {this.renderDate()}
-        {this.handleChart()}
-        {this.renderReview()}
-        <div className="alert">
-          {error ? <p className="cancel">{error}</p> : null}
-        </div>
-        {!this.state.visible ? (
-          this.props.pools.chart ? (
-            <button
-              className="big-btn"
-              type="submit"
-              onClick={() => this.handleNext()}
-            >
-              Review
-            </button>
-          ) : null
-        ) : (
-          <div>
-            <button
-              className="big-btn"
-              type="submit"
-              onClick={() => this.handleSubmit(chart)}
-            >
-              Submit*
-            </button>
-            {this.renderAgreement(chart, selection)}
-          </div>
-        )}
+					<h2 className="text-2">2. Choose Your Options</h2>
+					<select
+						name="contributors"
+						className="form-input select"
+						onChange={this.handleChange}
+					>
+						<option value="">Number of Contributors</option>
+						<option value="5">5 contributors</option>
+						<option value="7">7 contributors</option>
+						<option value="9">9 contributors</option>
+						<option value="11">11 contributors</option>
+						<option value="13">13 contributors</option>
+					</select>
+					{this.renderAmount()}
+					{this.renderRate()}
+					{this.renderDate()}
+					{this.handleChart()}
+					{this.renderReview()}
+					<div className="alert">
+						{error ? <p className="cancel">{error}</p> : null}
+					</div>
+					{!this.state.visible ? (
+						this.props.pools.chart ? (
+							<button
+								className="big-btn"
+								type="submit"
+								onClick={() => this.handleNext()}
+							>
+								Review
+							</button>
+						) : null
+					) : (
+						<div style={{ margin: '0 auto', textAlign: 'center' }}>
+							<button
+								className="big-btn"
+								type="submit"
+								onClick={() => this.handleSubmit(chart)}
+							>
+								Submit*
+							</button>
+							{this.renderAgreement(chart, selection)}
+						</div>
+					)
+				}
       </div>
+		</div>
     );
   }
 }

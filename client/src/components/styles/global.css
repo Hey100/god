@@ -7,6 +7,7 @@
 	font-family: sans-serif;
 	font-weight: lighter;
 	font-size: 14px;
+	text-decoration: none;
 }
 
 *:focus {
@@ -28,7 +29,7 @@ form {
 
 span {
 	font-size: 1em;
-	color: gray;
+	color: black;
 }
 
 /* PUBLIC */
@@ -36,45 +37,52 @@ span {
 .contain {
 	display: flex;
 	flex-direction: column;
-	background: linear-gradient(to top right, #E5E5E5, #FFF);
+	background: linear-gradient(to top right, #EDEDED, #FAFAFA)
 }
 
 .tab {
-	min-height: 60vh;
-	max-width: 1440px;
+	min-height: calc(100vh - 180px);
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	margin: 40px;
+	background-color: #FFF;
+}
+
+.tab-title {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 40px;
+	color: dodgerblue;
+	background: linear-gradient(to right, #EDEDED,#FAFAFA);
+}
+
+.tab-box {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin: 0 auto;
-	padding: 40px;
+	padding: 20px;
+	background-color: #FFF;
+}
+
+.tab-box-v {
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+	padding: 20px;
+	background-color: #FFF;
 }
 
 .card {
 	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	background-color: #FFF;
-	padding: 40px;
-	border-radius: 20px;
-	box-shadow: 0px 5px 10px 1px lightgray;
-}
-
-.card-content {
+	flex: 1;
+	margin: 40px;
 	padding: 20px;
-}
-
-.nav-input {
-	background-color: white;
-	height: 40px;
-	width: 200px;
-	margin: 10px;
-	border: 1px solid dodgerblue;
-	color: dodgerblue;
-	padding-left: 10px;
-	border-radius: 5px;
+	background: linear-gradient(to top right, #EDEDED, #FAFAFA)
 }
 
 .separator { 
@@ -93,22 +101,9 @@ span {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	padding: 50px;
 }
 
 /* FORM */
-
-.form-wrap {
-	max-width: 1440px;
-	display: flex;
-	flex-flow: column wrap;
-	align-items: center;
-	margin: 20px auto;
-	padding: 40px;
-	border-radius: 20px;
-	background-color: #FFF;
-	box-shadow: 0px 5px 10px 1px lightgray;
-}
 
 .form-review {
 	display: flex;
@@ -118,10 +113,9 @@ span {
 
 .form-display {
 	width: 500px;
-	height: 50px;
 	margin: 10px;
 	font-size: 2em;
-	color: mediumseagreen;
+	color: gray;
 }
 
 .form-input {
@@ -138,6 +132,7 @@ span {
 	color: tomato;
 	font-size: 1.5em;
 	font-weight: 600;
+	padding: 10px 15px;
 	margin-bottom: 10px;
 }
 
@@ -149,13 +144,9 @@ span {
 	height: auto;
 }
 
-.form-submit {
-	
-}
-
 /* BUTTON */
 
-.button {
+.link {
 	margin: 10px;
 	font-size: 20px;
 	background-color: transparent;
@@ -165,18 +156,30 @@ span {
 	text-decoration: none;
 }
 
-.button:hover, .sub-button:hover {
-	color: skyblue;
+.button {
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: none;
+	background-color: mediumseagreen;
+	color: white;
+	transition: scale, .1s;
+}
+
+.button:hover {
+	transform: scale(1.2);
+}
+
+.button:active {
+	background-color: greenyellow;
 }
 
 .mid-btn {
 	width: 500px;
 	height: 50px;
-	margin: 10px;
+	margin: 10px 0;
 	background-color: darkcyan;
 	border-radius: 5px;
 	border: none;
-	text-align: center;
 	font-size: 1.5em;
 	color: white;
 	cursor: pointer;
@@ -184,8 +187,8 @@ span {
 
 .big-btn {
 	display: block;
-	margin: 20px;
-	padding: 15px 80px;
+	margin: 20px auto;
+	padding: 15px 40px;
 	font-size: 2.5em;
 	background-color: darkcyan;
 	border-radius: 10px;
@@ -224,4 +227,54 @@ span {
 
 .cancel {
 	color: tomato;
+}
+
+@media all and (max-width: 768px) {
+
+	.tab {
+		margin: 20px;
+	}
+
+	.tab-title {
+		height: 75px;		
+	}
+
+	.card {
+		min-width: 300px;		
+		margin: 20px;
+		padding: 20px;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.form-input, .form-display, .mid-btn {
+		width: 300px;
+	}
+
+}
+
+@media all and (max-width: 425px) {
+
+	.tab {
+		margin: 5px;
+	}
+
+	.tab-title {
+		height: 50px;		
+	}
+	
+	.tab-box {
+		padding: 0px;
+	}
+
+	.card {
+		min-width: 250px;
+		margin: 5px;
+		padding: 0px;
+	}
+
+	.text-1 {
+		font-size: 2em;
+	}
+
 }
