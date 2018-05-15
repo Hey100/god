@@ -8,6 +8,7 @@ const paymentSchema = new Schema({
 	monthly: {type: String, required: true},
 	disburseAmount: {type: String, required: true},
 	title: {type: String, required: true},
+	expired: {type: Boolean, default: false},
 	_pool: { type: Schema.Types.ObjectId, ref: 'Pool' },
 	_user: { type: Schema.Types.ObjectId, ref: 'User' }
 })

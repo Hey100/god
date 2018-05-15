@@ -27,8 +27,13 @@ class Summary extends Component {
         {this.parseII(payment.disburseAmount)} on {dDate}
       </h5>
     );
-    if (now > endDate) {
+    if (now < endDate) {
       console.log('continue');
+			this.props.calculateLimit({ monthly: payment.monthly, id: payment._id})
+    }
+    if (now > endDate && !payment.expired) {
+			console.log('calculating')
+      this.props.calculateLimit({ monthly: payment.monthly, id: payment._id})
       /* continue */
     }
     if (nowDay <= poolDay) {

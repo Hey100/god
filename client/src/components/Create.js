@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 import Chart from './Chart';
 import * as actions from '../actions/index';
 import './styles/chart.css';
@@ -84,6 +85,24 @@ class Create extends Component {
       }
     });
   };
+  handeChangeII = e => {
+    this.setState({ imageErr: '' });
+    this.setState({ selectedFile: e.target.files[0] });
+  };
+
+  upload = async () => {
+    const fd = new FormData();
+    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+		const res = await axios.post('/api/upload', fd);
+		console.log(res)
+    if (res.data.err) {
+      this.setState({ imageErr: res.data.err });
+    } else {
+			this.setState({ imageErr: '' })
+      this.setState({ path: res.data.file });
+    }
+  };
+
   handleMouseDown = event => {
     this.setState({ startDateErr: '' });
   };
@@ -93,6 +112,9 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
+    } else if (!this.state.path) {
+      window.scrollTo(0, 0);
+      this.setState({ imageErr: 'Required Field' });
     } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
@@ -105,7 +127,7 @@ class Create extends Component {
   }
   handleSubmit = chart => {
     if (!this.props.auth.user) {
-			this.props.authError('You must be a member to create a pool.')
+      this.props.authError('You must be a member to create a pool.');
       this.props.history.push('/signup');
     } else {
       const { history, createPool, pools } = this.props;
@@ -129,6 +151,7 @@ class Create extends Component {
       values['endDate'] = endDate;
       values['monthly'] = chart[pools.selection].monthly;
       values['disburseAmount'] = chart[pools.selection].tcr;
+      values['poolPic'] = this.state.path;
       createPool(values, history);
       window.scrollTo(0, 0);
     }
@@ -309,7 +332,7 @@ class Create extends Component {
 
   render() {
     const { error, chart, selection, createError } = this.props.pools;
-    const { titleErr, categoryErr, descriptionErr } = this.state;
+    const { titleErr, categoryErr, descriptionErr, imageErr } = this.state;
     return (
       <div className="form-wrap">
         {createError ? <h1 className="cancel">{createError}</h1> : null}
@@ -349,6 +372,12 @@ class Create extends Component {
         <div className="alert">
           {descriptionErr ? <p className="cancel">{descriptionErr}</p> : null}
         </div>
+        <input type="file" onChange={this.handeChangeII} />
+        <button onClick={() => this.upload()}>Upload</button>
+        <div className="alert">
+          {imageErr ? <p className="cancel">{imageErr}</p> : null}
+        </div>
+        {this.state.path ? <img src={this.state.path} /> : null}
         <h2 className="text-2">2. Choose Your Options</h2>
         <select
           name="contributors"

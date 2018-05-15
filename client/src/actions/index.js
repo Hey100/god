@@ -236,6 +236,11 @@ export const fetchPayments = () => async dispatch => {
   const res = await axios.get('/api/payments');
   dispatch({ type: FETCHED_PAYMENTS, payload: res.data });
 };
+export const calculateLimit = obj => async dispatch => {
+	const res = await axios.post('/api/calculateLimit', obj);
+	console.log(res)
+  dispatch({ type: FETCH_USER, payload: res.data });
+};
 
 //multi
 export const reset = () => {
