@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { GoogleIcon, FacebookIcon } from "mdi-react";
+import { GoogleIcon } from "mdi-react";
 
 import "./styles/signin.css";
 import "./styles/global.css";
@@ -11,6 +11,7 @@ import "./styles/media.css";
 import * as actions from '../actions/index';
 
 class SignIn extends Component {
+	
   onSubmit = values => {
     this.props.onLogin(values, this.props.history);
   };
@@ -26,34 +27,34 @@ class SignIn extends Component {
   }
 
   render() {
-    return <div className="form-wrap">
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <div>
-            <Field className="form-input" type="text" name="email" component="input" placeholder="Email"/>
-          </div>
-          <div>
-            <Field className="form-input" type="password" name="password" component="input" placeholder="Password"/>
-          </div>
-          <button className="mid-btn" type="submit">
-            Login
-          </button>
-					{this.renderAlert()}
+    return <div className="tab">
+				<h1 className="tab-title">Log In</h1>
+				<div className="tab-box signin__form">
+					<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+						<div>
+							<Field className="form-input" type="text" name="email" component="input" placeholder="Email"/>
+						</div>
+						<div>
+							<Field className="form-input" type="password" name="password" component="input" placeholder="Password"/>
+						</div>
+						<button className="mid-btn" type="submit">
+							Login
+						</button>
+						{this.renderAlert()}
+					</form>
 					<button className="mid-btn google align-center">
-						Sign Up with Google &nbsp;<GoogleIcon size={28} color="tomato"/>
+						Log in&nbsp;<GoogleIcon size={28} color="#F90101"/>
 					</button>
-					<button className="mid-btn facebook align-center">
-						Sign Up with Facebook &nbsp;<FacebookIcon size={28} color="#FFF"/>
-					</button>
-          <div>
-            <Link to="/" className="button cancel">
-              Cancel
-            </Link>
-            <Link to="/signup" className="button">
-              Not a member yet?
-            </Link>
-          </div>
-        </form>
-      </div>;
+					<div>
+						<Link to="/" className="link cancel">
+							Cancel
+						</Link>
+						<Link to="/signup" className="link">
+							Not a member yet?
+						</Link>
+					</div>
+				</div>
+			</div>;
   }
 }
 

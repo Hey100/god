@@ -1,47 +1,96 @@
 .all__search-bar {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	align-content: space-around;
 }
 
-.all__card {
-	max-width: 300px;
-	background: linear-gradient( #FFF, #FFF, #FFF, #F2F7F8);
-	margin: 20px;
-	transition: scale, .1s;
+.all__input {
+	background-color: white;
+	height: 40px;
+	width: 200px;
+	margin: 10px;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	padding-left: 10px;
+	border-radius: 5px;
 }
+
+.all__card {
+	max-width: 400px;
+	background: linear-gradient(to top right, #EDEDED, #FFF);
+	margin: 20px;
+	border-radius: 5px;
+	transition: scale, .2s;
+}
+
 
 .all__card:hover {
 	transform: scale(1.1);
 }
 
 .all__thumbnail {
-	width: 300px;
-	height: 150px;
+	width: 400px;
+	height: 200px;
 	overflow: hidden;
 	background-size: cover;
+	background-position: center;
 	cursor: pointer;
 }
 
-.all__meter { 
+.all__card-content {
+	padding: 20px;
+}
+
+.all__card-content > h3 {
+	font-size: 2em;
+	color: gray;
+	margin-bottom: 5px;
+}
+
+.all__meter {
 	position: relative;
-	height: 5px;
+	height: 10px;
 	margin: 10px 0;
-	border-radius: 10px;
-	background: #f5f5f5;
+	border-radius: 20px;
+	background: #EDEDED;
 }
 
 .all__meter > span {
+	height: 100%;
   display: block;
   position: relative;
 	overflow: hidden;
-	height: 100%;
 	border-radius: 10px;
-  background-color: #72E5BE;
+  background: linear-gradient(to left, #72E5BE, #72d3e5);
 	animation: fill 2s ease;
+}
+
+.all__meter-percent {
+	position: relative;
+	top: -30px;
+	left: 45%;
+	font-size: 24px;
 }
 
 @keyframes fill {
    0% { width: 0; }
 }
+
+@media all and (max-width: 768px) {
+	.all__card {
+		margin: 5px;
+		max-width: 250px;
+	}
+
+	.all__thumbnail {
+		width: 250px;
+		height: 150px;
+	}
+}
+/* 
+@media all and (max-width: 425px) {
+	.all__search-bar > h1 {
+	}
+} */

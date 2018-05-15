@@ -40,12 +40,10 @@ class Chart extends Component {
         } else {
           position3 = (
             <td>
-              {index + 1} &nbsp;
-              <button
-                onClick={() =>
-                  this.props.joinPool(this.props.params, index, chart.amount)
-                }
-              >
+							<button 
+								className="button"
+								onClick={() => this.props.joinPool(this.props.params, index, chart.amount)}
+							>
                 Join
               </button>
             </td>

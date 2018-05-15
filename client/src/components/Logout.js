@@ -13,7 +13,9 @@ class Logout extends Component {
 	render() {
 		return (
 			<div className="tab">
-				<h1 className="text-1">You have been successfully logged out.</h1>
+				<div className="tab-box">
+					<h1 className="text-1">You have been successfully logged out.</h1>
+				</div>
 			</div>
 		);
 	}

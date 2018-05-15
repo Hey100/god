@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { MenuIcon } from 'mdi-react';
 
 import * as actions from "../actions";
 import './styles/header.css';

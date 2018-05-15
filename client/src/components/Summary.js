@@ -86,7 +86,7 @@ class Summary extends Component {
 							onClick={() => {
 								this.props.history.push(`/pools/${payment._pool}`);
 							}}
-							className="button"
+							className="link"
 						>{payment.title}
 						</button>
 						{this.renderSchedule(payment)}
@@ -127,11 +127,11 @@ class Summary extends Component {
       <div className="tab">
         <h1 className="tab-title">Home</h1>
         <div className="tab-box">
-					<div className="card info-1 summary__score">
+					<div className="card summary__score">
 						<h2 className="text-2">Your Community Capital score is:</h2>
 						<h1 className="big-btn">{ccScore}</h1>
 					</div>
-					<div className="card info-1">
+					<div className="card">
 						<div className="summary__donut">
 							<Doughnut data={data} options={options} height={300} />
 						</div>
@@ -144,7 +144,7 @@ class Summary extends Component {
 							</h2>
 						</div>
 					</div>
-					<div className="card info-2">
+					<div className="card">
 						<h2 className="text-2">Contribution Schedule:</h2>
 						{this.handleSchedule()}
 					</div>
