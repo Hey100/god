@@ -16,12 +16,11 @@ export default ({
 				<input
 					className="form-input"
 					{...input}
-					style={{ marginBottom: '2px' }}
 					type={type}
 					placeholder={placeholder}
 				/>
 			)}
-			<div className="alert" style={{ marginBottom: '10px', color: 'tomato' }}>
+			<div className="alert">
 				{touched && error}
 			</div>
 		</div>

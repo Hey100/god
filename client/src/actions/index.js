@@ -42,7 +42,6 @@ export const onLogin = ({ email, password }, history) => {
 export const onSignUp = (values, history) => async dispatch => {
   try {
 		const res = await axios.post('/api/signup', values);
-		console.log(res)
 		dispatch({ type: AUTH_USER });
 		dispatch({ type: FETCH_USER, payload: res.data.user });
 		localStorage.setItem('token', res.data.token);
@@ -183,14 +182,10 @@ export const setSelection = selection => {
   };
 };
 export const joinPool = (poolId, position, chart) => async dispatch => {
-  console.log(chart);
-  console.log(poolId);
-  console.log(position);
   try {
     await dispatch(updateUser(chart));
     let obj = { poolId, position };
     const res = await axios.post('/api/joinPool', obj);
-    console.log(res.data);
     let obj2 = {};
     obj2['amount'] = res.data.amount;
     obj2['contributors'] = res.data.numOfContributors;
@@ -238,7 +233,6 @@ export const fetchPayments = () => async dispatch => {
 };
 export const calculateLimit = obj => async dispatch => {
 	const res = await axios.post('/api/calculateLimit', obj);
-	console.log(res)
 	await dispatch(fetchPayments())
   dispatch({ type: FETCH_USER, payload: res.data });
 };

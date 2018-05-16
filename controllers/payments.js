@@ -28,7 +28,6 @@ exports.create = function(req, res, done) {
 };
 
 exports.calculate = async (req, res, done) => {
-  console.log(req.body, 'yay');
 	Payment.findByIdAndUpdate(
 		req.body.id,
 		{ $set: { expired: true } },
@@ -40,7 +39,6 @@ exports.calculate = async (req, res, done) => {
 try {
 		req.user.usedAmount -= req.body.monthly;
 		const user = await req.user.save();
-		console.log(user)
 		res.send(user);
   } catch (error) {
     res.status(422);

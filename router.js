@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
 const passportServer = require('./services/passport');
-const path = require('path')
-// const sdf = require('./client/static')
+const path = require('path');
 //controllers
 const authentication = require('./controllers/authentication');
 const pools = require('./controllers/pools');
@@ -13,15 +12,27 @@ const Pool = mongoose.model('pools');
 const Comment = mongoose.model('comments');
 const Payment = mongoose.model('payments');
 
-var multer = require('multer');
+const requireSignin = passport.authenticate('local', { session: true });
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+	cloud_name: 'ethanyjoh',
+	api_key: '573798653617485',
+	api_secret: '0aiBfSgi6S9Zl49PaAjQfYTr_6o'
+});
+//multer
+const multer = require('multer');
 const storage = multer.diskStorage({
-	destination: './client/src/uploads/',
+  destination: './client/src/uploads/',
   filename: function(req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    cb(
+      null,
+      file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+    );
   }
 });
 
-var upload = multer({
+const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5
@@ -32,18 +43,16 @@ var upload = multer({
 }).single('image');
 
 function checkFileType(file, cb) {
-	const fileTypes = /jpeg|jpg|png|gif/
-	const extname = fileTypes.test(path.extname(file.originalname).toLowerCase())
-	const mimetype = fileTypes.test(file.mimetype)
+  const fileTypes = /jpeg|jpg|png|gif/;
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = fileTypes.test(file.mimetype);
 
-	if(mimetype && extname) {
-		return cb(null, true)
-	}else {
-		cb('err')
-	}
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('err');
+  }
 }
-
-const requireSignin = passport.authenticate('local', { session: true });
 
 
 module.exports = function(app) {
@@ -59,7 +68,11 @@ module.exports = function(app) {
   });
   //pools
   app.get('/api/mypools', async (req, res) => {
-    const pools = await Pool.find({ _user: req.user.id });
+    const pools = await Pool.find({ $or: [
+      {contributors: { $elemMatch: { _user: req.user._id } }},
+			{ _user: req.user._id }
+		]
+		});
     res.send(pools);
   });
   app.get('/api/allpools', async (req, res) => {
@@ -80,6 +93,7 @@ module.exports = function(app) {
     const payments = await Payment.find({ _user: req.user.id });
     res.send(payments);
   });
+
   //post
 
   //comments
@@ -89,15 +103,18 @@ module.exports = function(app) {
   app.post('/api/calculateLimit', payments.calculate);
   //pools
   app.post('/api/createPool', pools.create);
-  app.post('/api/upload', (req, res) => {
-	 upload(req, res, (err) => {
-			if (err){
-				res.send({err: 'Error: Image Files Only!'})
-			} else{
-				res.send({file: `./uploads/${req.file.filename}`})
+	app.post('/api/upload', (req, res) => {
+		upload(req, res, err => {
+			if (err) {
+				res.send({ err: 'Error: Image Files Only!' });
+			} else {
+				cloudinary.uploader.upload(req.file.path, result => {
+					res.send(result)
+				});
 			}
-		})
-  });
+		});
+	
+	});
   app.post('/api/joinPool', pools.join);
   //auth
   app.post('/api/login', requireSignin, authentication.signin);

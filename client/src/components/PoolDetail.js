@@ -26,11 +26,9 @@ class PoolDetail extends Component {
   };
 
   handleSubmit = event => {
-    console.log('handling');
     if (!this.props.auth.user) {
       this.redirect();
     } else {
-      console.log('creating comment');
       this.props.createComment({
         comment: this.state.value,
         poolId: this.props.match.params.id
@@ -71,14 +69,16 @@ class PoolDetail extends Component {
               {pools.createError}
             </h1> : null}
           <div className="pool__details">
-						<div className="pool__card pool__thumb" style={{ backgroundImage: "url(https://images.pexels.com/photos/459252/pexels-photo-459252.jpeg)" }} />
+					<div className="pool__card pool__thumb" style={{ backgroundImage: `url(${pools.pool.poolPic})` }} />
             <div className="pool__card">
 						<h2 className="pool__text"><span>Title: </span>{title.toUpperCase()}</h2>
               <h2 className="pool__text"><span>Description: </span>{pools.pool.description}</h2>
 							<h2 className="pool__text"><span>Starting: </span>{date}</h2>
             </div>
           </div>
-          <Chart chart={pools.chart} user={this.props.auth.user} params={this.props.match.params.id} />
+					<div className="chart-wrap">
+						<Chart chart={pools.chart} user={this.props.auth.user} params={this.props.match.params.id} />
+					</div>
           <p>*Amount before platform fee</p>
           <p>**1% Platform Fee (administered on Disbursement Date)</p>
           <div className="pool__comments-wrap">
@@ -90,8 +90,7 @@ class PoolDetail extends Component {
 									<h5>{c.creator}</h5>
 									<p>{c.comment}</p>
 								</div>
-								
-							</div>;
+							</div>
             })}
             <form onSubmit={this.handleSubmit}>
               <input className="pool__form-input" onChange={this.handleChange} value={this.state.value} onKeyPress={this.handleKeyPress} placeholder="leave a comment..." />
