@@ -25,13 +25,11 @@ import {
 export const onLogin = ({ email, password }, history) => async dispatch => {
   try {
     const res = await axios.post('/api/login', { email, password });
-    console.log(res.data);
     dispatch({ type: AUTH_USER });
     dispatch({ type: FETCH_USER, payload: res.data.user });
     localStorage.setItem('token', res.data.token);
     history.push('/dashboard');
   } catch (error) {
-    console.log(error.response);
     dispatch(authError('Invalid Email/Password'));
   }
 };
@@ -40,7 +38,6 @@ export const onLogin = ({ email, password }, history) => async dispatch => {
 export const onSignUp = (values, history) => async dispatch => {
   try {
     const res = await axios.post('/api/signup', values);
-		console.log(res);
 		try {
 			const header = { headers: { Authorization: res.data.token } };
 			dispatch({ type: AUTH_USER });
@@ -49,7 +46,7 @@ export const onSignUp = (values, history) => async dispatch => {
 			localStorage.setItem('token', res.data.token);
 			history.push('/dashboard');
 		} catch (error) {
-			console.log(error);
+			dispatch(authError(error.response.data));
 		}
   } catch (error) {
     dispatch(authError(error.response.data));
@@ -77,7 +74,6 @@ export const onLogOut = () => async dispatch => {
 //App.js
 export const fetchUser = (header) => async dispatch => {
   const res = await axios.get('/api/current_user', header);
-  console.log(res);
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 

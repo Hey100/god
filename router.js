@@ -117,7 +117,7 @@ module.exports = function(app) {
           { width: 500, height: 500, crop: 'limit' },
           (error, result) => {
             if (error) {
-              console.log(error);
+              res.send(error);
             }
             res.send(result);
           }

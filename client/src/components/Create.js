@@ -91,19 +91,19 @@ class Create extends Component {
   };
 
   upload = async () => {
-    const fd = new FormData();
-    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-		const res = await axios.post('/api/upload', fd);
-		console.log(res.data)
-  
-    if (res.data.err) {
-      this.setState({ imageErr: res.data.err });
-    } else {
-      this.setState({ imageErr: '' });
-      this.setState({ path: res.data.secure_url }, () => {
-				console.log(this.state.path)
-			});
-    }
+		if (this.state.selectedFile) {
+			const fd = new FormData();
+			fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+			const res = await axios.post('/api/upload', fd);
+			if (res.data.err) {
+				this.setState({ imageErr: res.data.err });
+			} else {
+				this.setState({ imageErr: '' });
+				this.setState({ path: res.data.secure_url });
+			}
+		} else {
+			this.setState({ imageErr: 'Error: No File Selected!' });
+		}
   };
 
   handleMouseDown = event => {

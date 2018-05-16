@@ -19,7 +19,6 @@ import "./styles/global.css";
 class App extends Component {
   componentDidMount() {
 		const token = localStorage.getItem('token')
-		console.log(token)
   	if (token) {
 			const header = { headers: { Authorization: token } };
 			this.props.fetchUser(header)

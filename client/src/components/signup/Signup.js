@@ -66,7 +66,6 @@ class Signup extends Component {
           'Passwords must contain at least 8 characters, including one number, one uppercase letter, and one special character'
       });
     } else {
-      console.log('signing up');
       this.props.onSignUp(values, this.props.history);
     }
   };
