@@ -28,7 +28,7 @@ class MyPools extends Component {
 						<Link to={`/pools/${pool._id}`}>
 							<div 
 								className="my__thumb"
-								style={{ backgroundImage: 'url(https://images.pexels.com/photos/459252/pexels-photo-459252.jpeg)' }}
+								style={{ backgroundImage: `url(${pool.poolPic})` }}
 							></div>
 						</Link>
 						<div className="my__content">

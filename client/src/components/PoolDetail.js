@@ -69,7 +69,7 @@ class PoolDetail extends Component {
               {pools.createError}
             </h1> : null}
           <div className="pool__details">
-						<div className="pool__card pool__thumb" style={{ backgroundImage: "url(https://images.pexels.com/photos/459252/pexels-photo-459252.jpeg)" }} />
+					<div className="pool__card pool__thumb" style={{ backgroundImage: `url(${pools.pool.poolPic})` }} />
             <div className="pool__card">
 						<h2 className="pool__text"><span>Title: </span>{title.toUpperCase()}</h2>
               <h2 className="pool__text"><span>Description: </span>{pools.pool.description}</h2>

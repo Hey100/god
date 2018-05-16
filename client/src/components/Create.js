@@ -93,13 +93,16 @@ class Create extends Component {
   upload = async () => {
     const fd = new FormData();
     fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-    const res = await axios.post('/api/upload', fd);
+		const res = await axios.post('/api/upload', fd);
+		console.log(res.data)
   
     if (res.data.err) {
       this.setState({ imageErr: res.data.err });
     } else {
       this.setState({ imageErr: '' });
-      this.setState({ path: res.data.file });
+      this.setState({ path: res.data.secure_url }, () => {
+				console.log(this.state.path)
+			});
     }
   };
 
@@ -372,6 +375,7 @@ class Create extends Component {
           </div>
           <input type="file" onChange={this.handeChangeII} />
           <button onClick={() => this.upload()}>Upload</button>
+					{this.state.path ? <img src={this.state.path} /> : null}
           <div className="alert">
             {imageErr ? <p className="cancel">{imageErr}</p> : null}
           </div>
