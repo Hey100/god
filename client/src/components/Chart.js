@@ -38,7 +38,7 @@ class Chart extends Component {
           </h5>
           <button
             className="button"
-            onClick={() => this.props.joinPool(this.props.params, index, chart. this.props.title)}
+            onClick={() => this.props.joinPool(this.props.params, index, chart, this.props.title)}
           >
             Submit
           </button>
@@ -71,9 +71,7 @@ class Chart extends Component {
 			chart['poolId'] = params
 			chart['disburseAmount'] = chart.tcr;
 			chart['title'] = title
-      let position1;
-      let position2;
-      let position3;
+      let position1, position2, position3;
       contributors.map(p => {
         if (p.position === index && p.user === this.props.user._id) {
           this.props.joined();
@@ -150,52 +148,52 @@ class Chart extends Component {
 
   render() {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Base Amount</th>
-            <th>Interest Rate</th>
-            <th>Interest Paid/Earned*</th>
-            <th>Monthly Payment</th>
-            <th>Cash Paid</th>
-            <th>Cash Available</th>
-            <th>Fee**</th>
-            <th>Cash Received</th>
-            <th>Disbursement Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.chart.map(chart => {
-            const {
-              cashReceived,
-              cashPaid,
-              monthly,
-              amount,
-              interestRate,
-              interestAmount,
-              fee,
-              tcr,
-              startDate
-            } = chart;
-            let index = this.props.chart.indexOf(chart);
-            return (
-              <tr key={chart.cashPaid}>
-                {this.renderInput(chart, index)}
-                <td>{this.parse(amount)}</td>
-                <td>{interestRate}%</td>
-                <td>{this.parse(interestAmount)}</td>
-                <td>{this.parse(monthly)}</td>
-                <td>{this.parse(cashPaid)}</td>
-                <td>{this.parse(cashReceived)}</td>
-                <td>${fee}</td>
-                <td>{this.parse(tcr)}</td>
-                {this.renderDate(startDate, index)}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+			<table>
+				<thead>
+					<tr>
+						<th>Position</th>
+						<th>Base Amount</th>
+						<th>Interest Rate</th>
+						<th>Interest Paid/Earned*</th>
+						<th>Monthly Payment</th>
+						<th>Cash Paid</th>
+						<th>Cash Available</th>
+						<th>Fee**</th>
+						<th>Cash Received</th>
+						<th>Disbursement Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					{this.props.chart.map(chart => {
+						const {
+							cashReceived,
+							cashPaid,
+							monthly,
+							amount,
+							interestRate,
+							interestAmount,
+							fee,
+							tcr,
+							startDate
+						} = chart;
+						let index = this.props.chart.indexOf(chart);
+						return (
+							<tr key={chart.cashPaid}>
+								{this.renderInput(chart, index)}
+								<td>{this.parse(amount)}</td>
+								<td>{interestRate}%</td>
+								<td>{this.parse(interestAmount)}</td>
+								<td>{this.parse(monthly)}</td>
+								<td>{this.parse(cashPaid)}</td>
+								<td>{this.parse(cashReceived)}</td>
+								<td>${fee}</td>
+								<td>{this.parse(tcr)}</td>
+								{this.renderDate(startDate, index)}
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
     );
   }
 }

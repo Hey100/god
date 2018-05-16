@@ -78,7 +78,9 @@ class PoolDetail extends Component {
 							<h2 className="pool__text"><span>Starting: </span>{date}</h2>
             </div>
           </div>
-          <Chart chart={pools.chart} user={this.props.auth.user} params={this.props.match.params.id} />
+					<div className="chart-wrap">
+						<Chart chart={pools.chart} user={this.props.auth.user} params={this.props.match.params.id} />
+					</div>
           <p>*Amount before platform fee</p>
           <p>**1% Platform Fee (administered on Disbursement Date)</p>
           <div className="pool__comments-wrap">
@@ -90,8 +92,7 @@ class PoolDetail extends Component {
 									<h5>{c.creator}</h5>
 									<p>{c.comment}</p>
 								</div>
-								
-							</div>;
+							</div>
             })}
             <form onSubmit={this.handleSubmit}>
               <input className="pool__form-input" onChange={this.handleChange} value={this.state.value} onKeyPress={this.handleKeyPress} placeholder="leave a comment..." />

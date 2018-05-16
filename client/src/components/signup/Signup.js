@@ -85,7 +85,7 @@ class Signup extends Component {
 							className="form-input"
 							component="input"
 							name="c_password"
-							type="c_password"
+							type="password"
 							placeholder="Confirm password"
 						/>
 						<h5 className="warning">
