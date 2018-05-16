@@ -61,6 +61,10 @@ class Signup extends Component {
       this.setState({
         mismatchErr: 'Passwords must match'
       });
+    } else if (!this.state.passwordTest) {
+      this.setState({ passwordStructure:
+          'Passwords must contain at least 8 characters, including one number, one uppercase letter, and one special character'
+      });
     } else {
       console.log('signing up');
       this.props.onSignUp(values, this.props.history);
@@ -87,25 +91,28 @@ class Signup extends Component {
       if (password && !regex.test(password)) {
         this.setState({ passwordStructure: passErr });
       }
+      if (password && regex.test(password)) {
+        this.setState({ passwordTest: true });
+      }
       if (password && c_password) {
         if (password !== c_password) {
           this.setState({ mismatchErr: 'Passwords must match' });
         }
       }
     });
-	};
-	
-	renderAlert() {
-		if (this.props.auth.error) {
-			return <div className="alert">Oops! {this.props.auth.error}</div>;
-		}
-	}
+  };
+
+  renderAlert() {
+    if (this.props.auth.error) {
+      return <div className="alert">Oops! {this.props.auth.error}</div>;
+    }
+  }
 
   render() {
     const { emailErr, passwordErr, c_passwordErr } = this.state;
     return (
       <div className="tab">
-				{this.renderAlert()}
+        {this.renderAlert()}
         <div className="tab-box">
           <form
             className="signup__form"
@@ -170,7 +177,7 @@ class Signup extends Component {
             {this.state.mismatchErr ? (
               <h5 className="warning">{this.state.mismatchErr}</h5>
             ) : null}
-						<div className="warning">
+            <div className="warning">
               {this.state.passwordStructure ? (
                 <h5>{this.state.passwordStructure}</h5>
               ) : null}
