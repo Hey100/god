@@ -74,15 +74,15 @@ class Chart extends Component {
       contributors.map(p => {
         if (p.position === index && p._user === this.props.user._id) {
           this.props.joined();
-          position1 = (
+          return position1 = (
             <td style={{ padding: '10px', color: 'tomato' }}>You &#10004;</td>
           );
         } else if (p.position === index && p._user !== this.props.user._id) {
-          position2 = (
+          return position2 = (
             <td style={{ padding: '10px', color: 'tomato' }}>{p.name}</td>
           );
         } else {
-          position3 = (
+					return position3 = (
             <td>
               {index + 1} &nbsp;
               {/* {this.renderModal(index, chart)} */}

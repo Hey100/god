@@ -4,6 +4,7 @@
 	justify-content: center;
 	align-items: center;
 	align-content: space-around;
+	margin: 20px 0;
 }
 
 .all__input {
@@ -80,7 +81,7 @@
 
 @media all and (max-width: 768px) {
 	.all__card {
-		margin: 5px;
+		margin: 20px 0;
 		max-width: 250px;
 	}
 

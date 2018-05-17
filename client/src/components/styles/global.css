@@ -105,6 +105,16 @@ span {
 
 /* FORM */
 
+.form-input {
+	width: 500px;
+	height: 50px;
+	margin-top: 20px;
+	padding: 10px 15px;
+	background-color: white;
+	border: 1px solid#088DA5;
+	border-radius: 5px;
+}
+
 .form-review {
 	display: flex;
 	flex-flow: column wrap;
@@ -118,18 +128,55 @@ span {
 	color: gray;
 }
 
-.form-input {
+.form-upload {
 	width: 500px;
-	height: 50px;
+	min-height: 50px;
+	display: flex;
+	overflow: hidden;
+	position: relative;
+	flex-direction: column;
+	align-items: center;
 	margin-top: 20px;
-	padding: 10px 15px;
+	padding: 10px;
 	background-color: white;
-	border: 1px solid#088DA5;
+	border: 1px solid darkcyan;
 	border-radius: 5px;
 }
 
-.form-upload {
-	display: flex;
+.form-upload [type=file] {
+    cursor: inherit;
+    display: block;
+		height: 100%;
+		width: 100%;
+		opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.form-upload:hover {
+	border: 1px solid coral;
+}
+
+.form-file-label:hover {
+	background-color: gray;
+	cursor: pointer;
+}
+
+.form-upload > img {
+	max-width: 250px;
+	min-height: 100px;
+	margin: 10px;
+}
+
+.form-upload > button {
+	z-index: 1;
+	margin: 5px;
+	padding: 5px 20px;
+	border: none;
+	border-radius: 5px;
+	background-color: dodgerblue;
+	color: white;
 }
 
 .alert {
@@ -249,7 +296,7 @@ span {
 		justify-content: center;
 	}
 
-	.form-input, .form-display, .mid-btn {
+	.form-input, .form-display, .mid-btn, .form-upload {
 		width: 300px;
 	}
 

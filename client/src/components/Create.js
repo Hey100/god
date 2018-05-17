@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
+import { UploadIcon } from 'mdi-react';
 import Chart from './Chart';
 import * as actions from '../actions/index';
 import './styles/chart.css';
+import './styles/loader.css';
 import './styles/global.css';
 import './styles/media.css';
+const fs = require("fs");
 
 class Create extends Component {
-  state = {
-    contributors: null,
-    error: '',
-    visible: false
-  };
+	state = {
+		contributors: null,
+		error: '',
+		visible: false,
+		imageErr: '',
+		selectedFile: null,
+		path: null,
+		imageLoading: false
+	};
+
   componentDidMount() {
     if (this.props.pools.chart) {
       this.props.reset();
@@ -25,10 +32,8 @@ class Create extends Component {
   handleChart = () => {
     if (this.props.pools.chart) {
       return (
-        <div className="chart-wrap">
-          {!this.props.user ? (
-            <h2 className="text-2">3. Pick a Position</h2>
-          ) : null}
+        <div className="chart-wrap" >
+          {!this.props.user ? <h2 className="text-2">3. Pick a Position</h2> : null}
           <Chart
             onSubmit={this.props.onSubmit}
             chart={this.props.pools.chart}
@@ -84,27 +89,30 @@ class Create extends Component {
         this.props.createChart(obj);
       }
     });
-  };
-  handeChangeII = e => {
-    this.setState({ imageErr: '' });
-    this.setState({ selectedFile: e.target.files[0] });
-  };
+	};
+	handeChangeII = e => {
+		this.setState({ imageErr: '' });
+		this.setState({ selectedFile: e.target.files[0] });
+	};
 
-  upload = async () => {
-    const fd = new FormData();
-    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+	upload = async () => {
+		this.setState({ imageLoading: true })
+		const fd = new FormData();
+		fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
 		const res = await axios.post('/api/upload', fd);
 		console.log(res.data)
-  
-    if (res.data.err) {
-      this.setState({ imageErr: res.data.err });
-    } else {
-      this.setState({ imageErr: '' });
-      this.setState({ path: res.data.secure_url }, () => {
-				console.log(this.state.path)
+
+		if (res.data.err) {
+			this.setState({ imageErr: res.data.err });
+		} else {
+			this.setState({
+				imageErr: '',
+				path: res.data.secure_url,
+				imageLoading: false,
+				relative: `${res.data.original_filename}.${res.data.format}`
 			});
-    }
-  };
+		}
+	};
 
   handleMouseDown = event => {
     this.setState({ startDateErr: '' });
@@ -130,14 +138,15 @@ class Create extends Component {
   }
   handleSubmit = chart => {
     const { history, createPool, pools } = this.props;
-    const startDate = moment(chart[pools.selection].startDate).format('L');
+    // const startDate = moment(chart[pools.selection].startDate).format('L');
     const dDate = moment(chart[pools.selection].startDate)
       .add(pools.selection, 'months')
       .format('L');
     const endDate = moment(chart[pools.selection].startDate)
       .add(chart.length - 1, 'months')
       .format('L');
-    let values = {};
+		let values = {};
+
     values['title'] = this.state.title;
     values['description'] = this.state.description;
     values['category'] = this.state.category;
@@ -331,7 +340,7 @@ class Create extends Component {
 
   render() {
     const { error, chart, selection, createError } = this.props.pools;
-    const { titleErr, categoryErr, descriptionErr, imageErr } = this.state;
+		const { titleErr, categoryErr, descriptionErr, imageErr } = this.state;
     return (
       <div className="tab">
         <h1 className="tab-title">Start a pool</h1>
@@ -373,12 +382,28 @@ class Create extends Component {
           <div className="alert">
             {descriptionErr ? <p className="cancel">{descriptionErr}</p> : null}
           </div>
-          <input type="file" onChange={this.handeChangeII} />
-          <button onClick={() => this.upload()}>Upload</button>
-					{this.state.path ? <img src={this.state.path} /> : null}
-          <div className="alert">
-            {imageErr ? <p className="cancel">{imageErr}</p> : null}
-          </div>
+					<div className="form-upload">
+						<label className="form-file-label align-center">
+							<UploadIcon size="24" color="gray" />&nbsp;<strong>Select or drag a picture</strong>
+						</label>
+						<input type="file" onChange={this.handeChangeII} />
+						{this.state.imageLoading ?
+							<div className="jumper">
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							: null}
+						{this.state.path && !this.state.imageLoading ? <img src={this.state.path} /> : null}
+						{this.state.selectedFile ? <button onClick={() => this.upload()}>Upload</button> : null}
+						{this.state.path ? <button onClick={() => {
+							fs.unlink(`../uploads/${this.state.relative}`, (err) => {
+								if (err) console.log(err);
+								console.log('the images was deleted');
+							});
+						}}>Delete</button> : null}
+					</div>
+					{imageErr ? <p className="alert">{imageErr}</p> : null}
           <h2 className="text-2">2. Choose Your Options</h2>
           <select
             name="contributors"
