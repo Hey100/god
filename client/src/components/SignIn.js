@@ -57,9 +57,11 @@ class SignIn extends Component {
               <div className="alert">Oops! {this.props.auth.error}</div>
             ) : null}
           </form>
-          <button className="mid-btn google align-center">
-            Log in&nbsp;<GoogleIcon size={28} color="#F90101" />
-          </button>
+          <a href="/auth/google" className="mid-btn google align-center">
+            Log in&nbsp;
+            <GoogleIcon size={28} color="#F90101" />
+          </a>
+
           <div>
             <Link to="/" className="link cancel">
               Cancel
