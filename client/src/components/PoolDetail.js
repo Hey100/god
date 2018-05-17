@@ -59,7 +59,15 @@ class PoolDetail extends Component {
   render() {
     const { pools } = this.props;
     if (!pools.pool || !pools.chart || !pools.comments) {
-      return <p>Loading...</p>;
+			return <div className="tab">
+				<div className="tab-box">
+					<div className="jumper">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+			</div>;
     }
 		const date = moment(pools.pool.date).format('L');
 		const title = pools.pool.title;

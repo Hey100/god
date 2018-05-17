@@ -107,7 +107,6 @@ class Summary extends Component {
   };
 
   render() {
-    const { payments } = this.props.dash;
     const { ccScore, mlimit, usedAmount } = this.props.auth.user;
     const usage = (usedAmount / mlimit * 100).toFixed(0);
     let data = {
