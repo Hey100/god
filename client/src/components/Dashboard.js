@@ -11,6 +11,7 @@ import Summary from './Summary';
 import MyPools from './MyPools';
 import Friends from './Friends';
 import Messages from './Messages';
+import Banking from './Banking';
 
 class Dashboard extends Component {
   state = { section: "summary" };
@@ -28,20 +29,9 @@ class Dashboard extends Component {
       case "myPools":
         return <MyPools />;
       case "bank":
-        return (
-          <div className="tab">
-						<h1 className="tab-title">
-							Banking Information
-						</h1>
-						<div className="tab-box">
-							<h1 className="text-1">
-								No Information has been added yet...
-							</h1>
-						</div>
-          </div>
-        );
-      case "friends":
-        return <Friends />;
+				return <Banking />;  
+			case "friends":
+				return <Friends />;
       case "messages":
         return <Messages />;
       default:

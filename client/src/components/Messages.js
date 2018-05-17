@@ -38,9 +38,13 @@ class Messages extends Component {
     }
     if (!this.state.friends) {
       return (
-        <div className="message__tab-box">
-          <h1 className="text-1">Messges Loading...</h1>
-        </div>
+				<div className="tab-box">
+					<div className="jumper">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
       );
     }
     return (

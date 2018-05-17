@@ -2,8 +2,8 @@ import axios from 'axios';
 import {
   AUTH_USER,
   AUTH_ERROR,
-	UNAUTH_USER,
-	RESET_AUTH_ERROR,
+  UNAUTH_USER,
+  RESET_AUTH_ERROR,
   FETCH_USER,
   MY_POOLS,
   ALL_POOLS,
@@ -22,34 +22,35 @@ import {
 } from './types';
 
 //SignIn.js
-export const onLogin = ({ email, password }, history) => {
-  return dispatch => {
-    axios
-      .post('/api/login', { email, password })
-      .then(res => {
-        dispatch({ type: AUTH_USER });
-        dispatch({ type: FETCH_USER, payload: res.data.user });
-        localStorage.setItem('token', res.data.token);
-        history.push('/dashboard');
-      })
-      .catch(() => {
-        dispatch(authError('Invalid Email/Password'));
-      });
-  };
+export const onLogin = ({ email, password }, history) => async dispatch => {
+  try {
+    const res = await axios.post('/api/login', { email, password });
+    dispatch({ type: AUTH_USER });
+    dispatch({ type: FETCH_USER, payload: res.data.user });
+    localStorage.setItem('token', res.data.token);
+    history.push('/dashboard');
+  } catch (error) {
+    dispatch(authError('Invalid Email/Password'));
+  }
 };
 
 //Signup.js
 export const onSignUp = (values, history) => async dispatch => {
   try {
-		const res = await axios.post('/api/signup', values);
-		dispatch({ type: AUTH_USER });
-		dispatch({ type: FETCH_USER, payload: res.data.user });
-		localStorage.setItem('token', res.data.token);
-		history.push('/dashboard');
+    const res = await axios.post('/api/signup', values);
+		try {
+			const header = { headers: { Authorization: res.data.token } };
+			dispatch({ type: AUTH_USER });
+			dispatch(fetchUser(header));
+			dispatch({ type: FETCH_USER, payload: res.data.user });
+			localStorage.setItem('token', res.data.token);
+			history.push('/dashboard');
+		} catch (error) {
+			dispatch(authError(error.response.data));
+		}
   } catch (error) {
     dispatch(authError(error.response.data));
   }
-
 };
 export const authError = error => {
   return {
@@ -58,9 +59,9 @@ export const authError = error => {
   };
 };
 export const resetAuthError = () => {
-	return {
-		type: RESET_AUTH_ERROR
-	};
+  return {
+    type: RESET_AUTH_ERROR
+  };
 };
 
 //Logout.js
@@ -71,8 +72,8 @@ export const onLogOut = () => async dispatch => {
 };
 
 //App.js
-export const fetchUser = () => async dispatch => {
-  const res = await axios.get('/api/current_user');
+export const fetchUser = (header) => async dispatch => {
+  const res = await axios.get('/api/current_user', header);
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
@@ -232,8 +233,8 @@ export const fetchPayments = () => async dispatch => {
   dispatch({ type: FETCHED_PAYMENTS, payload: res.data });
 };
 export const calculateLimit = obj => async dispatch => {
-	const res = await axios.post('/api/calculateLimit', obj);
-	await dispatch(fetchPayments())
+  const res = await axios.post('/api/calculateLimit', obj);
+  await dispatch(fetchPayments());
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 

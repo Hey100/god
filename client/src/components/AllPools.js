@@ -111,25 +111,25 @@ class AllPools extends Component {
               const percent = Math.round(num * 100 / pool.numOfContributors);
               const matches = title.match(new RegExp(this.state.keyword, 'i'));
               if (this.state.amount && pool.amount > this.state.amount) {
-                return;
+                return null;
               }
               if (
                 this.state.contributors &&
                 pool.numOfContributors > this.state.contributors
               ) {
-                return;
+                return null;
               }
               if (
                 this.state.category &&
                 pool.category !== this.state.category
               ) {
-                return;
+                return null;
               }
               if (this.state.rate && pool.rate > this.state.rate) {
-                return;
+                return null;
               }
               if (this.state.keyword && !matches) {
-                return;
+                return null;
               }
               return (
                 <div key={pool._id} className="all__card">

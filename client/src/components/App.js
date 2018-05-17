@@ -18,7 +18,11 @@ import "./styles/global.css";
 
 class App extends Component {
   componentDidMount() {
-  	this.props.fetchUser()
+		const token = localStorage.getItem('token')
+  	if (token) {
+			const header = { headers: { Authorization: token } };
+			this.props.fetchUser(header)
+		} 
   }
 
   render() {

@@ -4,6 +4,7 @@ import _ from "lodash";
 import { MessageIcon, InformationIcon } from "mdi-react";
 
 import "./styles/friends.css";
+import "./styles/loader.css";
 import "./styles/global.css";
 import "./styles/media.css";
 
@@ -41,7 +42,11 @@ class Friends extends Component {
 					Friends
 				</h1>
 				<div className="tab-box">
-					<h1 className="text-1">Loading friends...</h1>
+					<div className="jumper">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
 				</div>
 			</div>;
 		}

@@ -12,13 +12,14 @@ const Pool = mongoose.model('pools');
 const Comment = mongoose.model('comments');
 const Payment = mongoose.model('payments');
 
-const requireSignin = passport.authenticate('local', { session: true });
+const requireSignin = passport.authenticate('local', { session: false });
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 const cloudinary = require('cloudinary');
 cloudinary.config({
-	cloud_name: 'ethanyjoh',
-	api_key: '573798653617485',
-	api_secret: '0aiBfSgi6S9Zl49PaAjQfYTr_6o'
+  cloud_name: 'ethanyjoh',
+  api_key: '573798653617485',
+  api_secret: '0aiBfSgi6S9Zl49PaAjQfYTr_6o'
 });
 //multer
 const multer = require('multer');
@@ -54,25 +55,28 @@ function checkFileType(file, cb) {
   }
 }
 
-
 module.exports = function(app) {
   //get
 
   //auth
-  app.get('/api/current_user', (req, res) => {
+	app.get('/api/current_user', requireAuth, (req, res) => {
     res.send(req.user);
-  });
+	});
+	app.get('/api/jwt', requireAuth, (req, res) => {
+		res.send(req.user)
+	});
   app.get('/api/logout', (req, res) => {
     req.logout();
     res.send(req.user);
   });
   //pools
   app.get('/api/mypools', async (req, res) => {
-    const pools = await Pool.find({ $or: [
-      {contributors: { $elemMatch: { _user: req.user._id } }},
-			{ _user: req.user._id }
-		]
-		});
+    const pools = await Pool.find({
+      $or: [
+        { contributors: { $elemMatch: { _user: req.user._id } } },
+        { _user: req.user._id }
+      ]
+    });
     res.send(pools);
   });
   app.get('/api/allpools', async (req, res) => {
@@ -103,21 +107,27 @@ module.exports = function(app) {
   app.post('/api/calculateLimit', payments.calculate);
   //pools
   app.post('/api/createPool', pools.create);
-	app.post('/api/upload', (req, res) => {
-		upload(req, res, err => {
-			if (err) {
-				res.send({ err: 'Error: Image Files Only!' });
-			} else {
-				cloudinary.uploader.upload(req.file.path, result => {
-					res.send(result)
-				});
-			}
-		});
-	
-	});
+  app.post('/api/upload', (req, res) => {
+    upload(req, res, err => {
+      if (err) {
+        res.send({ err: 'Error: Image Files Only!' });
+      } else {
+        cloudinary.v2.uploader.upload(
+          req.file.path,
+          { width: 500, height: 500, crop: 'limit' },
+          (error, result) => {
+            if (error) {
+              res.send(error);
+            }
+            res.send(result);
+          }
+        );
+      }
+    });
+  });
   app.post('/api/joinPool', pools.join);
   //auth
-  app.post('/api/login', requireSignin, authentication.signin);
+	app.post('/api/login', requireSignin, authentication.signin);
   app.post('/api/signup', authentication.signup);
   app.post('/api/updateUser', authentication.update);
 };
