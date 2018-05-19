@@ -9,6 +9,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const keys = require('./config/keys');
+require('./models/user')
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);

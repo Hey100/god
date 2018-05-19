@@ -46,7 +46,8 @@ exports.signup = function(req, res, next) {
       savingsQ: req.body.savingsQ,
       incomeQ: req.body.incomeQ,
       email: email,
-      password: password
+      password: password,
+      signUpComplete: true
     });
 
     user.save(err => {

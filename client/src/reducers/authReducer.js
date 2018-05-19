@@ -3,27 +3,31 @@ import {
   AUTH_ERROR,
   UNAUTH_USER,
   FETCH_USER,
-  RESET_AUTH_ERROR
+  RESET_AUTH_ERROR,
+  GOOGLE_SIGN_UP
 } from '../actions/types';
 
 const INITIAL_STATE = {
-	error: '',
-	authenticated: null,
-	user: null
-}
+  error: '',
+  authenticated: false,
+  user: null,
+  googleSignUp: false
+};
 
-export default function(state= INITIAL_STATE, action) {
-	switch (action.type) {
+export default function(state = INITIAL_STATE, action) {
+  switch (action.type) {
     case AUTH_USER:
       return { ...state, error: '', authenticated: true };
     case AUTH_ERROR:
       return { ...state, error: action.payload };
-		case RESET_AUTH_ERROR:
-      return { ...state, error: '' };
     case UNAUTH_USER:
-      return { ...state, authenticated: false, user: null };
+      return { ...state, authenticated: false, user: null, googleSignUp: false, error: '' };
     case FETCH_USER:
       return { ...state, user: action.payload };
+    case RESET_AUTH_ERROR:
+      return { ...state, error: '' };
+		case GOOGLE_SIGN_UP:
+      return { ...state, googleSignUp: true };
     default:
       return state;
   }

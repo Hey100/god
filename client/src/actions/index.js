@@ -18,7 +18,8 @@ import {
   RESET,
   RESET_ERROR,
   FETCHED_POOL,
-  JOINED
+  JOINED,
+  GOOGLE_SIGN_UP
 } from './types';
 
 //SignIn.js
@@ -38,16 +39,30 @@ export const onLogin = ({ email, password }, history) => async dispatch => {
 export const onSignUp = (values, history) => async dispatch => {
   try {
     const res = await axios.post('/api/signup', values);
-		try {
-			const header = { headers: { Authorization: res.data.token } };
-			dispatch({ type: AUTH_USER });
-			dispatch(fetchUser(header));
-			dispatch({ type: FETCH_USER, payload: res.data.user });
-			localStorage.setItem('token', res.data.token);
-			history.push('/dashboard');
-		} catch (error) {
-			dispatch(authError(error.response.data));
-		}
+    try {
+      dispatch({ type: AUTH_USER });
+      dispatch(fetchUser(res.data.token));
+      dispatch({ type: FETCH_USER, payload: res.data.user });
+      localStorage.setItem('token', res.data.token);
+      history.push('/dashboard');
+    } catch (error) {
+      dispatch(authError(error.response.data));
+    }
+  } catch (error) {
+    dispatch(authError(error.response.data));
+  }
+};
+export const OAuthSignUp = (values, history) => async dispatch => {
+  try {
+    const res = await axios.post('/api/oauthsignup', values);
+    try {
+      dispatch({ type: AUTH_USER });
+      dispatch(fetchUser(res.data.token));
+      dispatch({ type: FETCH_USER, payload: res.data.user });
+      history.push('/dashboard');
+    } catch (error) {
+      dispatch(authError(error.response.data));
+    }
   } catch (error) {
     dispatch(authError(error.response.data));
   }
@@ -72,14 +87,21 @@ export const onLogOut = () => async dispatch => {
 };
 
 //App.js
-export const fetchUser = (header) => async dispatch => {
-  const res = await axios.get('/api/current_user', header);
+export const fetchUser = token => async dispatch => {
+  const res = await axios.get('/api/current_user', {
+    headers: { Authorization: token }
+	});
+	if (!res.data.signUpComplete) {
+		dispatch({ type: GOOGLE_SIGN_UP })
+	}
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
 //MyPools.js
 export const fetchMyPools = () => async dispatch => {
-  const res = await axios.get('/api/mypools');
+  const res = await axios.get('/api/mypools', {
+    headers: { Authorization: localStorage.getItem('token') }
+  });
   dispatch({ type: MY_POOLS, payload: res.data });
 };
 
@@ -151,7 +173,9 @@ export const setError = err => {
 export const createPool = (values, history) => async dispatch => {
   try {
     await dispatch(updateUser(values));
-    const res = await axios.post('/api/createPool', values);
+    const res = await axios.post('/api/createPool', values, {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
     history.push(`/pools/${res.data._id}`);
     values['poolId'] = res.data._id;
     dispatch(createPayment(values));
@@ -162,11 +186,18 @@ export const createPool = (values, history) => async dispatch => {
   }
 };
 export const createPayment = values => async dispatch => {
-  await axios.post('/api/createPayment', values);
+  await axios.post('/api/createPayment', values, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+      'Content-Type': 'application/json'
+    }
+  });
   dispatch({ type: PAYMENT_CREATED });
 };
 const updateUser = values => async dispatch => {
-  const res = await axios.post('/api/updateUser', values);
+  const res = await axios.post('/api/updateUser', values, {
+    headers: { Authorization: localStorage.getItem('token') }
+  });
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
@@ -186,7 +217,9 @@ export const joinPool = (poolId, position, chart) => async dispatch => {
   try {
     await dispatch(updateUser(chart));
     let obj = { poolId, position };
-    const res = await axios.post('/api/joinPool', obj);
+    const res = await axios.post('/api/joinPool', obj, {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
     let obj2 = {};
     obj2['amount'] = res.data.amount;
     obj2['contributors'] = res.data.numOfContributors;
@@ -208,7 +241,11 @@ export const joined = () => {
 
 //PoolDetail.js
 export const createComment = values => async dispatch => {
-  const res = await axios.post('/api/saveComment', values);
+  const res = await axios.post('/api/saveComment', values, {
+    headers: {
+      Authorization: localStorage.getItem('token')
+    }
+  });
   dispatch(fetchComments(res.data._pool));
   dispatch({ type: COMMENT_CREATED, payload: res.data });
 };
@@ -229,14 +266,24 @@ export const fetchComments = id => async dispatch => {
 
 //Summary.js
 export const fetchPayments = () => async dispatch => {
-  const res = await axios.get('/api/payments');
+  const res = await axios.get('/api/payments', {
+    headers: { Authorization: localStorage.getItem('token') }
+  });
   dispatch({ type: FETCHED_PAYMENTS, payload: res.data });
 };
 export const calculateLimit = obj => async dispatch => {
-  const res = await axios.post('/api/calculateLimit', obj);
+  const res = await axios.post('/api/calculateLimit', obj, {
+    headers: { Authorization: localStorage.getItem('token') }
+  });
   await dispatch(fetchPayments());
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+//GoogleToken.js
+export const googleSignUp = (history) => dispatch => {
+	history.push('/signup')
+	dispatch({ type: GOOGLE_SIGN_UP });
+}
 
 //multi
 export const reset = () => {

@@ -62,6 +62,9 @@ module.exports = function(app) {
 	app.get('/api/current_user', requireAuth, (req, res) => {
     res.send(req.user);
 	});
+	app.get('/api/google_user',(req, res) => {
+    res.send(req.user);
+	});
 	app.get('/api/jwt', requireAuth, (req, res) => {
 		res.send(req.user)
 	});
@@ -70,7 +73,7 @@ module.exports = function(app) {
     res.send(req.user);
   });
   //pools
-  app.get('/api/mypools', async (req, res) => {
+	app.get('/api/mypools', requireAuth, async (req, res) => {
     const pools = await Pool.find({
       $or: [
         { contributors: { $elemMatch: { _user: req.user._id } } },
@@ -93,7 +96,7 @@ module.exports = function(app) {
     res.send(comments);
   });
   //payments
-  app.get('/api/payments', async (req, res) => {
+	app.get('/api/payments', requireAuth, async (req, res) => {
     const payments = await Payment.find({ _user: req.user.id });
     res.send(payments);
   });
@@ -101,12 +104,12 @@ module.exports = function(app) {
   //post
 
   //comments
-  app.post('/api/saveComment', comments.create);
+	app.post('/api/saveComment', requireAuth, comments.create);
   //payments
-  app.post('/api/createPayment', payments.create);
-  app.post('/api/calculateLimit', payments.calculate);
+	app.post('/api/createPayment', requireAuth, payments.create);
+	app.post('/api/calculateLimit', requireAuth, payments.calculate);
   //pools
-  app.post('/api/createPool', pools.create);
+	app.post('/api/createPool', requireAuth, pools.create);
   app.post('/api/upload', (req, res) => {
     upload(req, res, err => {
       if (err) {
@@ -125,9 +128,9 @@ module.exports = function(app) {
       }
     });
   });
-  app.post('/api/joinPool', pools.join);
+	app.post('/api/joinPool', requireAuth, pools.join);
   //auth
 	app.post('/api/login', requireSignin, authentication.signin);
   app.post('/api/signup', authentication.signup);
-  app.post('/api/updateUser', authentication.update);
+	app.post('/api/updateUser', requireAuth, authentication.update);
 };

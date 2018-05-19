@@ -15,8 +15,9 @@ const userSchema = new Schema({
   phone:  Number,
   savingsQ:  String,
   incomeQ:  String,
-  email: { type: String, unique: true, lowercase: true, },
-  password: String,
+  email: { type: String, unique: true, lowercase: true },
+	password: String,
+	signUpComplete: Boolean,
 	ccScore: { type: Number, default: 80 },
 	mlimit: { type: Number, default: 700 },
 	usedAmount: {type: Number, default: 0 }

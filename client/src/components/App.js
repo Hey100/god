@@ -7,6 +7,7 @@ import SignIn from './SignIn';
 import Signup from './signup/Signup';
 import Logout from './Logout';
 import Dashboard from './Dashboard';
+import GoogleToken from './GoogleToken';
 import PoolDetail from './PoolDetail';
 import AllPools from './AllPools';
 import MyPools from './MyPools';
@@ -19,10 +20,7 @@ import "./styles/global.css";
 class App extends Component {
   componentDidMount() {
 		const token = localStorage.getItem('token')
-  	if (token) {
-			const header = { headers: { Authorization: token } };
-			this.props.fetchUser(header)
-		} 
+		token ? this.props.fetchUser(token) : null
   }
 
   render() {
@@ -32,6 +30,7 @@ class App extends Component {
           <div className="contain">
             <Header />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/setToken/:id/:boo" component={GoogleToken} />
             <Route path="/mypools" component={MyPools} />
             <Route exact path="/pools/:id" component={PoolDetail} />
             <Route exact path="/pools" component={AllPools} />
