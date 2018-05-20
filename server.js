@@ -3,7 +3,6 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
-const router = require('./router');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
@@ -28,8 +27,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(bodyParser.json());
-router(app);
 require('./routes/authRoutes')(app);
+require('./routes/commentRoutes')(app);
+require('./routes/paymentRoutes')(app);
+require('./routes/poolRoutes')(app);
 
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
