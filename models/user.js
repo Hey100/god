@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt-nodejs');
 const userSchema = new Schema({
 	googleId: String,
   first_name:  String, 
-  last_name: String,
+	last_name: String,
+	profilePic: String,
   dob: String,
   address1: String,
   address2: String,
@@ -15,8 +16,9 @@ const userSchema = new Schema({
   phone:  Number,
   savingsQ:  String,
   incomeQ:  String,
-  email: { type: String, unique: true, lowercase: true, },
-  password: String,
+  email: { type: String, unique: true, lowercase: true },
+	password: String,
+	signUpComplete: Boolean,
 	ccScore: { type: Number, default: 80 },
 	mlimit: { type: Number, default: 700 },
 	usedAmount: {type: Number, default: 0 }

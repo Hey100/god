@@ -1,187 +1,196 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { CloseIcon } from 'mdi-react';
 import moment from 'moment';
 
 import './styles/allpools.css';
+import './styles/loader.css';
 import './styles/global.css';
 import './styles/media.css';
 import * as actions from '../actions/index';
 
 class AllPools extends Component {
   state = {
-    amount: null,
+		min: "",
+		max: "",
     contributors: null,
     category: null,
     rate: null,
-    keyword: null
-  };
+    keyword: ""
+	};
+
   componentDidMount() {
-    this.props.fetchAllPools();
+		this.props.fetchAllPools();
   }
 
   renderDate = date => {
     let newDate = moment(date).format('L');
     return <h3 key={date}>Start Date: {newDate}</h3>;
-  };
+	};
 
   handleClick = id => {
     this.props.history.push(`/pools/${id}`);
-  };
+	};
+
+	handleFilterClick = (type, opt) => {
+		if (opt) {
+			this.setState({
+				[type]: opt,
+				active: true
+			})
+		} else {
+			this.setState({ [type]: null })
+		}
+	}
+
+	handleFilterPools = (pools) => {
+		const filteredPools = [];
+		pools.map(pool => {
+			let title = pool.title;
+			let num = pool.contributors.length;
+			let percent = Math.round(num * 100 / pool.numOfContributors);
+			let match = pool.title.match(new RegExp(this.state.keyword, "i"));
+			if (this.state.min && Number(pool.amount) < this.state.min) return;
+			if (this.state.max && Number(pool.amount) > this.state.max) return;
+			else if (this.state.contributors && Number(pool.numOfContributors) !== this.state.contributors) return;
+			else if (this.state.category && pool.category !== this.state.category) return;
+			else if (this.state.rate && Number(pool.rate) !== this.state.rate) return;
+			else if (!match) return;
+			else filteredPools.push(pool)
+		})
+		return filteredPools;
+	}
+
+	handlePools = () => {
+		const { allPools } = this.props.pools;
+		if (!allPools) {
+			return (
+				<div className="result">
+					<div className="jumper">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+					<h1 className="text-2">
+						POOLS ARE ON THE WAY...
+					</h1>
+				</div>
+			)
+		}
+		let newPools = this.handleFilterPools(allPools);
+		if (newPools.length === 0) {
+			return (
+				<div className="results">
+					<h1 className="text-2">
+						THERE IS NO POOLS MATCHING YOUR SEARCH...
+					</h1>
+				</div>
+			)
+		} else {
+			return <div className="results">
+          {newPools.map(pool => {
+            let title = pool.title;
+            let num = pool.contributors.length;
+						let percent = Math.round(num * 100 / pool.numOfContributors);
+            return <div key={pool._id} className="all__card">
+                <div className="all__thumbnail" onClick={() => this.handleClick(pool._id)} style={{ backgroundImage: `url(${pool.poolPic})` }} alt="" />
+                <div className="all__card-content">
+                  <h1 className="text-3" onClick={() => this.handleClick(pool._id)}>
+                    {title.toUpperCase()}
+                  </h1>
+                  <h1>
+                    by:<button className="link">{pool.creator}</button>
+                  </h1>
+                  <div className="all__meter-wrap">
+                    <div className="all__meter">
+                      <span style={{ width: `${percent}%` }} />
+                    </div>
+                    <h1 className="all__meter-percent">{`${num}/${pool.numOfContributors}`}</h1>
+                  </div>
+                  <h3 className="text-3">
+                    {parseFloat(pool.amount).toLocaleString("USD", {
+                      style: "currency",
+                      currency: "USD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0
+                    })}
+                  </h3>
+                  <h3>{pool.rate}% max interest</h3>
+                  {num > 1 ? <h3>
+                      {num} Contributors
+                    </h3> : <h3>{num} Contributor</h3>}
+                  {this.renderDate(pool.date)}
+                </div>
+              </div>;
+          })}
+        </div>;
+		}
+	}
 
   render() {
-    const { allPools } = this.props.pools;
-    if (!allPools) {
-      return <p>LOADING...</p>;
-    }
-    return (
-      <div className="tab">
+		const { allPools } = this.props.pools;
+    return <div className="tab">
         <h1 className="tab-title">COMMUNITY</h1>
         <div className="tab-box-v">
           <div className="all__search-bar">
-            <h1>Filter by</h1>
-            <form>
-              <select
-                className="all__input"
-                onInput={event => this.setState({ amount: event.target.value })}
-              >
-                <option>Amount</option>
-                <option value="1000">$1,000</option>
-                <option value="2000">$2,000</option>
-                <option value="3000">$3,000</option>
-                <option value="4000">$4,000</option>
-                <option value="5000">$5,000</option>
-                <option value="6000">$6,000</option>
-                <option value="7000">$7,000</option>
-                <option value="8000">$8,000</option>
-                <option value="9000">$9,000</option>
-                <option value="10000">$10,000</option>
-              </select>
-              <select
-                className="all__input"
-                onInput={event =>
-                  this.setState({ contributors: event.target.value })
-                }
-              >
-                <option>Number of Contributors</option>
-                <option value="5">5</option>
-                <option value="7">7</option>
-                <option value="9">9</option>
-                <option value="11">11</option>
-                <option value="13">13</option>
-              </select>
-              <select
-                className="all__input"
-                onInput={event =>
-                  this.setState({ category: event.target.value })
-                }
-              >
-                <option>Category</option>
-                <option value="Sports">Sports</option>
-                <option value="Business">Business</option>
-                <option value="Home Improvement">Home Improvement</option>
-                <option value="Travel">Travel</option>
-              </select>
-              <select
-                className="all__input"
-                onInput={event => this.setState({ rate: event.target.value })}
-              >
-                <option>Interest Rate</option>
-                <option value="5">5%</option>
-                <option value="7">7%</option>
-                <option value="9">9%</option>
-                <option value="10">10%</option>
-              </select>
-            </form>
-            <h1>or</h1>
-            <form>
-              <input
-                type="text"
-                className="all__input"
-                placeholder="Search"
-                onInput={event =>
-                  this.setState({ keyword: event.target.value })
-                }
-              />
-            </form>
-          </div>
-          <div className="results">
-            {allPools.map(pool => {
-              const num = pool.contributors.length;
-              const title = pool.title;
-              const percent = Math.round(num * 100 / pool.numOfContributors);
-              const matches = title.match(new RegExp(this.state.keyword, 'i'));
-              if (this.state.amount && pool.amount > this.state.amount) {
-                return null;
-              }
-              if (
-                this.state.contributors &&
-                pool.numOfContributors > this.state.contributors
-              ) {
-                return null;
-              }
-              if (
-                this.state.category &&
-                pool.category !== this.state.category
-              ) {
-                return null;
-              }
-              if (this.state.rate && pool.rate > this.state.rate) {
-                return null;
-              }
-              if (this.state.keyword && !matches) {
-                return null;
-              }
-              return (
-                <div key={pool._id} className="all__card">
-                  <div
-                    className="all__thumbnail"
-                    onClick={() => this.handleClick(pool._id)}
-                    style={{
-                      backgroundImage: `url(${pool.poolPic})`
-                    }}
-                    alt=""
-                  />
-                  <div className="all__card-content">
-                    <h1
-                      className="text-3"
-                      onClick={() => this.handleClick(pool._id)}
-                    >
-                      {title.toUpperCase()}
-                    </h1>
-                    <h1>
-                      by:<button className="link">{pool.creator}</button>
-                    </h1>
-                    <div>
-                      <div className="all__meter">
-                        <span style={{ width: `${percent}%` }} />
-                      </div>
-                      <h1 className="all__meter-percent">{`${num}/${
-                        pool.numOfContributors
-                      }`}</h1>
-                    </div>
-                    <h3 className="text-3">
-                      {parseFloat(pool.amount).toLocaleString('USD', {
-                        style: 'currency',
-                        currency: 'USD',
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0
-                      })}
-                    </h3>
-                    <h3>{pool.rate}% max interest</h3>
-                    {num > 1 ? (
-                      <h3>{num} Contributors</h3>
-                    ) : (
-                      <h3>{num} Contributor</h3>
-                    )}
-                    {this.renderDate(pool.date)}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    );
+						<div className="all__range">
+							<input
+								type="text"
+								value={this.state.min}
+								placeholder="From.."
+								onInput={(e) => this.setState({ min: e.target.value })}
+							/>
+							<input
+								type="text"
+								value={this.state.max}
+								placeholder="..To"
+								onInput={(e) => this.setState({ max: e.target.value })}
+							/>
+						</div>
+						<div className="all__dropdown">
+						<button className="all__dropbtn">
+							{!this.state.contributors ? "Contributors" : `${this.state.contributors} con.`}
+						</button>
+							<div className="all__dropdown-content">
+								<button onClick={() => this.handleFilterClick('contributors')}>All</button>
+								<button onClick={() => this.handleFilterClick('contributors',5)}>5</button>
+								<button onClick={() => this.handleFilterClick('contributors',7)}>7</button>
+								<button onClick={() => this.handleFilterClick('contributors',9)}>9</button>
+								<button onClick={() => this.handleFilterClick('contributors',11)}>11</button>
+								<button onClick={() => this.handleFilterClick('contributors',13)}>13</button>
+							</div>
+						</div>
+						<div className="all__dropdown">
+							<button className="all__dropbtn">{!this.state.category ? "Category" : this.state.category}</button>
+							<div className="all__dropdown-content">
+								<button onClick={() => this.handleFilterClick('category')}>All</button>
+								<button onClick={() => this.handleFilterClick('category',"Sports")}>Sports</button>
+								<button onClick={() => this.handleFilterClick('category',"Business")}>Business</button>
+								<button onClick={() => this.handleFilterClick('category',"Home Improvement")}>Home Improvement</button>
+								<button onClick={() => this.handleFilterClick('category',"Travel")}>Travel</button>
+							</div>
+						</div>
+						<div className="all__dropdown">
+							<button className="all__dropbtn">{!this.state.rate ? "Rate" : `${this.state.rate}%`}</button>
+							<div className="all__dropdown-content">
+								<button onClick={() => this.handleFilterClick('rate')}>All</button>
+								<button onClick={() => this.handleFilterClick('rate',5)}>5</button>
+								<button onClick={() => this.handleFilterClick('rate',7)}>7</button>
+								<button onClick={() => this.handleFilterClick('rate',9)}>9</button>
+								<button onClick={() => this.handleFilterClick('rate',11)}>11</button>
+							</div>
+						</div>
+						<input
+							type="text"
+							className="all__search"
+							value={this.state.keyword}
+							placeholder="Search.."
+							onInput={(event) => this.setState({ keyword: event.target.value })}
+						/>
+					</div>
+					{this.handlePools()}
+				</div>
+      </div>;
   }
 }
 

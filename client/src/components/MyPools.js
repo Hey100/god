@@ -10,7 +10,8 @@ import * as actions from '../actions/index';
 
 class MyPools extends Component {
   componentDidMount() {
-		this.props.fetchMyPools();
+		const header = { headers: { Authorization: localStorage.getItem('token') } };
+		this.props.fetchMyPools(header);
   }
   handlePools() {
 		if (this.props.pools && !this.props.pools[0]) {

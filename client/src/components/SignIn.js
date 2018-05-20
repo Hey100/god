@@ -16,7 +16,7 @@ class SignIn extends Component {
   }
 
   onSubmit = values => {
-    this.props.onLogin(values, this.props.history);
+    this.props.signIn(values, this.props.history);
   };
 
   renderAlert() {
@@ -58,10 +58,9 @@ class SignIn extends Component {
             ) : null}
           </form>
           <a href="/auth/google" className="mid-btn google align-center">
-            Log in&nbsp;
             <GoogleIcon size={28} color="#F90101" />
+            &nbsp;Log in with Google
           </a>
-
           <div>
             <Link to="/" className="link cancel">
               Cancel

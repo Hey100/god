@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './styles/landing.css';
 import './styles/global.css';
 import './styles/media.css';
 
 class Landing extends Component {
+  componentWillUpdate(nextProps) {
+    const { user } = nextProps.auth
+		if (user) {
+      this.props.history.push('/dashboard');
+    }
+	}
+	
+
   render() {
     return (
       <div className="land__wrap">
@@ -79,4 +88,8 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+const mstp = ({ auth }) => {
+  return { auth };
+};
+
+export default connect(mstp)(Landing);
