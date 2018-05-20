@@ -130,7 +130,7 @@ module.exports = function(app) {
   });
 	app.post('/api/joinPool', requireAuth, pools.join);
   //auth
-	app.post('/api/login', requireSignin, authentication.signin);
+	app.post('/api/signin', requireSignin, authentication.signin);
   app.post('/api/signup', authentication.signup);
 	app.post('/api/updateUser', requireAuth, authentication.update);
 };

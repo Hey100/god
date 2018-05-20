@@ -70,6 +70,7 @@ passport.use(
       callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
+			console.log(profile._json)
       const existingUser = await User.findOne({ googleId: profile.id });
 
       if (existingUser) {
@@ -78,7 +79,8 @@ passport.use(
 
       const user = await new User({
         googleId: profile.id,
-        signUpComplete: false
+				signUpComplete: false,
+				profilePic: profile._json.image.url
       }).save();
       done(null, user);
     }

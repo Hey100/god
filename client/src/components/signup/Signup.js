@@ -80,7 +80,6 @@ class Signup extends Component {
 			}
 		} 
 		else {
-			console.log('Oauth this shit')
 			this.props.OAuthSignUp(values, this.props.history)
     }
   };
@@ -169,9 +168,7 @@ class Signup extends Component {
               <Link to="/signin" className="link">
                 Already a member?
               </Link>
-            ) : (
-              <h3 className="cancel">You still need to finish signing up</h3>
-            )}
+            ) : null}
             <h2 className="text-2">
               Please provide a few details about yourself
             </h2>
@@ -329,7 +326,6 @@ const validate = values => {
 };
 
 const mstp = ({ auth }) => {
-  console.log(auth);
   return { auth };
 };
 

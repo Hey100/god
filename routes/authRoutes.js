@@ -1,13 +1,10 @@
 const passport = require('passport');
 const jwt = require('jwt-simple');
 const keys = require('../config/keys')
-
-function tokenForUser(user) {
-	const timestamp = new Date().getTime();
-	return jwt.encode({ sub: user.id, iat: timestamp }, keys.JwtSecretKey);
-}
+const authentication = require('../controllers/authentication')
 
 module.exports = app => {
+	//get
   app.get(
     '/auth/google',
     passport.authenticate('google', {
@@ -15,8 +12,10 @@ module.exports = app => {
     })
   );
   app.get('/auth/google/callback', passport.authenticate('google'), (req,res) => {
-		const token = tokenForUser(req.user)
-		const boo = req.user.signUpComplete ? true : false
-		res.redirect(`/setToken/${token}/${boo}`)
+		!req.user.signUpComplete ? res.redirect('/oauthsignup') : res.redirect('/oauthsignin');
 	});
+	app.get('/api/signin', authentication.oAuthSignIn);
+
+	//post
+	app.post('/api/oauthsignup', authentication.oAuthSignUp)
 };

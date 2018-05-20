@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt-nodejs');
 const userSchema = new Schema({
 	googleId: String,
   first_name:  String, 
-  last_name: String,
+	last_name: String,
+	profilePic: String,
   dob: String,
   address1: String,
   address2: String,

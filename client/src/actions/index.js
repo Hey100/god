@@ -23,15 +23,29 @@ import {
 } from './types';
 
 //SignIn.js
-export const onLogin = ({ email, password }, history) => async dispatch => {
+export const signIn = ({ email, password }, history) => async dispatch => {
   try {
-    const res = await axios.post('/api/login', { email, password });
-    dispatch({ type: AUTH_USER });
-    dispatch({ type: FETCH_USER, payload: res.data.user });
+    const res = await axios.post('/api/signin', {
+      email,
+      password
+    });
+		dispatch({ type: AUTH_USER });
+		dispatch(fetchUser(res.data.token));
     localStorage.setItem('token', res.data.token);
     history.push('/dashboard');
   } catch (error) {
     dispatch(authError('Invalid Email/Password'));
+  }
+};
+export const oAuthSignIn = (history) => async dispatch => {
+  try {
+    const res = await axios.get('/api/signin');
+		dispatch({ type: AUTH_USER });
+		dispatch(fetchUser(res.data.token));
+    localStorage.setItem('token', res.data.token);
+    history.push('/dashboard');
+  } catch (error) {
+    dispatch(authError('Unexpected Error'));
   }
 };
 
@@ -42,7 +56,6 @@ export const onSignUp = (values, history) => async dispatch => {
     try {
       dispatch({ type: AUTH_USER });
       dispatch(fetchUser(res.data.token));
-      dispatch({ type: FETCH_USER, payload: res.data.user });
       localStorage.setItem('token', res.data.token);
       history.push('/dashboard');
     } catch (error) {
@@ -58,7 +71,7 @@ export const OAuthSignUp = (values, history) => async dispatch => {
     try {
       dispatch({ type: AUTH_USER });
       dispatch(fetchUser(res.data.token));
-      dispatch({ type: FETCH_USER, payload: res.data.user });
+      localStorage.setItem('token', res.data.token);
       history.push('/dashboard');
     } catch (error) {
       dispatch(authError(error.response.data));
@@ -90,10 +103,7 @@ export const onLogOut = () => async dispatch => {
 export const fetchUser = token => async dispatch => {
   const res = await axios.get('/api/current_user', {
     headers: { Authorization: token }
-	});
-	if (!res.data.signUpComplete) {
-		dispatch({ type: GOOGLE_SIGN_UP })
-	}
+  });
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
@@ -280,10 +290,10 @@ export const calculateLimit = obj => async dispatch => {
 };
 
 //GoogleToken.js
-export const googleSignUp = (history) => dispatch => {
-	history.push('/signup')
-	dispatch({ type: GOOGLE_SIGN_UP });
-}
+export const oAuthSignUp = history => dispatch => {
+  history.push('/signup');
+  dispatch({ type: GOOGLE_SIGN_UP });
+};
 
 //multi
 export const reset = () => {
