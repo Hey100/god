@@ -79,7 +79,7 @@ export const fetchUser = (header) => async dispatch => {
 
 //MyPools.js
 export const fetchMyPools = () => async dispatch => {
-  const res = await axios.get('/api/mypools');
+	const res = await axios.get('/api/mypools');
   dispatch({ type: MY_POOLS, payload: res.data });
 };
 

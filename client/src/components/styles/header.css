@@ -57,6 +57,10 @@
 }
 
 @media all and (max-width: 425px) {
+	.head__nav-button {
+		font-size: 1em;
+	}
+
 	.head__nav {
 		padding: 0;
 	}

@@ -395,7 +395,7 @@ class Create extends Component {
 								<div></div>
 							</div>
 							: null}
-						{this.state.path && !this.state.imageLoading ? <img src={this.state.path} /> : null}
+						{this.state.path && !this.state.imageLoading ? <img src={this.state.path} alt=""/> : null}
 						{this.state.selectedFile ? <button onClick={() => this.upload()}>Upload</button> : null}
 						{this.state.path ? <button onClick={() => {
 							fs.unlink(`../uploads/${this.state.relative}`, (err) => {
