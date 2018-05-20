@@ -62,6 +62,7 @@ span {
 }
 
 .tab-box {
+	width: 90%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -70,6 +71,7 @@ span {
 }
 
 .tab-box-v {
+	width: 90%;
 	display: flex;
 	flex-flow: column wrap;
 	align-items: center;
@@ -186,6 +188,7 @@ span {
 }
 
 .select {
+	appearance: none;
 	height: 50px;
 }
 

@@ -188,7 +188,9 @@ class Signup extends Component {
                   <div />
                 </div>
               ) : null}
-              {path && !imageLoading ? <img src={path} /> : null}
+              {path && !imageLoading ? (
+                <img src={path} alt=""/>
+              ) : null}
               {selectedFile ? (
                 <button onClick={() => this.upload()}>Upload</button>
               ) : null}
