@@ -13,9 +13,6 @@ class Header extends Component {
   toggleMenu = () => {
     this.setState({ menu: !this.state.menu });
   };
-  redirect = () => {
-    this.props.authError('You must be a member to create a pool.');
-  };
 
   render() {
     const { user } = this.props.auth;
@@ -53,13 +50,7 @@ class Header extends Component {
               Start a pool
             </Link>
           ) : (
-            <Link
-              className="head__nav-button"
-              to={'/signup'}
-              onClick={this.redirect}
-            >
-              Start a pool
-            </Link>
+            null
           )}
           {button}
         </div>
