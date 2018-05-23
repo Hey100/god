@@ -315,7 +315,7 @@ class Signup extends Component {
                 </li>
               </ul>
               <button className="mid-btn" type="submit">
-                Agree and see rates
+                Submit
               </button>
               <div className="align-center">
                 <LockAlertIcon size={34} color="#000" />
@@ -345,7 +345,6 @@ const validate = values => {
 };
 
 const mstp = ({ auth }) => {
-  console.log(auth);
   return { auth };
 };
 

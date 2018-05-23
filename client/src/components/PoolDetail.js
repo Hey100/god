@@ -13,6 +13,7 @@ class PoolDetail extends Component {
     value: ''
   };
   componentDidMount() {
+		window.scrollTo(0, 0);
     this.props.fetchPool(this.props.match.params.id);
     this.props.fetchComments(this.props.match.params.id);
   }
