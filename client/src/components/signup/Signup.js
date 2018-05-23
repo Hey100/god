@@ -52,7 +52,8 @@ class Signup extends Component {
   }
 
   onSubmit = values => {
-    const { agree, email, password, c_password } = this.state;
+		const { agree, email, password, c_password, path } = this.state;
+		{path ? values['pic'] = path : null}
     if (!agree) {
       this.setState({
         agreeErr: 'You must agree to our terms and conditions before signing up'
@@ -80,6 +81,7 @@ class Signup extends Component {
             'Passwords must contain at least 8 characters, including one number, one uppercase letter, and one special character'
         });
       } else {
+				console.log(values)
         this.props.onSignUp(values, this.props.history);
       }
     } else {
@@ -108,7 +110,8 @@ class Signup extends Component {
       this.setState({
         imageErr: '',
         path: res.data.secure_url,
-        imageLoading: false
+				imageLoading: false,
+				uploadSuccess: true,
       });
     }
   };
@@ -156,7 +159,8 @@ class Signup extends Component {
       path,
       selectedFile,
       imageLoading,
-      passwordStructure
+			passwordStructure,
+			uploadSuccess
     } = this.state;
     const { error, googleSignUp } = this.props.auth;
     if (!this.state.signUpVisible) {
@@ -208,7 +212,7 @@ class Signup extends Component {
                 </div>
               ) : null}
               {path && !imageLoading ? <img src={path} alt="" /> : null}
-              {selectedFile ? (
+              {selectedFile && !uploadSuccess ? (
                 <button onClick={() => this.upload()}>Upload</button>
               ) : null}
             </div>

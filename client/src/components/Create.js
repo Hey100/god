@@ -17,8 +17,9 @@ class Create extends Component {
     error: '',
     visible: false,
     imageErr: '',
+    imageLoading: false,
     selectedFile: null,
-    path: null,
+    path: null
   };
 
   componentDidMount() {
@@ -97,6 +98,7 @@ class Create extends Component {
   };
 
   upload = async () => {
+    this.setState({ imageLoading: true });
     if (this.state.selectedFile && !this.state.uploadSuccess) {
       const fd = new FormData();
       fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
@@ -107,8 +109,9 @@ class Create extends Component {
         this.setState({
           imageErr: '',
           path: res.data.secure_url,
-					uploadSuccess: true,
-					relative: `${res.data.original_filename}.${res.data.format}`
+          uploadSuccess: true,
+          imageLoading: false,
+          relative: `${res.data.original_filename}.${res.data.format}`
         });
       }
     } else {
@@ -125,12 +128,10 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
-    }
-    // else if (!this.state.path) {
-    //   window.scrollTo(0, 0);
-    //   this.setState({ imageErr: 'Required Field' });
-    // }
-    else if (!this.state.category) {
+    } else if (!this.state.path) {
+      window.scrollTo(0, 0);
+      this.setState({ imageErr: 'Required Field' });
+    } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
     } else if (!this.state.description) {
@@ -186,7 +187,7 @@ class Create extends Component {
           name="amount"
           className="form-input select"
           onChange={this.handleChange}
-					value={this.state.amount}
+          value={this.state.amount}
         >
           <option value="">Amount</option>
           <option value={value * 2}>{handleText(value, 2)}</option>
@@ -209,7 +210,7 @@ class Create extends Component {
           name="rate"
           className="form-input select"
           onChange={this.handleChange}
-					value={this.state.rate}
+          value={this.state.rate}
         >
           <option value="">Rate</option>
           <option value="5">5%</option>
@@ -234,7 +235,7 @@ class Create extends Component {
             type="date"
             name="startDate"
             placeholder="Start Date"
-						value={this.state.startDate}
+            value={this.state.startDate}
           />
           <div className="alert">{startDateErr ? startDateErr : null}</div>
         </div>
@@ -323,7 +324,9 @@ class Create extends Component {
           </button>
           {this.renderAgreement(chart, selection)}
         </div>
-				<button onClick={() => this.setState({ visible: false })} >Go Back</button>
+        <button onClick={() => this.setState({ visible: false })}>
+          Go Back
+        </button>
       </div>
     );
   };
@@ -360,7 +363,15 @@ class Create extends Component {
       categoryErr,
       descriptionErr,
       imageErr,
-      visible
+      visible,
+      title,
+      category,
+      description,
+      contributors,
+      path,
+      uploadSuccess,
+      selectedFile,
+      imageLoading
     } = this.state;
     if (!visible) {
       return (
@@ -374,7 +385,7 @@ class Create extends Component {
             <input
               className="form-input"
               type="text"
-							value={this.state.title}
+              value={title}
               name="title"
               placeholder="Title"
               onChange={this.handleChange}
@@ -386,7 +397,7 @@ class Create extends Component {
               className="form-input select"
               name="category"
               onChange={this.handleChange}
-							value={this.state.category}
+              value={category}
             >
               <option value="">Category</option>
               <option value="Business">Business</option>
@@ -402,7 +413,7 @@ class Create extends Component {
               className="form-input textarea"
               cols="40"
               rows="10"
-							value={this.state.description}
+              value={description}
               onChange={this.handleChange}
               placeholder="Please provide a description of your pool"
             />
@@ -418,13 +429,20 @@ class Create extends Component {
                 </strong>
               </label>
               <input type="file" onChange={this.handeChangeII} />
-              {this.state.path && this.state.uploadSuccess ? (
-                <img src={this.state.path} alt="" />
+              {imageLoading ? (
+                <div className="jumper">
+                  <div />
+                  <div />
+                  <div />
+                </div>
               ) : null}
-              {this.state.selectedFile && !this.state.uploadSuccess? (
+              {path && uploadSuccess && !imageLoading ? (
+                <img src={path} alt="" />
+              ) : null}
+              {selectedFile && !uploadSuccess ? (
                 <button onClick={() => this.upload()}>Upload</button>
               ) : null}
-              {this.state.path ? (
+              {path ? (
                 <button
                   onClick={() => {
                     fs.unlink(`../uploads/${this.state.relative}`, err => {
@@ -443,7 +461,7 @@ class Create extends Component {
               name="contributors"
               className="form-input select"
               onChange={this.handleChange}
-							value={this.state.contributors}
+              value={contributors}
             >
               <option value="">Number of Contributors</option>
               <option value="5">5 contributors</option>

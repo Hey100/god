@@ -36,7 +36,8 @@ exports.signup = function(req, res, next) {
     const user = new User({
 			first_name,
       last_name,
-      dob: req.body.dob,
+			dob: req.body.dob,
+			profilePic: req.body.pic,
       address1: req.body.address1,
       address2: req.body.address2,
       city: req.body.city,
