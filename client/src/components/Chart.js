@@ -58,8 +58,8 @@ class Chart extends Component {
       // const months = this.props.pools.chart.length;
       // const date = moment(chart.startDate, 'YYYY/MM/DD');
       // const day = date.format('Do');
-      const { params, title } = this.props;
-			const { contributors } = this.props.pools.pool;
+      const { params } = this.props;
+			const { contributors, title } = this.props.pools.pool;
 			chart['startDate'] = moment(chart.startDate).format('L');
 			chart['dDate'] = moment(chart.startDate)
 				.add(index, 'months')

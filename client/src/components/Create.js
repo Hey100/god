@@ -9,18 +9,18 @@ import './styles/chart.css';
 import './styles/loader.css';
 import './styles/global.css';
 import './styles/media.css';
-const fs = require("fs");
+const fs = require('fs');
 
 class Create extends Component {
-	state = {
-		contributors: null,
-		error: '',
-		visible: false,
-		imageErr: '',
-		selectedFile: null,
-		path: null,
-		imageLoading: false
-	};
+  state = {
+    contributors: null,
+    error: '',
+    visible: false,
+    imageErr: '',
+    imageLoading: false,
+    selectedFile: null,
+    path: null
+  };
 
   componentDidMount() {
     if (this.props.pools.chart) {
@@ -32,8 +32,10 @@ class Create extends Component {
   handleChart = () => {
     if (this.props.pools.chart) {
       return (
-        <div className="chart-wrap" >
-          {!this.props.user ? <h2 className="text-2">3. Pick a Position</h2> : null}
+        <div className="chart-wrap">
+          {!this.props.user ? (
+            <h2 className="text-2">3. Pick a Position</h2>
+          ) : null}
           <Chart
             onSubmit={this.props.onSubmit}
             chart={this.props.pools.chart}
@@ -89,30 +91,32 @@ class Create extends Component {
         this.props.createChart(obj);
       }
     });
-	};
-	handeChangeII = e => {
-		this.setState({ imageErr: '' });
-		this.setState({ selectedFile: e.target.files[0] });
-	};
+  };
+  handeChangeII = e => {
+    this.setState({ imageErr: '' });
+    this.setState({ selectedFile: e.target.files[0] });
+  };
 
   upload = async () => {
-		if (this.state.selectedFile) {
-			const fd = new FormData();
-			fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-			const res = await axios.post('/api/upload', fd);
-			if (res.data.err) {
-				this.setState({ imageErr: res.data.err });
-			} else {
-				this.setState({
-					imageErr: '',
-					path: res.data.secure_url,
-					imageLoading: false,
-					relative: `${res.data.original_filename}.${res.data.format}`
-				});
-			}
-		} else {
-			this.setState({ imageErr: 'Error: No File Selected!' });
-		}
+    this.setState({ imageLoading: true });
+    if (this.state.selectedFile && !this.state.uploadSuccess) {
+      const fd = new FormData();
+      fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+      const res = await axios.post('/api/upload', fd);
+      if (res.data.err) {
+        this.setState({ imageErr: res.data.err });
+      } else {
+        this.setState({
+          imageErr: '',
+          path: res.data.secure_url,
+          uploadSuccess: true,
+          imageLoading: false,
+          relative: `${res.data.original_filename}.${res.data.format}`
+        });
+      }
+    } else {
+      this.setState({ imageErr: 'Error: No File Selected!' });
+    }
   };
 
   handleMouseDown = event => {
@@ -124,9 +128,6 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
-    } else if (!this.state.path) {
-      window.scrollTo(0, 0);
-      this.setState({ imageErr: 'Required Field' });
     } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
@@ -146,7 +147,7 @@ class Create extends Component {
     const endDate = moment(chart[pools.selection].startDate)
       .add(chart.length - 1, 'months')
       .format('L');
-		let values = {};
+    let values = {};
 
     values['title'] = this.state.title;
     values['description'] = this.state.description;
@@ -160,9 +161,8 @@ class Create extends Component {
     values['endDate'] = endDate;
     values['monthly'] = chart[pools.selection].monthly;
     values['disburseAmount'] = chart[pools.selection].tcr;
-    values['poolPic'] = this.state.path;
+    // values['poolPic'] = this.state.path;
     createPool(values, history);
-    window.scrollTo(0, 0);
   };
 
   //'render' Functions
@@ -184,6 +184,7 @@ class Create extends Component {
           name="amount"
           className="form-input select"
           onChange={this.handleChange}
+          value={this.state.amount}
         >
           <option value="">Amount</option>
           <option value={value * 2}>{handleText(value, 2)}</option>
@@ -206,6 +207,7 @@ class Create extends Component {
           name="rate"
           className="form-input select"
           onChange={this.handleChange}
+          value={this.state.rate}
         >
           <option value="">Rate</option>
           <option value="5">5%</option>
@@ -230,6 +232,7 @@ class Create extends Component {
             type="date"
             name="startDate"
             placeholder="Start Date"
+            value={this.state.startDate}
           />
           <div className="alert">{startDateErr ? startDateErr : null}</div>
         </div>
@@ -238,80 +241,91 @@ class Create extends Component {
     return null;
   };
   renderReview = () => {
+    window.scrollTo(0, 0);
     const { chart, selection } = this.props.pools;
-    if (this.state.visible) {
-      const position = chart[selection];
-      return (
-        <div className="form-review">
-          <h2 className="text-2">4. Review Your Pool</h2>
-          <p className="form-display">
-            <span>Title:</span> {this.state.title}
-          </p>
-          <p className="form-display">
-            <span>Category:</span> {this.state.category}
-          </p>
-          <p className="form-display">
-            <span>Description:</span> {this.state.description}
-          </p>
-          <p className="form-display">
-            <span>Number of Contributors:</span> {this.state.contributors}
-          </p>
-          <p className="form-display">
-            <span>Amount:</span>{' '}
-            {parseFloat(this.state.amount).toLocaleString('USD', {
-              style: 'currency',
-              currency: 'USD',
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0
-            })}
-          </p>
-          <p className="form-display">
-            <span>Rate:</span> {this.state.rate}%
-          </p>
-          <p className="form-display">
-            <span>Start Date:</span> {moment(this.state.date).format('L')}
-          </p>
-          <div className="">
-            <h2 className="text-2">
-              <span>Your Position:</span>
-            </h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Base Amount</th>
-                  <th>Interest Rate</th>
-                  <th>Interest Paid/Earned</th>
-                  <th>Monthly Payment</th>
-                  <th>Cash Paid</th>
-                  <th>Cash Available</th>
-                  <th>Fee</th>
-                  <th>Cash Received</th>
-                  <th>Disbursement Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{this.parse(position.amount)}</td>
-                  <td>{position.interestRate}%</td>
-                  <td>{this.parse(position.interestAmount)}</td>
-                  <td>{this.parse(position.monthly)}</td>
-                  <td>{this.parse(position.cashPaid)}</td>
-                  <td>{this.parse(position.cashReceived)}</td>
-                  <td>${position.fee}</td>
-                  <td>{this.parse(position.tcr)}</td>
-                  <td>
-                    {moment(position.startDate)
-                      .add(selection, 'months')
-                      .format('L')}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    const position = chart[selection];
+    return (
+      <div className="form-review">
+        <h2 className="text-2">4. Review Your Pool</h2>
+        <p className="form-display">
+          <span>Title:</span> {this.state.title}
+        </p>
+        <p className="form-display">
+          <span>Category:</span> {this.state.category}
+        </p>
+        <p className="form-display">
+          <span>Description:</span> {this.state.description}
+        </p>
+        <p className="form-display">
+          <span>Number of Contributors:</span> {this.state.contributors}
+        </p>
+        <p className="form-display">
+          <span>Amount:</span>{' '}
+          {parseFloat(this.state.amount).toLocaleString('USD', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          })}
+        </p>
+        <p className="form-display">
+          <span>Rate:</span> {this.state.rate}%
+        </p>
+        <p className="form-display">
+          <span>Start Date:</span> {moment(this.state.date).format('L')}
+        </p>
+        <div className="">
+          <h2 className="text-2">
+            <span>Your Position:</span>
+          </h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Base Amount</th>
+                <th>Interest Rate</th>
+                <th>Interest Paid/Earned</th>
+                <th>Monthly Payment</th>
+                <th>Cash Paid</th>
+                <th>Cash Available</th>
+                <th>Fee</th>
+                <th>Cash Received</th>
+                <th>Disbursement Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.parse(position.amount)}</td>
+                <td>{position.interestRate}%</td>
+                <td>{this.parse(position.interestAmount)}</td>
+                <td>{this.parse(position.monthly)}</td>
+                <td>{this.parse(position.cashPaid)}</td>
+                <td>{this.parse(position.cashReceived)}</td>
+                <td>${position.fee}</td>
+                <td>{this.parse(position.tcr)}</td>
+                <td>
+                  {moment(position.startDate)
+                    .add(selection, 'months')
+                    .format('L')}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      );
-    }
-    return null;
+        <div style={{ margin: '0 auto', textAlign: 'center' }}>
+          <button
+            className="big-btn"
+            type="submit"
+            onClick={() => this.handleSubmit(chart)}
+          >
+            Submit*
+          </button>
+          {this.renderAgreement(chart, selection)}
+        </div>
+        <button onClick={() => this.setState({ visible: false })}>
+          Go Back
+        </button>
+      </div>
+    );
   };
 
   renderAgreement = (chart, selection) => {
@@ -341,93 +355,126 @@ class Create extends Component {
 
   render() {
     const { error, chart, selection, createError } = this.props.pools;
-		const { titleErr, categoryErr, descriptionErr, imageErr } = this.state;
-    return (
-      <div className="tab">
-        <h1 className="tab-title">Start a pool</h1>
-        <div className="tab-box-v">
-          {createError ? <h1 className="cancel">{createError}</h1> : null}
-          <h2 className="text-2">1. Give Your Pool a Name and Some Details</h2>
-          <input
-            className="form-input"
-            type="text"
-            name="title"
-            placeholder="Title"
-            onChange={this.handleChange}
-          />
-          <div className="alert">
-            {titleErr ? <p className="cancel">{titleErr}</p> : null}
-          </div>
-          <select
-            className="form-input select"
-            name="category"
-            onChange={this.handleChange}
-          >
-            <option value="">Category</option>
-            <option value="Business">Business</option>
-            <option value="Sports">Sports</option>
-            <option value="Home Improvement">Home Improvement</option>
-            <option value="Travel">Travel</option>
-          </select>
-          <div className="alert">
-            {categoryErr ? <p className="cancel">{categoryErr}</p> : null}
-          </div>
-          <textarea
-            name="description"
-            className="form-input textarea"
-            cols="40"
-            rows="10"
-            onChange={this.handleChange}
-            placeholder="Please provide a description of your pool"
-          />
-          <div className="alert">
-            {descriptionErr ? <p className="cancel">{descriptionErr}</p> : null}
-          </div>
-					<div className="form-upload">
-						<label className="form-file-label align-center">
-							<UploadIcon size="24" color="gray" />&nbsp;<strong>Select or drag a picture</strong>
-						</label>
-						<input type="file" onChange={this.handeChangeII} />
-						{this.state.imageLoading ?
-							<div className="jumper">
-								<div></div>
-								<div></div>
-								<div></div>
-							</div>
-							: null}
-						{this.state.path && !this.state.imageLoading ? <img src={this.state.path} alt=""/> : null}
-						{this.state.selectedFile ? <button onClick={() => this.upload()}>Upload</button> : null}
-						{this.state.path ? <button onClick={() => {
-							fs.unlink(`../uploads/${this.state.relative}`, (err) => {
-								if (err) console.log(err);
-								console.log('the images was deleted');
-							});
-						}}>Delete</button> : null}
-					</div>
-					{imageErr ? <p className="alert">{imageErr}</p> : null}
-          <h2 className="text-2">2. Choose Your Options</h2>
-          <select
-            name="contributors"
-            className="form-input select"
-            onChange={this.handleChange}
-          >
-            <option value="">Number of Contributors</option>
-            <option value="5">5 contributors</option>
-            <option value="7">7 contributors</option>
-            <option value="9">9 contributors</option>
-            <option value="11">11 contributors</option>
-            <option value="13">13 contributors</option>
-          </select>
-          {this.renderAmount()}
-          {this.renderRate()}
-          {this.renderDate()}
-          {this.handleChart()}
-          {this.renderReview()}
-          <div className="alert">
-            {error ? <p className="cancel">{error}</p> : null}
-          </div>
-          {!this.state.visible ? (
-            this.props.pools.chart ? (
+    const {
+      titleErr,
+      categoryErr,
+      descriptionErr,
+      imageErr,
+      visible,
+      title,
+      category,
+      description,
+      contributors,
+      path,
+      uploadSuccess,
+      selectedFile,
+      imageLoading
+    } = this.state;
+    if (!visible) {
+      return (
+        <div className="tab">
+          <h1 className="tab-title">Start a pool</h1>
+          <div className="tab-box-v">
+            {createError ? <h1 className="cancel">{createError}</h1> : null}
+            <h2 className="text-2">
+              1. Give Your Pool a Name and Some Details
+            </h2>
+            <input
+              className="form-input"
+              type="text"
+              value={title}
+              name="title"
+              placeholder="Title"
+              onChange={this.handleChange}
+            />
+            <div className="alert">
+              {titleErr ? <p className="cancel">{titleErr}</p> : null}
+            </div>
+            <select
+              className="form-input select"
+              name="category"
+              onChange={this.handleChange}
+              value={category}
+            >
+              <option value="">Category</option>
+              <option value="Business">Business</option>
+              <option value="Sports">Sports</option>
+              <option value="Home Improvement">Home Improvement</option>
+              <option value="Travel">Travel</option>
+            </select>
+            <div className="alert">
+              {categoryErr ? <p className="cancel">{categoryErr}</p> : null}
+            </div>
+            <textarea
+              name="description"
+              className="form-input textarea"
+              cols="40"
+              rows="10"
+              value={description}
+              onChange={this.handleChange}
+              placeholder="Please provide a description of your pool"
+            />
+            <div className="alert">
+              {descriptionErr ? (
+                <p className="cancel">{descriptionErr}</p>
+              ) : null}
+            </div>
+            <div className="form-upload">
+              <label className="form-file-label align-center">
+                <UploadIcon size="24" color="gray" />&nbsp;<strong>
+                  Select or drag a picture
+                </strong>
+              </label>
+              <input type="file" onChange={this.handeChangeII} />
+              {imageLoading ? (
+                <div className="jumper">
+                  <div />
+                  <div />
+                  <div />
+                </div>
+              ) : null}
+              {path && uploadSuccess && !imageLoading ? (
+                <img src={path} alt="" />
+              ) : null}
+              {selectedFile && !uploadSuccess ? (
+                <button onClick={() => this.upload()}>Upload</button>
+              ) : null}
+              {path ? (
+                <button
+                  onClick={() => {
+                    fs.unlink(`../uploads/${this.state.relative}`, err => {
+                      if (err) console.log(err);
+                      console.log('the images was deleted');
+                    });
+                  }}
+                >
+                  Delete
+                </button>
+              ) : null}
+            </div>
+            {imageErr ? <p className="alert">{imageErr}</p> : null}
+            <h2 className="text-2">2. Choose Your Options</h2>
+            <select
+              name="contributors"
+              className="form-input select"
+              onChange={this.handleChange}
+              value={contributors}
+            >
+              <option value="">Number of Contributors</option>
+              <option value="5">5 contributors</option>
+              <option value="7">7 contributors</option>
+              <option value="9">9 contributors</option>
+              <option value="11">11 contributors</option>
+              <option value="13">13 contributors</option>
+            </select>
+            {this.renderAmount()}
+            {this.renderRate()}
+            {this.renderDate()}
+            {this.handleChart()}
+            <div className="alert">
+              {error ? <p className="cancel">{error}</p> : null}
+            </div>
+            {this.props.pools.chart ? (
               <button
                 className="big-btn"
                 type="submit"
@@ -435,22 +482,13 @@ class Create extends Component {
               >
                 Review
               </button>
-            ) : null
-          ) : (
-            <div style={{ margin: '0 auto', textAlign: 'center' }}>
-              <button
-                className="big-btn"
-                type="submit"
-                onClick={() => this.handleSubmit(chart)}
-              >
-                Submit*
-              </button>
-              {this.renderAgreement(chart, selection)}
-            </div>
-          )}
+            ) : null}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <div className="tab">{this.renderReview()}</div>;
+    }
   }
 }
 

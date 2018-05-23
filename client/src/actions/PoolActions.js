@@ -108,8 +108,7 @@ export const createPool = (values, history) => async dispatch => {
 export const createPayment = values => async dispatch => {
 	await axios.post('/api/createPayment', values, {
 		headers: {
-			Authorization: localStorage.getItem('token'),
-			'Content-Type': 'application/json'
+			Authorization: localStorage.getItem('token')
 		}
 	});
 	dispatch({ type: PAYMENT_CREATED });

@@ -6,6 +6,7 @@ import { LockAlertIcon } from 'mdi-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { UploadIcon } from 'mdi-react';
+import { GoogleIcon } from 'mdi-react';
 import _ from 'lodash';
 
 import * as actions from '../../actions/index';
@@ -22,10 +23,14 @@ class Signup extends Component {
     imageErr: '',
     selectedFile: null,
     path: null,
-    imageLoading: false
+    imageLoading: false,
+    signUpVisible: false
   };
 
   componentDidMount() {
+    if (this.props.auth.googleSignUp) {
+      this.setState({ signUpVisible: true });
+    }
     window.scrollTo(0, 0);
   }
   componentWillUnmount() {
@@ -47,7 +52,8 @@ class Signup extends Component {
   }
 
   onSubmit = values => {
-    const { agree, email, password, c_password } = this.state;
+		const { agree, email, password, c_password, path } = this.state;
+		{path ? values['pic'] = path : null}
     if (!agree) {
       this.setState({
         agreeErr: 'You must agree to our terms and conditions before signing up'
@@ -74,13 +80,12 @@ class Signup extends Component {
           passwordStructure:
             'Passwords must contain at least 8 characters, including one number, one uppercase letter, and one special character'
         });
-			}
-			else {
-				this.props.onSignUp(values, this.props.history);
-			}
-		} 
-		else {
-			this.props.OAuthSignUp(values, this.props.history)
+      } else {
+				console.log(values)
+        this.props.onSignUp(values, this.props.history);
+      }
+    } else {
+      this.props.OAuthSignUp(values, this.props.history);
     }
   };
 
@@ -105,7 +110,8 @@ class Signup extends Component {
       this.setState({
         imageErr: '',
         path: res.data.secure_url,
-        imageLoading: false
+				imageLoading: false,
+				uploadSuccess: true,
       });
     }
   };
@@ -153,9 +159,31 @@ class Signup extends Component {
       path,
       selectedFile,
       imageLoading,
-      passwordStructure
+			passwordStructure,
+			uploadSuccess
     } = this.state;
     const { error, googleSignUp } = this.props.auth;
+    if (!this.state.signUpVisible) {
+      return (
+        <div className="tab">
+          <h1 className="tab-title">Sign Up</h1>
+          <a href="/auth/google" className="mid-btn google align-center">
+            <GoogleIcon size={28} color="#F90101" />
+            &nbsp;Sign Up with Google
+          </a>
+          <h5>----- Or -----</h5>
+          <a
+            onClick={() => this.setState({ signUpVisible: true })}
+            className="mid-btn align-center"
+          >
+            &nbsp;Use my email address
+          </a>
+          <Link to="/signin" className="link">
+            Already a member? Log In
+          </Link>
+        </div>
+      );
+    }
     return (
       <div className="tab">
         {this.renderAlert(error)}
@@ -164,11 +192,6 @@ class Signup extends Component {
             className="signup__form"
             onSubmit={this.props.handleSubmit(this.onSubmit)}
           >
-            {!googleSignUp ? (
-              <Link to="/signin" className="link">
-                Already a member?
-              </Link>
-            ) : null}
             <h2 className="text-2">
               Please provide a few details about yourself
             </h2>
@@ -188,10 +211,8 @@ class Signup extends Component {
                   <div />
                 </div>
               ) : null}
-              {path && !imageLoading ? (
-                <img src={path} alt=""/>
-              ) : null}
-              {selectedFile ? (
+              {path && !imageLoading ? <img src={path} alt="" /> : null}
+              {selectedFile && !uploadSuccess ? (
                 <button onClick={() => this.upload()}>Upload</button>
               ) : null}
             </div>
@@ -298,7 +319,7 @@ class Signup extends Component {
                 </li>
               </ul>
               <button className="mid-btn" type="submit">
-                Agree and see rates
+                Submit
               </button>
               <div className="align-center">
                 <LockAlertIcon size={34} color="#000" />

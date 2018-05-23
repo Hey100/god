@@ -6,6 +6,7 @@ exports.create = function(req, res, done) {
 	const comment = new Comment ({
 		comment: req.body.comment,
 		creator: name,
+		creatorPic: req.body.pic,
 		_pool: req.body.poolId,
 		_user: req.user.id
 	})
