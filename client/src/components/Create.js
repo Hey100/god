@@ -124,9 +124,6 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
-    } else if (!this.state.path) {
-      window.scrollTo(0, 0);
-      this.setState({ imageErr: 'Required Field' });
     } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
@@ -160,7 +157,7 @@ class Create extends Component {
     values['endDate'] = endDate;
     values['monthly'] = chart[pools.selection].monthly;
     values['disburseAmount'] = chart[pools.selection].tcr;
-    values['poolPic'] = this.state.path;
+    // values['poolPic'] = this.state.path;
     createPool(values, history);
     window.scrollTo(0, 0);
   };
@@ -341,7 +338,7 @@ class Create extends Component {
 
   render() {
     const { error, chart, selection, createError } = this.props.pools;
-		const { titleErr, categoryErr, descriptionErr, imageErr } = this.state;
+		const { titleErr, categoryErr, descriptionErr, selectedFile, imageLoading, path } = this.state;
     return (
       <div className="tab">
         <h1 className="tab-title">Start a pool</h1>
@@ -385,26 +382,26 @@ class Create extends Component {
           </div>
 					<div className="form-upload">
 						<label className="form-file-label align-center">
-							<UploadIcon size="24" color="gray" />&nbsp;<strong>Select or drag a picture</strong>
+							<UploadIcon size="24" color="gray" />&nbsp;<strong>
+								Select or drag a picture
+                </strong>
 						</label>
 						<input type="file" onChange={this.handeChangeII} />
-						{this.state.imageLoading ?
+						{imageLoading ? (
 							<div className="jumper">
-								<div></div>
-								<div></div>
-								<div></div>
+								<div />
+								<div />
+								<div />
 							</div>
-							: null}
-						{this.state.path && !this.state.imageLoading ? <img src={this.state.path} alt=""/> : null}
-						{this.state.selectedFile ? <button onClick={() => this.upload()}>Upload</button> : null}
-						{this.state.path ? <button onClick={() => {
-							fs.unlink(`../uploads/${this.state.relative}`, (err) => {
-								if (err) console.log(err);
-								console.log('the images was deleted');
-							});
-						}}>Delete</button> : null}
+						) : null}
+						{path && !imageLoading ? (
+							<img src={path} alt="" />
+						) : null}
+						{selectedFile ? (
+							<button onClick={() => this.upload()}>Upload</button>
+						) : null}
 					</div>
-					{imageErr ? <p className="alert">{imageErr}</p> : null}
+					{/* {imageErr ? <p className="alert">{imageErr}</p> : null} */}
           <h2 className="text-2">2. Choose Your Options</h2>
           <select
             name="contributors"

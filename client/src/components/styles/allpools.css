@@ -3,7 +3,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: flex-start;
+	align-items: center;
 	margin: 20px 0;
 }
 
@@ -50,7 +50,7 @@
 	height: 50px;
 	background-color: #f1f1f1;
 	color: dodgerblue;
-	padding: 15px 5px;
+	padding: 10px 5px;
 	font-size: 20px;
 	border: none;
 	margin: 10px;
@@ -90,37 +90,40 @@
 }
 
 .all__card {
+	box-sizing: initial;
 	max-width: 350px;
-	background: linear-gradient(to top right, #EDEDED, #FFF);
 	margin: 20px;
-	border-radius: 5px;
+	border: 1px solid lightgray;
 	transition: scale, .2s;
 }
-
 
 .all__card:hover {
 	transform: scale(1.1);
 }
 
 .all__thumbnail {
-	width: 350px;
+	width: 349px;
 	height: 200px;
 	overflow: hidden;
 	background-size: cover;
 	background-position: center;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+	border-bottom: 1px solid lightgray;
+	border-top: none;
 	cursor: pointer;
 }
 
 .all__card-content {
-	padding: 20px;
+	padding: 10px 20px;
 }
 
 .all__card-content > h3 {
-	font-size: 2em;
+	font-size: 14px;
 	color: gray;
 	margin-bottom: 5px;
+}
+
+.all__card-content > h1 {
+	font-size: 1.2em;
 }
 
 .all__meter-wrap {
@@ -142,7 +145,7 @@
 	overflow: hidden;
 	border-radius: 10px;
   background: linear-gradient(to left, #72E5BE, #72d3e5);
-	animation: fill 2s ease;
+	animation: fill 1s ease;
 }
 
 .all__meter-percent {
@@ -173,8 +176,12 @@
 	}
 
 	.all__card {
-		margin: 20px;
-		width: 100%;
+		margin: 10px;
+		width: 100vw;
+	}
+
+	.all__card-content {
+		padding: 10px;
 	}
 
 	.all__thumbnail {
@@ -193,12 +200,12 @@
 		width: 150px;
 	}
 
-	.all__card-content {
-		padding: 10px;
+	.all__card {
+		width: 90vw;
 	}
 
-	.all__card-content > h3 {
-		font-size: 1em;
+
+	.all__card-content h3 {
 		color: gray;
 	}
 }

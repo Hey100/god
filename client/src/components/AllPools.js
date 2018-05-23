@@ -21,7 +21,15 @@ class AllPools extends Component {
 
   componentDidMount() {
 		this.props.fetchAllPools();
-  }
+		setTimeout(() => {
+			if(!this.props.pools.allPools){
+				this.props.fetchAllPools();
+			}
+			else {
+				clearTimeout();
+			}
+		}, 3000);
+	}
 
   renderDate = date => {
     let newDate = moment(date).format('L');
@@ -98,9 +106,7 @@ class AllPools extends Component {
                   <h1 className="text-3" onClick={() => this.handleClick(pool._id)}>
                     {title.toUpperCase()}
                   </h1>
-                  <h1>
-                    by:<button className="link">{pool.creator}</button>
-                  </h1>
+                  <h3>by: {pool.creator}</h3>
                   <div className="all__meter-wrap">
                     <div className="all__meter">
                       <span style={{ width: `${percent}%` }} />
@@ -116,9 +122,7 @@ class AllPools extends Component {
                     })}
                   </h3>
                   <h3>{pool.rate}% max interest</h3>
-                  {num > 1 ? <h3>
-                      {num} Contributors
-                    </h3> : <h3>{num} Contributor</h3>}
+                  <h3>{num == 1 ? '1 Contributor' : `${num} Contributors`}</h3>
                   {this.renderDate(pool.date)}
                 </div>
               </div>;
@@ -129,15 +133,33 @@ class AllPools extends Component {
 
   render() {
 		const { allPools } = this.props.pools;
+		const clearButton =
+			this.state.min ||
+			this.state.max ||
+			this.state.contributors ||
+			this.state.category ||
+			this.state.rate ||
+			this.state.keyword ? <CloseIcon size="34"
+				color="tomato"
+				onClick={() => this.setState({
+					min: "",
+					max: "",
+					contributors: null,
+					category: null,
+					rate: null,
+					keyword: ""
+				})}/>
+			: null;
     return <div className="tab">
         <h1 className="tab-title">COMMUNITY</h1>
         <div className="tab-box-v">
           <div className="all__search-bar">
+						{clearButton}
 						<div className="all__range">
 							<input
 								type="text"
 								value={this.state.min}
-								placeholder="From.."
+								placeholder="Amount from.."
 								onInput={(e) => this.setState({ min: e.target.value })}
 							/>
 							<input
@@ -174,10 +196,10 @@ class AllPools extends Component {
 							<button className="all__dropbtn">{!this.state.rate ? "Rate" : `${this.state.rate}%`}</button>
 							<div className="all__dropdown-content">
 								<button onClick={() => this.handleFilterClick('rate')}>All</button>
-								<button onClick={() => this.handleFilterClick('rate',5)}>5</button>
-								<button onClick={() => this.handleFilterClick('rate',7)}>7</button>
-								<button onClick={() => this.handleFilterClick('rate',9)}>9</button>
-								<button onClick={() => this.handleFilterClick('rate',11)}>11</button>
+								<button onClick={() => this.handleFilterClick('rate',5)}>5%</button>
+								<button onClick={() => this.handleFilterClick('rate',7)}>7%</button>
+								<button onClick={() => this.handleFilterClick('rate',9)}>9%</button>
+								<button onClick={() => this.handleFilterClick('rate',11)}>11%</button>
 							</div>
 						</div>
 						<input
