@@ -128,9 +128,6 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
-    } else if (!this.state.path) {
-      window.scrollTo(0, 0);
-      this.setState({ imageErr: 'Required Field' });
     } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
@@ -164,7 +161,7 @@ class Create extends Component {
     values['endDate'] = endDate;
     values['monthly'] = chart[pools.selection].monthly;
     values['disburseAmount'] = chart[pools.selection].tcr;
-    values['poolPic'] = this.state.path;
+    // values['poolPic'] = this.state.path;
     createPool(values, history);
   };
 

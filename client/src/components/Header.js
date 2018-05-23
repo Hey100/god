@@ -21,38 +21,47 @@ class Header extends Component {
         Sign In
       </Link>
     ) : (
-      [
-        <Link key={1} to={'/dashboard'}>
-          <img className="message__thumb" src={user.profilePic} alt="" />
-        </Link>,
-        <Link key={2} className="head__nav-button" to={'/logout'}>
-          Logout
-        </Link>
-      ]
+      <div className="head__dropdown">
+        <img
+          src={
+            user.profilePic ||
+            'https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png'
+          }
+          className="head__dropbtn"
+          alt=""
+        />
+        <div className="head__dropdown-content">
+          <Link className="head__drop-item" to={'/dashboard'}>
+            My Dash
+          </Link>
+          <Link className="head__drop-item" to={'/settings'}>
+            Settings
+          </Link>
+          <Link className="head__drop-item" to={'/logout'}>
+            Logout
+          </Link>
+        </div>
+      </div>
     );
     return (
       <div className="head__nav">
-        {user ? (
-          <Link id="title" to={'/dashboard'}>
-            CommunityCapital
-          </Link>
-        ) : (
-          <Link id="title" to={'/'}>
-            CommunityCapital
-          </Link>
-        )}
-        <div className="head__nav-right">
-          <Link className="head__nav-button" to={'/pools'}>
-            All Pools
-          </Link>
-          {user ? (
-            <Link className="head__nav-button" to={'/create'}>
-              Start a pool
+        <div className="head__nav-content">
+          {
+            <Link id="title" className="" to={user ? '/dashboard' : '/'}>
+              CommunityCapital
             </Link>
-          ) : (
-            null
-          )}
-          {button}
+          }
+          <div className="head__nav-right">
+            <Link className="head__nav-button" to={'/pools'}>
+              All Pools
+            </Link>
+            {user ? (
+              <Link className="head__nav-button" to={'/create'}>
+                Start a pool
+              </Link>
+            ) : null}
+            {button}
+          </div>
         </div>
       </div>
     );
