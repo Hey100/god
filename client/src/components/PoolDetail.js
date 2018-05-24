@@ -76,7 +76,7 @@ class PoolDetail extends Component {
         </div>
       );
     }
-    const date = moment(pools.pool.date).format('L');
+    const date = moment(pools.pool.startDate).format('L');
     const title = pools.pool.title;
     return (
       <div className="tab">

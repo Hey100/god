@@ -52,8 +52,10 @@ class Signup extends Component {
   }
 
   onSubmit = values => {
-		const { agree, email, password, c_password, path } = this.state;
-		{path ? values['pic'] = path : null}
+    const { agree, email, password, c_password, path } = this.state;
+    {
+      path ? (values['pic'] = path) : null;
+    }
     if (!agree) {
       this.setState({
         agreeErr: 'You must agree to our terms and conditions before signing up'
@@ -81,7 +83,7 @@ class Signup extends Component {
             'Passwords must contain at least 8 characters, including one number, one uppercase letter, and one special character'
         });
       } else {
-				console.log(values)
+        console.log(values);
         this.props.onSignUp(values, this.props.history);
       }
     } else {
@@ -110,8 +112,8 @@ class Signup extends Component {
       this.setState({
         imageErr: '',
         path: res.data.secure_url,
-				imageLoading: false,
-				uploadSuccess: true,
+        imageLoading: false,
+        uploadSuccess: true
       });
     }
   };
@@ -159,8 +161,8 @@ class Signup extends Component {
       path,
       selectedFile,
       imageLoading,
-			passwordStructure,
-			uploadSuccess
+      passwordStructure,
+      uploadSuccess
     } = this.state;
     const { error, googleSignUp } = this.props.auth;
     if (!this.state.signUpVisible) {
@@ -196,29 +198,29 @@ class Signup extends Component {
               Please provide a few details about yourself
             </h2>
             {this.renderFields()}
-            <h2 className="text-2">Save Your Information</h2>
-            <div className="form-upload">
-              <label className="form-file-label align-center">
-                <UploadIcon size="24" color="gray" />&nbsp;<strong>
-                  Select or drag a picture
-                </strong>
-              </label>
-              <input type="file" onChange={this.handeChangeII} />
-              {imageLoading ? (
-                <div className="jumper">
-                  <div />
-                  <div />
-                  <div />
-                </div>
-              ) : null}
-              {path && !imageLoading ? <img src={path} alt="" /> : null}
-              {selectedFile && !uploadSuccess ? (
-                <button onClick={() => this.upload()}>Upload</button>
-              ) : null}
-            </div>
-            {imageErr ? <p className="alert">{imageErr}</p> : null}
             {!googleSignUp ? (
               <div>
+                <h2 className="text-2">Save Your Information</h2>
+                <div className="form-upload">
+                  <label className="form-file-label align-center">
+                    <UploadIcon size="24" color="gray" />&nbsp;<strong>
+                      Select or drag a picture
+                    </strong>
+                  </label>
+									<input className="form-input" type="file" onChange={this.handeChangeII} />
+                  {imageLoading ? (
+                    <div className="jumper">
+                      <div />
+                      <div />
+                      <div />
+                    </div>
+                  ) : null}
+                  {path && !imageLoading ? <img src={path} alt="" /> : null}
+                  {selectedFile && !uploadSuccess ? (
+                    <button onClick={() => this.upload()}>Upload</button>
+                  ) : null}
+                </div>
+                {imageErr ? <p className="alert">{imageErr}</p> : null}
                 <Field
                   className="form-input"
                   component="input"
@@ -235,6 +237,7 @@ class Signup extends Component {
                     {emailErr}
                   </div>
                 ) : null}
+								<br/>
                 <Field
                   className="form-input"
                   component="input"
@@ -251,6 +254,7 @@ class Signup extends Component {
                     {passwordErr}
                   </div>
                 ) : null}
+								<br/>
                 <Field
                   className="form-input"
                   component="input"

@@ -90,7 +90,7 @@ class AllPools extends Component {
 			return (
 				<div className="results">
 					<h1 className="text-2">
-						THERE IS NO POOLS MATCHING YOUR SEARCH...
+						THERE ARE NO POOLS MATCHING YOUR SEARCH...
 					</h1>
 				</div>
 			)
@@ -123,7 +123,7 @@ class AllPools extends Component {
                   </h3>
                   <h3>{pool.rate}% max interest</h3>
                   <h3>{num == 1 ? '1 Contributor' : `${num} Contributors`}</h3>
-                  {this.renderDate(pool.date)}
+                  {this.renderDate(pool.startDate)}
                 </div>
               </div>;
           })}

@@ -140,7 +140,6 @@ class Create extends Component {
   }
   handleSubmit = chart => {
     const { history, createPool, pools } = this.props;
-    // const startDate = moment(chart[pools.selection].startDate).format('L');
     const dDate = moment(chart[pools.selection].startDate)
       .add(pools.selection, 'months')
       .format('L');
@@ -161,7 +160,7 @@ class Create extends Component {
     values['endDate'] = endDate;
     values['monthly'] = chart[pools.selection].monthly;
     values['disburseAmount'] = chart[pools.selection].tcr;
-    // values['poolPic'] = this.state.path;
+    values['poolPic'] = this.state.path;
     createPool(values, history);
   };
 
