@@ -13,7 +13,7 @@ class PoolDetail extends Component {
     value: ''
   };
   componentDidMount() {
-		window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     this.props.fetchPool(this.props.match.params.id);
     this.props.fetchComments(this.props.match.params.id);
   }
@@ -115,6 +115,13 @@ class PoolDetail extends Component {
           <p>**1% Platform Fee (administered on Disbursement Date)</p>
           <div className="pool__comments-wrap">
             <h1 className="text-2">Join the Conversation</h1>
+            {!this.props.auth.user ? (
+              <h5>
+                Only Pooli members can post comments.{' '}
+                <a href="/signup">Sign up here</a>
+              </h5>
+            ) : null}
+						<br/>
             {pools.comments.map(c => {
               return (
                 <div key={c._id} className="pool__comment">
@@ -136,20 +143,22 @@ class PoolDetail extends Component {
                 </div>
               );
             })}
-            <form onSubmit={this.handleSubmit}>
-              <input
-                className="pool__form-input"
-                onChange={this.handleChange}
-                value={this.state.value}
-                onKeyPress={this.handleKeyPress}
-                placeholder="leave a comment..."
-              />
-              <input
-                className="pool__form-submit"
-                type="submit"
-                value="Submit"
-              />
-            </form>
+            {this.props.auth.user ? (
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  className="pool__form-input"
+                  onChange={this.handleChange}
+                  value={this.state.value}
+                  onKeyPress={this.handleKeyPress}
+                  placeholder="Leave a comment..."
+                />
+                <input
+                  className="pool__form-submit"
+                  type="submit"
+                  value="Submit"
+                />
+              </form>
+            ) : null}
           </div>
         </div>
       </div>

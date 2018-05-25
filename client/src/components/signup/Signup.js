@@ -31,7 +31,6 @@ class Signup extends Component {
     if (this.props.auth.googleSignUp) {
       this.setState({ signUpVisible: true });
     }
-    window.scrollTo(0, 0);
   }
   componentWillUnmount() {
     this.props.resetAuthError();
@@ -58,7 +57,7 @@ class Signup extends Component {
     }
     if (!agree) {
       this.setState({
-        agreeErr: 'You must agree to our terms and conditions before signing up'
+        agreeErr: 'Please check this box to continue'
       });
     } else if (!this.props.auth.googleSignUp) {
       if (!email) {
@@ -206,7 +205,11 @@ class Signup extends Component {
                       Select or drag a picture
                     </strong>
                   </label>
-									<input className="form-input" type="file" onChange={this.handeChangeII} />
+                  <input
+                    className="form-input"
+                    type="file"
+                    onChange={this.handeChangeII}
+                  />
                   {imageLoading ? (
                     <div className="jumper">
                       <div />
@@ -236,7 +239,7 @@ class Signup extends Component {
                     {emailErr}
                   </div>
                 ) : null}
-								<br/>
+                <br />
                 <Field
                   className="form-input"
                   component="input"
@@ -253,7 +256,7 @@ class Signup extends Component {
                     {passwordErr}
                   </div>
                 ) : null}
-								<br/>
+                <br />
                 <Field
                   className="form-input"
                   component="input"
@@ -273,9 +276,9 @@ class Signup extends Component {
                 {mismatchErr ? (
                   <h5 className="warning">{mismatchErr}</h5>
                 ) : null}
-                <div className="warning">
-                  {passwordStructure ? <h5>{passwordStructure}</h5> : null}
-                </div>
+                {passwordStructure ? (
+                  <h5 className="warning">{passwordStructure}</h5>
+                ) : null}
               </div>
             ) : null}
             <div className="signup__terms">
@@ -293,7 +296,7 @@ class Signup extends Component {
                   name="accept request"
                   onChange={this.handleChange}
                 />{' '}
-                By checking the box, clicking "agree and see your rate" below,
+                By checking the box and clicking "submit" below,
                 you confirm:
               </div>
               <ul className="signup__list">
@@ -311,13 +314,13 @@ class Signup extends Component {
                     Credit Report and Information Verification Consent
                   </a>, the{' '}
                   <a className="signup__terms-text" href="/">
-                    Collective Capital Privacy Policy
+                    Pooli Privacy Policy
                   </a>, the{' '}
                   <a className="signup__terms-text" href="/">
-                    Collective Capital Privacy Notice
+                    Pooli Privacy Notice
                   </a>, and the{' '}
                   <a className="signup__terms-text" href="/">
-                    Collective Capital Platform Agreement
+                    Pooli Platform Agreement
                   </a>.
                 </li>
               </ul>
@@ -326,7 +329,7 @@ class Signup extends Component {
               </button>
               <div className="align-center">
                 <LockAlertIcon size={34} color="#000" />
-                Checking your rate won't affect your credit score!
+                Signing up won't affect your credit score!
               </div>
             </div>
             <br />

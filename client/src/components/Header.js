@@ -48,7 +48,7 @@ class Header extends Component {
         <div className="head__nav-content">
           {
             <Link id="title" className="" to={user ? '/dashboard' : '/'}>
-              CommunityCapital
+              Pooli
             </Link>
           }
           <div className="head__nav-right">

@@ -11,24 +11,6 @@ import './styles/global.css';
 import './styles/media.css';
 import * as actions from '../actions/index';
 
-const pipe = (...fns) =>
-	fns.reduce((f, g) => {
-		return (...args) => {
-			return g(f(...args));
-		};
-	});
-
-const sanitizeDollar = str => str.split("$").join("");
-const sanitizeComma = str => str.split(",").join("");
-const displayAsCurrency = float =>
-	float.toLocaleString("USD", {
-		style: "currency",
-		currency: "USD",
-		minimumFractionDigits: 0,
-		maximumFractionDigits: 0
-	});
-
-
 class AllPools extends Component {
   state = {
 		min: "",
@@ -159,6 +141,23 @@ class AllPools extends Component {
 
 	handleChange = e => {
 		const inputValue = e.target.value === "$" ? "$0" : e.target.value;
+
+		const pipe = (...fns) =>
+			fns.reduce((f, g) => {
+				return (...args) => {
+					return g(f(...args));
+				};
+			});
+
+		const sanitizeDollar = str => str.split("$").join("");
+		const sanitizeComma = str => str.split(",").join("");
+		const displayAsCurrency = float =>
+			float.toLocaleString("USD", {
+				style: "currency",
+				currency: "USD",
+				minimumFractionDigits: 0,
+				maximumFractionDigits: 0
+			});
 
 		let dollarAmount = pipe(
 			sanitizeDollar,

@@ -48,18 +48,12 @@ const Footer = () => {
       </div>
       <div className="foot__dec">
         <p className="foot__dec-elem">
-          © 2007–2018 Collective Capital, Inc. Collective Capital™ is a
-          registered trademark of Collective Capital, Inc. All Rights
+          © 2018 Pooli™ is a
+          registered trademark of Pooli, Inc. All Rights
           Reserved. Product name, logo, brands, and other trademarks featured
-          or referred to within Collective Capital are the property of their
+          or referred to within Pooli are the property of their
           respective trademark holders. This site may be compensated through
-          third party advertisers.iPhone is a trademark of Apple Inc.,
-          registered in the U.S. and other countries. App Store is a service
-          mark of Apple Inc.Android is a trademark of Google Inc.The Equifax
-          logo is a registered trademark owned by Equifax in the United States
-          and other countries. Collective Credit Mortgage, Inc. NMLS ID#
-          1588622 | Licenses | NMLS Consumer Access Collective Capital Offers,
-          Inc. NMLS ID# 1628077 | Licenses | NMLS Consumer Access
+          third party advertisers.
         </p>
         <p className="foot__dec-elem">
           Average 2016 Federal tax refund in CA based on data provided by the
@@ -70,15 +64,15 @@ const Footer = () => {
           Revenue.* If you receive a larger federal tax refund amount using
           the same Tax Return Information when filing an amended return
           through another online tax preparation service, then you may be
-          eligible to receive a $25 gift card from Collective Capital Tax. To
+          eligible to receive a $25 gift card from Pooli Tax. To
           qualify for this guarantee: (i) you must have filed your original
-          2017 federal income tax return through Collective Capital Tax on or
+          2017 federal income tax return through Pooli Tax on or
           before April 16, 2018; (ii) you must be entitled to a federal tax
           refund from the IRS; (iii) you must have filed an amended federal
           income tax return using the same Tax Return Information through
           another online tax preparation service; (iv) your amended return
           must have been accepted by the IRS; (v) you must submit your
-          complete Max Refund Guarantee claim to Collective Capital Tax no
+          complete Max Refund Guarantee claim to Pooli Tax no
           later than December 31, 2018; and (vi) the larger refund cannot be
           attributed to claims you make on your tax return that are contrary
           to law. For complete details, see Max Refund Guarantee FAQs.
