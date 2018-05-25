@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { CloseIcon } from 'mdi-react';
 import moment from 'moment';
 
+import SearchBar from './SearchBar';
 import './styles/allpools.css';
 import './styles/loader.css';
 import './styles/global.css';
 import './styles/media.css';
 import * as actions from '../actions/index';
+
+const pipe = (...fns) =>
+	fns.reduce((f, g) => {
+		return (...args) => {
+			return g(f(...args));
+		};
+	});
+
+const sanitizeDollar = str => str.split("$").join("");
+const sanitizeComma = str => str.split(",").join("");
+const displayAsCurrency = float =>
+	float.toLocaleString("USD", {
+		style: "currency",
+		currency: "USD",
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0
+	});
+
 
 class AllPools extends Component {
   state = {
@@ -52,19 +72,21 @@ class AllPools extends Component {
 	}
 
 	handleFilterPools = (pools) => {
+		const { keyword, min, max, contributors, category, rate } = this.state
 		const filteredPools = [];
+		const spljoin = val => { return val.split("$").join("").split(",").join("")}
 		pools.map(pool => {
 			let title = pool.title;
 			let num = pool.contributors.length;
 			let percent = Math.round(num * 100 / pool.numOfContributors);
-			let match = pool.title.match(new RegExp(this.state.keyword, "i"));
-			if (this.state.min && Number(pool.amount) < this.state.min) return;
-			if (this.state.max && Number(pool.amount) > this.state.max) return;
-			else if (this.state.contributors && Number(pool.numOfContributors) !== this.state.contributors) return;
-			else if (this.state.category && pool.category !== this.state.category) return;
-			else if (this.state.rate && Number(pool.rate) !== this.state.rate) return;
-			else if (!match) return;
-			else filteredPools.push(pool)
+			let match = pool.title.match(new RegExp(keyword, "i"));
+			if (spljoin(min) && Number(pool.amount) < spljoin(min)) return;
+			if (spljoin(max) && Number(pool.amount) > spljoin(max)) return;
+      else if (contributors && Number(pool.numOfContributors) !== contributors) return;
+      else if (category && pool.category !== category) return;
+      else if (rate && Number(pool.rate) !== rate) return;
+      else if (!match) return;
+      else filteredPools.push(pool);
 		})
 		return filteredPools;
 	}
@@ -131,7 +153,38 @@ class AllPools extends Component {
 		}
 	}
 
+	search(keyword) {
+		this.setState({ keyword })
+	}
+
+	handleChange = e => {
+		const inputValue = e.target.value === "$" ? "$0" : e.target.value;
+
+		let dollarAmount = pipe(
+			sanitizeDollar,
+			sanitizeComma,
+			parseFloat,
+			displayAsCurrency
+		)(inputValue);
+
+		// This is the same as:
+		// const withoutDollar = sanitizeDollar(inputValue)
+		// const withoutCommas = sanitizeComma(withoutDollar)
+		// const asFloat = toFloat(withoutCommas)
+		// const asCurrency = displayAsCurrency(asFloat)
+
+		// Also the same as:
+		// displayAsCurrency(toFloat(sanitizeComma(sanitizeDollar(inputValue))))
+
+		dollarAmount = pipe(sanitizeDollar, sanitizeComma, parseFloat, isNaN)(dollarAmount)
+			? "$0"
+			: dollarAmount;
+
+		this.setState({ [e.target.name]: dollarAmount });
+	};
+
   render() {
+		const search = _.debounce((keyword) => { this.search(keyword)}, 300)
 		const { allPools } = this.props.pools;
 		const clearButton =
 			this.state.min ||
@@ -159,14 +212,16 @@ class AllPools extends Component {
 							<input
 								type="text"
 								value={this.state.min}
+								name="min"
 								placeholder="Amount from.."
-								onInput={(e) => this.setState({ min: e.target.value })}
+								onInput={this.handleChange}
 							/>
 							<input
 								type="text"
 								value={this.state.max}
+								name="max"
 								placeholder="..To"
-								onInput={(e) => this.setState({ max: e.target.value })}
+								onInput={this.handleChange}
 							/>
 						</div>
 						<div className="all__dropdown">
@@ -202,18 +257,12 @@ class AllPools extends Component {
 								<button onClick={() => this.handleFilterClick('rate',11)}>11%</button>
 							</div>
 						</div>
-						<input
-							type="text"
-							className="all__search"
-							value={this.state.keyword}
-							placeholder="Search.."
-							onInput={(event) => this.setState({ keyword: event.target.value })}
-						/>
+						<SearchBar onSearchChange={search}/>
 					</div>
 					{this.handlePools()}
 				</div>
       </div>;
-  }
+	}	
 }
 
 const mstp = ({ pools }) => {
