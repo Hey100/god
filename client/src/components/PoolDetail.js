@@ -29,16 +29,18 @@ class PoolDetail extends Component {
 
   handleSubmit = event => {
     const { profilePic } = this.props.auth.user;
-    if (!this.props.auth.user) {
-      this.redirect();
-    } else {
-      this.props.createComment({
-        comment: this.state.value,
-        poolId: this.props.match.params.id,
-        pic: profilePic
-      });
-      this.setState({ value: '' });
-      event.preventDefault();
+    event.preventDefault();
+    if (this.state.value !== '') {
+      if (!this.props.auth.user) {
+        this.redirect();
+      } else {
+        this.props.createComment({
+          comment: this.state.value,
+          poolId: this.props.match.params.id,
+          pic: profilePic
+        });
+        this.setState({ value: '' });
+      }
     }
   };
   handleChange = event => {
@@ -122,7 +124,7 @@ class PoolDetail extends Component {
                 <a href="/signup">Sign up here</a>
               </h5>
             ) : null}
-						<br/>
+            <br />
             {pools.comments.map(c => {
               return (
                 <div key={c._id} className="pool__comment">
@@ -130,16 +132,18 @@ class PoolDetail extends Component {
                     src={c.creatorPic}
                     alt="user thumbnail"
                     className="pool__comment-thumb"
+										onClick = {this.props.auth.user ? () => this.props.history.push('/profile/' + c._user) : null}
                   />
                   <div className="pool__comment-text">
                     {this.props.auth.user ? (
                       c._user === this.props.auth.user._id ? (
                         <h5>You</h5>
                       ) : (
-                        <h5>{c.creator}</h5>
+                        <a href={'/profile/' + c._user}> {c.creator}</a>
                       )
                     ) : null}
                     <p>{c.comment}</p>
+										<p style={{ 'fontSize': '9px', paddingTop: '5px', float: 'right' }}>{moment(c.createdAt).calendar()}</p>
                   </div>
                 </div>
               );

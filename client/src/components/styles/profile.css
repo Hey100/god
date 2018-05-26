@@ -5,3 +5,16 @@
 	overflow: hidden;
 	background-size: cover;
 }
+
+.info__list {
+	margin: 0 auto
+}
+ 
+.info__listitem {
+	display: list-item;
+	list-style-position: inside;
+	list-style-type: circle;
+	float: left;
+	padding-left: 10px
+}
+
