@@ -127,7 +127,7 @@ class Summary extends Component {
         <h1 className="tab-title">Home</h1>
         <div className="tab-box">
           <div className="summary__one">
-            <h3 className="text-2">Your Community Capital score is:</h3>
+            <h3 className="text-2">Your POOLI score is:</h3>
             <h1 className="big-btn">{ccScore}</h1>
           </div>
           <div className="summary__two">

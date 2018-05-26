@@ -12,27 +12,30 @@ const pics = [
 ];
 const selected = pics[Math.floor(Math.random() * 6)];
 
-const userSchema = new Schema({
-  googleId: String,
-  first_name: String,
-  last_name: String,
-  profilePic: { type: String, default: selected },
-  dob: String,
-  address1: String,
-  address2: String,
-  city: String,
-  state: String,
-  zip: Number,
-  phone: Number,
-  savingsQ: String,
-  incomeQ: String,
-  email: { type: String, unique: true, lowercase: true },
-  password: String,
-  signUpComplete: Boolean,
-  ccScore: { type: Number, default: 80 },
-  mlimit: { type: Number, default: 700 },
-  usedAmount: { type: Number, default: 0 }
-});
+const userSchema = new Schema(
+  {
+    googleId: String,
+    first_name: String,
+    last_name: String,
+    profilePic: { type: String, default: selected },
+    dob: String,
+    address1: String,
+    address2: String,
+    city: String,
+    state: String,
+    zip: Number,
+    phone: Number,
+    savingsQ: String,
+    incomeQ: String,
+    email: { type: String, unique: true, lowercase: true },
+    password: String,
+    signUpComplete: Boolean,
+    ccScore: { type: Number, default: 80 },
+    mlimit: { type: Number, default: 700 },
+    usedAmount: { type: Number, default: 0 }
+  },
+  { timestamps: true }
+);
 
 userSchema.pre('save', function(next) {
   if (!this.isModified('password')) return next();

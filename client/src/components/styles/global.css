@@ -28,7 +28,8 @@ form {
 
 span {
   font-size: 1em;
-  color: black; }
+	color: black;
+	font-weight: bold; }
 
 /* PUBLIC */
 .contain {
