@@ -1,9 +1,9 @@
 .chart-wrap {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 40px 0 10px 0;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 10px 0;
+  overflow-x: scroll; }
 
 .modal > h5, h1 {
 	color: black;
@@ -44,23 +44,19 @@ span {
 }
 
 table {
-	border-collapse: collapse;
-}
+  border-collapse: collapse;
+  overflow-x: scroll; }
 
 thead {
-	background: linear-gradient(to left, #088DA5, #00E6DC);
-	color: #FFF;
-}
+  background: linear-gradient(to left, #088DA5, #00E6DC);
+  color: #FFF; }
 
 th, td {
-	padding: 20.55px;
-	text-align: center;
-}
+  padding: 20.55px;
+  text-align: center; }
 
 td {
-	color: #088DA5;
-}
+  color: #088DA5; }
 
 tbody tr:nth-child(even) {
-	background-color: #F5F5F5;
-}
+  background-color: #F5F5F5; }

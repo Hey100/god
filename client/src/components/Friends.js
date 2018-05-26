@@ -57,15 +57,17 @@ class Friends extends Component {
 			<div className="tab-box">
 				{_.map(this.state.friends, friend => {
 					return (
-						<div className="friend__card" style={{ textAlign: 'center' }}>
+						<div className="friend__card">
 							<div
 								className="friend__image"
 								style={{ backgroundImage: `url(${friend.picture.large})`}}
 								alt=""
 							/>
 							<h1 className="text-2">{this.first(friend.name.first)}</h1>
-							<button className="friend__card-button"><MessageIcon size={44} color="dodgerblue" /></button>
-							<button className="friend__card-button"><InformationIcon size={44} color="dodgerblue" /></button>
+							<div>
+								<button className="friend__card-button"><MessageIcon size={44} color="#40E0D0" /></button>
+								<button className="friend__card-button"><InformationIcon size={44} color="#40E0D0" /></button>
+							</div>
 						</div>
 					)
 				})}

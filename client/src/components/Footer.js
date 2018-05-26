@@ -8,55 +8,56 @@ import "./styles/media.css";
 
 const Footer = () => {
 	return <div className="foot">
-      <div className="foot__list">
-        <ul className="foot__list-elem">
-          <li>
-            <a href="/">
-              <TwitterIcon size={34} color="#FFF" />
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <FacebookIcon size={34} color="#FFF" />
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <YoutubeIcon size={34} color="#FFF" />
-            </a>
-          </li>
-        </ul>
-        <ul className="foot__list-elem">
-          <li>
-            <a href="/">Contact us</a>
-          </li>
-          <li>
-            <a href="/">About us</a>
-          </li>
-          <li>
-            <a href="/">Terms</a>
-          </li>
-          <li>
-						<Link to={"/help"}>Help Center</Link>
-          </li>
-          <li>
-					<a href="https://www.freepik.com/alekksall">
-              Illustrations by Alekksall
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div className="foot__dec">
-        <p className="foot__dec-elem">
-          © 2018 Pooli™ is a
+      <div className="foot__wrapper">
+				<div className="foot__list">
+					<ul className="foot__list-elem">
+						<li>
+							<a href="/">
+								<TwitterIcon size={34} color="#FFF" />
+							</a>
+						</li>
+						<li>
+							<a href="/">
+								<FacebookIcon size={34} color="#FFF" />
+							</a>
+						</li>
+						<li>
+							<a href="/">
+								<YoutubeIcon size={34} color="#FFF" />
+							</a>
+						</li>
+					</ul>
+					<ul className="foot__list-elem">
+						<li>
+							<a href="/">Contact us</a>
+						</li>
+						<li>
+							<a href="/">About us</a>
+						</li>
+						<li>
+							<a href="/">Terms</a>
+						</li>
+						<li>
+							<Link to={"/help"}>Help Center</Link>
+						</li>
+						<li>
+						<a href="https://www.freepik.com/alekksall">
+								Illustrations by Alekksall
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div className="foot__dec">
+				<p className="foot__dec-elem">
+					© 2018 Pooli™ is a
           registered trademark of Pooli, Inc. All Rights
           Reserved. Product name, logo, brands, and other trademarks featured
           or referred to within Pooli are the property of their
           respective trademark holders. This site may be compensated through
           third party advertisers.
         </p>
-        <p className="foot__dec-elem">
-          Average 2016 Federal tax refund in CA based on data provided by the
+				<p className="foot__dec-elem">
+					Average 2016 Federal tax refund in CA based on data provided by the
           IRS. Average 2016 State tax refund in CA based on data provided by
           the State of California Franchise Tax Board.Average 2016 Federal tax
           refund in GA based on data provided by the IRS. Average 2016 State
@@ -77,7 +78,8 @@ const Footer = () => {
           attributed to claims you make on your tax return that are contrary
           to law. For complete details, see Max Refund Guarantee FAQs.
         </p>
-      </div>
+				</div>
+			</div>
     </div>;
 };
 

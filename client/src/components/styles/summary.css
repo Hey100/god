@@ -1,46 +1,96 @@
-.content {
+.summary__one {
+  margin: 2%;
+	width: 31%;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 10px;
-	min-width: 200px;
-}
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  background: linear-gradient(to left, #EDEDED, #FAFAFA); }
 
-.summary__score {
-	flex-direction: column;
-	justify-content: center; 
-	align-items: center;
-	text-align: center;
-	padding: 20px;
-}
+.summary__one > h1 {
+  width: 200px; }
 
-.summary__score > h1 {
-	font-size: 5em;
-	background-color: #6DC666;
-}
+.summary__two {
+  width: 61%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2%;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(to left, #EDEDED, #FAFAFA); }
+
+.summary__three {
+  width: 96%;
+	display: flex;
+	margin-top: 10px;
+  flex-direction: column;
+  border-radius: 10px; }
+
+.summary__three > h2 {
+  display: block;
+  text-align: center;
+  margin: 0 auto; }
+
+.summary__reminder {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to left, #EDEDED, #FAFAFA);
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px 0; }
+
+.summary__reminder-text {
+  font-size: 20px;
+  padding-left: 40px; }
 
 .summary__donut {
-	margin-bottom: 20px;
-	position: relative;
-}
+  margin-bottom: 20px;
+  position: relative; }
 
 .summary__allowance {
-	min-width: 300px;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	margin: 10px;
-}
+  width: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 10px; }
 
 .summary__allowance > h2 {
-	justify-content: space-between;
-}
+  justify-content: space-between; }
 
-@media all and (min-width: 320px) {
-	.summary__allowance {
-		min-width: 250px;
-	}	
-	.summary__score {
-		padding: 5px;
-	}
-}
+.summary__payment {
+  display: flex;
+  flex-wrap: nowrap;
+  border-radius: 5px;
+  align-items: center; }
+
+.summary__text {
+  font-size: 1.5em;
+  padding: 10px 0 10px 30px; }
+
+@media all and (max-width: 1024px) {
+  .summary__one {
+    width: 96%; }
+  .summary__two {
+    width: 96%; }
+  .summary__three {
+    width: 96%; } }
+
+@media all and (max-width: 768px) {
+  .summary__two {
+    flex-wrap: wrap; }
+  .summary__reminder {
+    flex-direction: column; }
+  .summary__reminder > div {
+    flex-direction: column; }
+  .summary__reminder-text {
+    padding: 10px; }
+  .summary__payment {
+    flex-flow: column wrap;
+    justify-content: flex-start; } }
+
+@media all and (max-width: 320px) {
+  .summary__score {
+    padding: 5px; } }

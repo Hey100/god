@@ -42,13 +42,11 @@ class MyPools extends Component {
             />
             <div className="my__content">
               <h2>{pool.title}</h2>
-              <div>
-                <h2>{pool.numOfContributors} conts.</h2>
-                <h2>{this.parse(pool.amount)}</h2>
-                <h2>Start Date: {moment(pool.startDate).format('L')}</h2>
-								<h2>End Date:{endDate.format('L')}</h2>
-                <h2>Status: {status}</h2>
-              </div>
+							<h2>{pool.numOfContributors} conts.</h2>
+							<h2>{this.parse(pool.amount)}</h2>
+							<h2>Start Date: {moment(pool.startDate).format('L')}</h2>
+							<h2>End Date:{endDate.format('L')}</h2>
+							<h2>Status: {status}</h2>
             </div>
           </Link>
         );

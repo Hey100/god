@@ -225,6 +225,7 @@ class AllPools extends Component {
       this.state.rate ||
       this.state.keyword ? (
         <CloseIcon
+          className="all__clear"
           size="34"
           color="tomato"
           onClick={() =>
