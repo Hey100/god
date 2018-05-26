@@ -1,211 +1,194 @@
 .all__search-bar {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	margin: 20px 0;
-}
+  width: 100%;
+  max-width: 1440px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; }
 
 .all__dropdown {
 	position: relative;
-	display: inline-block;
-}
+  display: inline-block; }
 
 .all__dropdown-content {
-	display: none;
-	position: absolute;
-	top: 70px;
-	left: 10px;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	z-index: 1;
-}
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  background-color: #FAFAFA;
+  min-width: 160px;
+  z-index: 1; }
 
 .all__dropdown-content button {
-	width: 200px;
-	background-color: #EDEDED;
-	color: dodgerblue;
-	padding: 15px 5px;
-	font-size: 16px;
-	border: none;
-	cursor: pointer;
-	display: block;
-}
+  width: 200px;
+  background-color: #EDEDED;
+  color: #C9C9C9;
+  padding: 15px 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  display: block; }
 
 .all__dropdown-content button:hover {
-	background-color: #f7f7f7
-}
+	background-color: #DBDBDB;
+	color: #40E0D0; }
 
 .all__dropdown:hover .all__dropdown-content {
-	display: block;
-}
+  display: block; }
 
 .all__dropdown:hover .all__dropbtn {
-	background-color: lightgray;
-}
+  background-color: #F0F0F0; }
 
 .all__dropbtn {
-	width: 200px;
-	height: 50px;
-	background-color: #f1f1f1;
-	color: dodgerblue;
-	padding: 10px 5px;
-	font-size: 20px;
+  width: 200px;
+  height: 50px;
+  background-color: #FAFAFA;
+  color: #40E0D0;
+  padding: 10px 5px;
+  margin: 10px;
+  font-size: 20px;
 	border: none;
-	margin: 10px;
-	cursor: pointer;
-}
+	border-radius: 50px;
+  cursor: pointer; }
 
 .all__search {
-	height: 50px;
-	max-width: 860px;
-	flex: 1;
-	background-color: #f1f1f1;
-	color: dodgerblue;
-	padding: 15px 5px 15px 20px;
-	font-size: 20px;
+  height: 50px;
+  max-width: 860px;
+  flex: 1;
+  background-color: #FAFAFA;
+  color: #262626;
+  padding: 20px 30px;
+  font-size: 20px;
 	border: none;
-	margin: 10px;
-}
+	border-radius: 50px;
+  margin: 10px; }
 
 .all__range {
-	display: flex;
-	max-width: 400px;
-	margin: 10px;
+  display: flex;
+  max-width: 400px;
+	margin: 10px; }
+	
+.all__range > input:first-child {
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+.all__range > input:last-child {
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
 }
 
 .all__range input {
-	height: 50px;
-	width: 200px;
-	background-color: #f1f1f1;
-	color: dodgerblue;
-	padding: 15px 20px;
-	font-size: 20px;
-	border: none;
-}
+  height: 50px;
+  width: 200px;
+	background-color: #FAFAFA;
+	padding: 20px 30px;
+  color: #262626;
+  font-size: 20px;
+  border: none; }
 
 .all__range input:hover {
-	background-color: lightgray;
-}
+  background-color: #F0F0F0; }
+
+.all__clear {
+  position: absolute;
+  top: 10px;
+  left: -40px; }
 
 .all__card {
-	box-sizing: initial;
-	max-width: 350px;
-	margin: 20px;
-	border: 1px solid lightgray;
-	transition: scale, .2s;
-}
+  box-sizing: content-box;
+  max-width: 250px;
+  margin: 20px;
+  border: 1px solid #FAFAFA;
+  transition: scale, .2s; }
 
 .all__card:hover {
-	transform: scale(1.1);
-}
+  transform: scale(1.1); }
 
 .all__thumbnail {
-	width: 349px;
-	height: 200px;
-	overflow: hidden;
-	background-size: cover;
-	background-position: center;
-	border-bottom: 1px solid lightgray;
-	border-top: none;
-	cursor: pointer;
-}
+  width: 250px;
+  height: 150px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid lightgray;
+  border-top: none;
+  cursor: pointer; }
 
 .all__card-content {
-	padding: 10px 20px;
-}
+  padding: 10px 20px; }
 
 .all__card-content > h3 {
-	font-size: 14px;
-	color: gray;
-	margin-bottom: 5px;
-}
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 5px; }
 
 .all__card-content > h1 {
-	font-size: 1.2em;
-}
+  font-size: 1.2em; }
 
 .all__meter-wrap {
-	height: 20px;
-}
+  height: 20px; }
 
 .all__meter {
-	position: relative;
-	height: 10px;
-	margin: 10px 0;
-	border-radius: 20px;
-	background: #EDEDED;
-}
+  position: relative;
+  height: 10px;
+  margin: 10px 0;
+  border-radius: 20px;
+  background: #EDEDED; }
 
 .all__meter > span {
-	height: 100%;
+  height: 100%;
   display: block;
   position: relative;
-	overflow: hidden;
-	border-radius: 10px;
+  overflow: hidden;
+  border-radius: 10px;
   background: linear-gradient(to left, #72E5BE, #72d3e5);
-	animation: fill 1s ease;
-}
+  animation: fill 1s ease; }
 
 .all__meter-percent {
-	position: relative;
-	width: 50px;
-	top: -30px;
-	left: 45%;
-	font-size: 24px;
-}
+  position: relative;
+  width: 50px;
+  top: -30px;
+  left: 45%;
+  font-size: 24px; }
 
 .cancel {
-	background-color: lightgray;
-	color: tomato;
-}
+  background-color: lightgray;
+  color: tomato; }
 
 @keyframes fill {
-   0% { width: 0; }
-}
+  0% {
+    width: 0; } }
 
 @media all and (max-width: 768px) {
-	.all__search-bar {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.all__dropbtn, .all__dropdown-content > button, .all__search {
-		width: 400px;
-	}
-
-	.all__card {
-		margin: 10px;
-		width: 100vw;
-	}
-
-	.all__card-content {
-		padding: 10px;
-	}
-
-	.all__thumbnail {
-		width: 100%;
-	}
-
-}
+  .all__search-bar {
+    flex-direction: column;
+    align-items: center; }
+  .all__dropbtn, .all__dropdown-content > button, .all__search {
+    width: 400px; }
+  .all__card {
+    margin: 10px;
+    width: 100vw; }
+  .all__card-content {
+    padding: 10px; }
+  .all__thumbnail {
+    width: 100%; } }
 
 @media all and (max-width: 425px) {
-	
-	.all__dropbtn, .all__dropdown-content > button, .all__search {
-		width: 300px;
-	}
+  .all__clear {
+    top: 10px;
+    left: -20px; }
+  .all__dropbtn, .all__dropdown-content > button, .all__search {
+    width: 300px; }
+  .all__range > input {
+    width: 150px; }
+  .all__card {
+    width: 90vw; }
+  .all__card-content h3 {
+    color: gray; } }
 
-	.all__range > input {
-		width: 150px;
-	}
-
-	.all__card {
-		width: 90vw;
-	}
-
-
-	.all__card-content h3 {
-		color: gray;
-	}
-}
+@media all and (max-width: 320px) {
+  .all__clear {
+    top: -30px;
+    left: 120px; } }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 import './styles/pooldetail.css';
+import './styles/chart.css';
 import './styles/global.css';
 import './styles/media.css';
 import * as actions from '../actions/index';
@@ -142,12 +143,12 @@ class PoolDetail extends Component {
                 onChange={this.handleChange}
                 value={this.state.value}
                 onKeyPress={this.handleKeyPress}
-                placeholder="leave a comment..."
+                placeholder="post a comment..."
               />
               <input
                 className="pool__form-submit"
                 type="submit"
-                value="Submit"
+                value="Post"
               />
             </form>
           </div>

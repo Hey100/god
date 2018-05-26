@@ -1,50 +1,37 @@
 .chart-wrap {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 40px 0 10px 0;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 10px 0;
+  overflow-x: scroll; }
 
 .modal {
-	position: absolute; 
-	width: 25%;
-	height: 75%; 
-	top: 250; 
-	left: 50;
-	right: 600px;
-	bottom: 0;
-	/* background-color: rgba(0,0,0,0.5);  */
-	background-color: rgb(76, 175, 80);
-	z-index: 2;
-	cursor: pointer;
-}
-
-/* .overlay {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	opacity: 0.2;
-	z-index: 2
-} */
+  position: absolute;
+  width: 25%;
+  height: 75%;
+  top: 250;
+  left: 50;
+  right: 600px;
+  bottom: 0;
+  /* background-color: rgba(0,0,0,0.5);  */
+  background-color: #4caf50;
+  z-index: 2;
+  cursor: pointer; }
 
 table {
-	border-collapse: collapse;
-}
+  border-collapse: collapse;
+  overflow-x: scroll; }
 
 thead {
-	background: linear-gradient(to left, #088DA5, #00E6DC);
-	color: #FFF;
-}
+  background: linear-gradient(to left, #088DA5, #00E6DC);
+  color: #FFF; }
 
 th, td {
-	padding: 20.55px;
-	text-align: center;
-}
+  padding: 20.55px;
+  text-align: center; }
 
 td {
-	color: #088DA5;
-}
+  color: #088DA5; }
 
 tbody tr:nth-child(even) {
-	background-color: #F5F5F5;
-}
+  background-color: #F5F5F5; }

@@ -1,13 +1,11 @@
 .signin__form {
-	margin-top: 40px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
 
 .google {
-	background-color: white;
-	color: #F90101;
-	border: 1px solid #F90101;
-	margin-top: 40px;
-}
+  background-color: white;
+  color: #F90101;
+  border: 1px solid #F90101;
+  margin-top: 40px; }

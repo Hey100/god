@@ -139,8 +139,9 @@ class AllPools extends Component {
 			this.state.contributors ||
 			this.state.category ||
 			this.state.rate ||
-			this.state.keyword ? <CloseIcon size="34"
+			this.state.keyword ? <CloseIcon size="50"
 				color="tomato"
+				className="all__clear"
 				onClick={() => this.setState({
 					min: "",
 					max: "",
@@ -157,13 +158,13 @@ class AllPools extends Component {
 						{clearButton}
 						<div className="all__range">
 							<input
-								type="text"
+								type="number"
 								value={this.state.min}
 								placeholder="Amount from.."
 								onInput={(e) => this.setState({ min: e.target.value })}
 							/>
 							<input
-								type="text"
+								type="number"
 								value={this.state.max}
 								placeholder="..To"
 								onInput={(e) => this.setState({ max: e.target.value })}
