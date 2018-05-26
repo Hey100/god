@@ -6,6 +6,7 @@ import { UploadIcon } from 'mdi-react';
 import Chart from './Chart';
 import * as actions from '../actions/index';
 import './styles/chart.css';
+import './styles/create.css';
 import './styles/loader.css';
 import './styles/global.css';
 import './styles/media.css';
@@ -244,36 +245,45 @@ class Create extends Component {
     const { chart, selection } = this.props.pools;
     const position = chart[selection];
     return (
-      <div className="form-review">
+      <div className="tab">
+        <button style={{alignSelf: 'left' }}onClick={() => this.setState({ visible: false })}>
+          Go Back
+        </button>
         <h2 className="text-2">4. Review Your Pool</h2>
-        <p className="form-display">
-          <span>Title:</span> {this.state.title}
-        </p>
-        <p className="form-display">
-          <span>Category:</span> {this.state.category}
-        </p>
-        <p className="form-display">
-          <span>Description:</span> {this.state.description}
-        </p>
-        <p className="form-display">
-          <span>Number of Contributors:</span> {this.state.contributors}
-        </p>
-        <p className="form-display">
-          <span>Amount:</span>{' '}
-          {parseFloat(this.state.amount).toLocaleString('USD', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-          })}
-        </p>
-        <p className="form-display">
-          <span>Rate:</span> {this.state.rate}%
-        </p>
-        <p className="form-display">
-          <span>Start Date:</span> {moment(this.state.date).format('L')}
-        </p>
-        <div className="">
+        <div
+          className="pool__card pool__thumb"
+          style={{ backgroundImage: `url(${this.state.path})` }}
+        />
+        <div>
+          <p className="form-display">
+            <span>Title:</span> {this.state.title}
+          </p>
+          <p className="form-display">
+            <span>Category:</span> {this.state.category}
+          </p>
+          <p className="form-display">
+            <span>Description:</span> {this.state.description}
+          </p>
+          <p className="form-display">
+            <span>Number of Contributors:</span> {this.state.contributors}
+          </p>
+          <p className="form-display">
+            <span>Amount:</span>{' '}
+            {parseFloat(this.state.amount).toLocaleString('USD', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0
+            })}
+          </p>
+          <p className="form-display">
+            <span>Rate:</span> {this.state.rate}%
+          </p>
+          <p className="form-display">
+            <span>Start Date:</span> {moment(this.state.date).format('L')}
+          </p>
+        </div>
+        <div>
           <h2 className="text-2">
             <span>Your Position:</span>
           </h2>
@@ -320,9 +330,6 @@ class Create extends Component {
           </button>
           {this.renderAgreement(chart, selection)}
         </div>
-        <button onClick={() => this.setState({ visible: false })}>
-          Go Back
-        </button>
       </div>
     );
   };

@@ -23,3 +23,6 @@ export const RESET = 'reset';
 
 //dashboard reducer
 export const FETCHED_PAYMENTS = 'fetched_payments'
+
+//profile reducer
+export const FETCHED_PROFILE = 'fetched_profile'

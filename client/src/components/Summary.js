@@ -90,7 +90,7 @@ class Summary extends Component {
     } else {
       return payments.map(payment => {
         return (
-          <div key={payment._pool}>
+          <div key={payment._pool} className="content">
             <button
               onClick={() => {
                 this.props.history.push(`/pools/${payment._pool}`);

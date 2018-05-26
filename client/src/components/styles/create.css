@@ -1,0 +1,22 @@
+.pool__card {
+	flex: 1;
+	min-height: 400px;
+	margin: 40px 0;
+	padding: 40px;
+	background: linear-gradient(to top right, #EDEDED, #FAFAFA);
+}
+
+.pool__thumb {
+	width: 600px;
+	margin-right: 40px;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center;
+}
+
+.pool__details {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}

@@ -28,7 +28,8 @@ class Chart extends Component {
       const { modalIndex, modalChart } = this.state;
       const months = this.props.pools.chart.length;
       const day = moment(modalChart.startDate).format('Do');
-      return <div className="overlay">
+      return (
+        <div className="overlay">
           <div className="modal">
             <h1 className="modal-title">
               <span>{modalChart.title.toUpperCase()}</span>
@@ -40,28 +41,36 @@ class Chart extends Component {
               Your disbursement date is: <span>{modalChart.dDate}</span>
             </h1>
             <h1>
-              On your disbursement date, we will deposit into your bank account: <span
-              >
-                {this.parse(modalChart.disburseAmount)}
-              </span>
+              On your disbursement date, we will deposit into your bank account:{' '}
+              <span>{this.parse(modalChart.disburseAmount)}</span>
             </h1>
-            <button className="button" style={{ width: '40%' }} onClick={() => this.props.joinPool(this.props.params, modalIndex, modalChart)}>
+            <button
+              className="button"
+              style={{ width: '40%' }}
+              onClick={() =>
+                this.props.joinPool(this.props.params, modalIndex, modalChart)
+              }
+            >
               Submit*
             </button>
             &nbsp;
-            <button className="cancel" style={{ width: '40%', borderRadius: '5px', padding: '5px 10px' }} onClick={() => this.changeVisibility()}>
+            <button
+              className="cancel"
+              style={{ width: '40%', borderRadius: '5px', padding: '5px 10px' }}
+              onClick={() => this.changeVisibility()}
+            >
               Cancel
             </button>
             <h5>
-              *By clicking "Submit", you agree to pay <span>
-                {this.parse(modalChart.monthly)}
-              </span> every <span>{day}</span> of the month (except on your disbursement date) for the next <span
-              >
-                {months}
-              </span> months, upon the commencement of this pool.
+              *By clicking "Submit", you agree to pay{' '}
+              <span>{this.parse(modalChart.monthly)}</span> every{' '}
+              <span>{day}</span> of the month (except on your disbursement date)
+              for the next <span>{months}</span> months, upon the commencement
+              of this pool.
             </h5>
           </div>
-        </div>;
+        </div>
+      );
     } else return null;
   };
 
@@ -86,15 +95,17 @@ class Chart extends Component {
       chart['disburseAmount'] = chart.tcr;
       chart['title'] = title;
       let position1, position2, position3;
-      contributors.map(p => {
-        if (p.position === index && p._user === this.props.user._id) {
+      contributors.map(c => {
+        if (c.position === index && c._user === this.props.user._id) {
           this.props.joined();
           return (position1 = (
             <td style={{ padding: '10px', color: 'tomato' }}>You &#10004;</td>
           ));
-        } else if (p.position === index && p._user !== this.props.user._id) {
+        } else if (c.position === index && c._user !== this.props.user._id) {
           return (position2 = (
-            <td style={{ padding: '10px', color: 'tomato' }}>{p.name}</td>
+            <td style={{ padding: '10px', color: 'tomato' }}>
+              <a href={'/profile/' + c._user}> {c.name}</a>
+            </td>
           ));
         } else {
           return (position3 = (
@@ -104,13 +115,6 @@ class Chart extends Component {
               <button onClick={() => this.changeVisibility(index, chart)}>
                 Join
               </button>
-              {/* <button
-                onClick={() =>
-                  this.props.joinPool(params, index, chart)
-                }
-              >
-                Join
-              </button> */}
             </td>
           ));
         }
