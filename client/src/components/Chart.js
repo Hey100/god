@@ -110,9 +110,8 @@ class Chart extends Component {
         } else {
           return (position3 = (
             <td>
-              {index + 1} &nbsp;
               {this.renderModal(index, chart)}
-              <button onClick={() => this.changeVisibility(index, chart)}>
+              <button className="chart__btn" onClick={() => this.changeVisibility(index, chart)}>
                 Join
               </button>
             </td>

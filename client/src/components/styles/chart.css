@@ -2,10 +2,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 0 10px 0;
-  overflow-x: scroll; }
+	overflow-x: scroll; }
+	
+.chart__btn {
+	border-radius: 5px;
+	border: none;
+	background-color: #40E0D0;
+	color: #FFF;
+	padding: 5px 10px;
+	cursor: pointer;
+	transition: scale, 0.1s;
+}
 
-.modal > h5, h1 {
+.chart__btn:hover {
+	transform: scale(1.1);
+}
+
+.modal > h5, .modal > h1 {
 	color: black;
 	padding: 30px
 }
@@ -39,17 +52,18 @@
 	border-radius: 10px
 }
 
-span {
-	font-weight: bold
-}
-
 table {
-  border-collapse: collapse;
-  overflow-x: scroll; }
+	border-collapse: collapse;
+	width: 1400px;
+	overflow-x: scroll; }
+	
+tr {
+	height: 70px;
+}
 
 thead {
   background: linear-gradient(to left, #088DA5, #00E6DC);
-  color: #FFF; }
+	color: #FFF; }
 
 th, td {
   padding: 20.55px;

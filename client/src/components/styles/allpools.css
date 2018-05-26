@@ -17,7 +17,7 @@
   position: absolute;
   top: 70px;
   left: 10px;
-  background-color: #FAFAFA;
+  background-color: #F0F0F0;
   min-width: 160px;
   z-index: 1; }
 
@@ -39,12 +39,12 @@
   display: block; }
 
 .all__dropdown:hover .all__dropbtn {
-  background-color: #F0F0F0; }
+  background-color: #EDEDED; }
 
 .all__dropbtn {
   width: 200px;
   height: 50px;
-  background-color: #FAFAFA;
+  background-color: #F0F0F0;
   color: #40E0D0;
   padding: 10px 5px;
   margin: 10px;
@@ -57,7 +57,7 @@
   height: 50px;
   max-width: 860px;
   flex: 1;
-  background-color: #FAFAFA;
+  background-color: #F0F0F0;
   color: #262626;
   padding: 20px 30px;
   font-size: 20px;
@@ -82,19 +82,19 @@
 .all__range input {
   height: 50px;
   width: 200px;
-	background-color: #FAFAFA;
+	background-color: #F0F0F0;
 	padding: 20px 30px;
   color: #262626;
   font-size: 20px;
   border: none; }
 
 .all__range input:hover {
-  background-color: #F0F0F0; }
+  background-color: #EDEDED; }
 
 .all__clear {
   position: absolute;
-  top: 10px;
-  left: -40px; }
+  top: 20px;
+  left: 0px; }
 
 .all__card {
   box-sizing: content-box;
