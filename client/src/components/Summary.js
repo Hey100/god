@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import moment from 'moment';
 
-import './styles/summary.css';
 import './styles/global.css';
+import './styles/summary.css';
 import './styles/media.css';
 
 class Summary extends Component {
@@ -22,10 +22,9 @@ class Summary extends Component {
     const nowDay = moment().format('D');
     const nowMonth = moment().format('M');
     const disbursementInfo = (
-      <h5>
-        {now < moment(payment.dDate) ? 'You will receive ' : 'You received '}
-        {this.parseII(payment.disburseAmount)} on {dDate}
-      </h5>
+      <h3 className="summary__reminder-text">
+        {now < moment(payment.dDate) ? 'You will receive ' : 'You received '}{this.parseII(payment.disburseAmount)} on {dDate}
+      </h3>
     );
     if (now > endDate) {
       return <i>This pool ended on {endDate.format('L')}</i>;
@@ -35,31 +34,23 @@ class Summary extends Component {
     } else if (nowDay <= poolDay) {
       if (nowMonth === dMonth) {
         return (
-          <div>
+          <div style={{ display: 'flex' }}>
             {disbursementInfo}
-            <h5>
-              {this.parseII(payment.monthly)} will be due on{' '}
-              {parseInt(nowMonth, 0) + 1}/{poolDay}
-            </h5>
+						<h3 className="summary__reminder-text">{this.parseII(payment.monthly)} will be due on{' '}{parseInt(nowMonth, 0) + 1}/{poolDay}</h3>
           </div>
         );
       } else {
         return (
-          <div>
-            <h5>
-              {this.parseII(payment.monthly)} is due on {nowMonth}/{poolDay}
-            </h5>
-            {disbursementInfo}
+					<div style={{ display: 'flex' }}>
+						<h3 className="summary__reminder-text">{this.parseII(payment.monthly)} is due on {nowMonth}/{poolDay}</h3>
+						{disbursementInfo}
           </div>
         );
       }
     } else {
       return (
-        <div>
-          <h5>
-            {this.parseII(payment.monthly)} is due on{' '}
-            {parseInt(nowMonth, 0) + 1}/{poolDay}
-          </h5>
+        <div style={{ display: 'flex' }}>
+					<h3 className="summary__reminder-text">{this.parseII(payment.monthly)} is due on{' '}{parseInt(nowMonth, 0) + 1}/{poolDay}</h3>
           {disbursementInfo}
         </div>
       );
@@ -86,19 +77,17 @@ class Summary extends Component {
   handleSchedule = () => {
     const { payments } = this.props.dash;
     if (!payments) {
-      return <h2 className="text-2">There are no future payments.</h2>;
+      return <h3 className="text-2">There are no future payments.</h3>;
     } else {
       return payments.map(payment => {
         return (
-          <div key={payment._pool}>
-            <button
-              onClick={() => {
-                this.props.history.push(`/pools/${payment._pool}`);
-              }}
+          <div className="summary__reminder" key={payment._pool}>
+            <a
+              href={`/pools/${payment._pool}`}
               className="link"
             >
               {payment.title}
-            </button>
+            </a>
             {this.renderSchedule(payment)}
           </div>
         );
@@ -114,13 +103,13 @@ class Summary extends Component {
         datasets: [
           {
             data: [usedAmount, mlimit - usedAmount],
-            backgroundColor: ['#72E5BE', '#FAFAFA'],
+            backgroundColor: ['#40E0D0', '#C9C9C9'],
             borderColor: ['transparent', 'transparent']
           }
         ]
       },
       options = {
-        cutoutPercentage: 50,
+        cutoutPercentage: 70,
         responsive: true,
         animation: { animateRotate: true },
         legend: { display: false },
@@ -137,25 +126,24 @@ class Summary extends Component {
       <div className="tab">
         <h1 className="tab-title">Home</h1>
         <div className="tab-box">
-          <div className="card summary__score">
-            <h2 className="text-2">Your Community Capital score is:</h2>
+          <div className="summary__one">
+            <h3 className="text-2">Your Community Capital score is:</h3>
             <h1 className="big-btn">{ccScore}</h1>
           </div>
-          <div className="card">
+          <div className="summary__two">
             <div className="summary__donut">
               <Doughnut data={data} options={options} height={300} />
             </div>
             <div className="summary__allowance">
-              <h2 className="text-2">Monthly Limit: {this.parse(mlimit)}</h2>
-              <h2 className="text-2">This Month: {this.parse(usedAmount)}</h2>
+              <h3 className="text-2">Monthly Limit: {this.parse(mlimit)}</h3>
+              <h3 className="text-2">This Month: {this.parse(usedAmount)}</h3>
               <hr />
-              <h2 className="text-2">
+              <h3 className="text-2">
                 Remaining: {this.parse(mlimit - usedAmount)}
-              </h2>
+              </h3>
             </div>
           </div>
-          <div className="card">
-            <h2 className="text-2">Contribution Schedule:</h2>
+          <div className="summary__three">
             {this.handleSchedule()}
           </div>
         </div>

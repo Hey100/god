@@ -1,36 +1,48 @@
 .friend__card {
-	max-width: 300px;
-	margin: 20px;
-	padding: 30px;
-	border-radius: 10px;
-	background-color: #F2F7F8;
-}
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #F0F0F0, #FFF); }
 
 .friend__image {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	overflow: hidden;
-	background-size: cover;
-}
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover; }
 
 .friend__card > h1 {
-	margin: 20px 0;
-}
+  margin: 10px 0; }
 
 .friend__card-button {
-	width: 75px;
-	height: 75px;
-	margin: 10px;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	transition: scale, .1s;
-	transition: background-color, .2s;
-}
+  width: 100px;
+  height: 50px;
+  margin: 10px 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: scale, .1s;
+  transition: background-color, .2s; }
 
 .message-button:hover {
-	transform: scale(1.1);
-	background-color: rgb(51, 170, 170);
-	cursor: pointer;
-}
+  transform: scale(1.1);
+  background-color: #33aaaa;
+  cursor: pointer; }
+
+@media only screen and (max-width: 768px) and (min-width: 425px) {
+  .friend__card {
+    align-items: center; }
+  .friend__card > h1 {
+    margin: 10px 0; }
+  .friend__image {
+    align-items: center;
+    width: 100px;
+    height: 100px; }
+  .friend__card-button {
+    width: 50px;
+    height: 50px;
+    margin: 5px; } }

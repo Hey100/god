@@ -7,7 +7,6 @@ import {
 	COMMENT_CREATED,
 	PAYMENT_CREATED,
 	FETCHED_COMMENTS,
-	FETCHED_PAYMENTS,
 	SELECTION,
 	ERROR,
 	CREATE_ERROR,
@@ -181,21 +180,6 @@ export const fetchPool = id => async dispatch => {
 export const fetchComments = id => async dispatch => {
 	const res = await axios.get(`/api/comments/${id}`);
 	dispatch({ type: FETCHED_COMMENTS, payload: res.data });
-};
-
-//Summary.js
-export const fetchPayments = () => async dispatch => {
-	const res = await axios.get('/api/payments', {
-		headers: { Authorization: localStorage.getItem('token') }
-	});
-	dispatch({ type: FETCHED_PAYMENTS, payload: res.data });
-};
-export const calculateLimit = obj => async dispatch => {
-	const res = await axios.post('/api/calculateLimit', obj, {
-		headers: { Authorization: localStorage.getItem('token') }
-	});
-	await dispatch(fetchPayments());
-	dispatch({ type: FETCH_USER, payload: res.data });
 };
 
 //multi

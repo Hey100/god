@@ -39,17 +39,11 @@ class Dashboard extends Component {
     }
   };
 
-  isActive = button => {
-    if (this.state.section === button) {
-      return { backgroundColor: "dodgerblue", color: "white" };
-    }
-  };
-
   isActiveIcon = button => {
     if (this.state.section === button) {
-      return "white";
+			return "#00868B";
 		}
-		return "dodgerblue";
+		return "#DDD";
   };
 
   render() {
@@ -61,28 +55,24 @@ class Dashboard extends Component {
         <div className="dash__nav">
           <button
             className="dash__button"
-            style={this.isActive("summary")}
             onClick={() => this.setState({ section: "summary" })}
           >
             <HomeIcon size={44} color={this.isActiveIcon("summary")} />
           </button>
           <button
             className="dash__button"
-            style={this.isActive("myPools")}
             onClick={() => this.setState({ section: "myPools" })}
           >
             <ChartGanttIcon size={44} color={this.isActiveIcon("myPools")} />
           </button>
           <button
             className="dash__button"
-            style={this.isActive("bank")}
             onClick={() => this.setState({ section: "bank" })}
           >
             <BankIcon size={44} color={this.isActiveIcon("bank")} />
           </button>
           <button
             className="dash__button"
-            style={this.isActive("friends")}
             onClick={() => this.setState({ section: "friends" })}
           >
             <AccountMultipleIcon
@@ -92,7 +82,6 @@ class Dashboard extends Component {
           </button>
           <button
             className="dash__button"
-            style={this.isActive("messages")}
             onClick={() => this.setState({ section: "messages" })}
           >
             <ForumIcon size={44} color={this.isActiveIcon("messages")} />
