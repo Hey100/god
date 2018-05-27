@@ -14,7 +14,7 @@ const fs = require('fs');
 
 class Create extends Component {
   state = {
-    contributors: null,
+		contributors: '',
     error: '',
     visible: false,
     imageErr: '',
@@ -54,7 +54,7 @@ class Create extends Component {
     //resetAll
     this.props.reset();
     //if error, reset error
-    error ? this.props.resetError() : null;
+    error  && this.props.resetError();
     //hide renderReview()
     this.setState({ visible: false });
     //if user changes numOfContributors, reset all options & chart
@@ -360,7 +360,7 @@ class Create extends Component {
   };
 
   render() {
-    const { error, chart, selection, createError } = this.props.pools;
+    const { error, createError } = this.props.pools;
     const {
       titleErr,
       categoryErr,
