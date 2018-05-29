@@ -119,6 +119,9 @@ class Landing extends Component {
 					</div>
         </div>
         <div className="land__col">
+					<h1 className="land__title">
+						Don't trust us, trus our users.
+          </h1>
           <div className="land__cards">
             <div className="land__card"> 
 							<VerifiedIcon size={150} color="#414141" />
