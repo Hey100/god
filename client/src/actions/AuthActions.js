@@ -33,8 +33,6 @@ export const oAuthSignIn = history => async dispatch => {
     dispatch(authError('Unexpected Error'));
   }
 };
-
-//Signup.js
 export const onSignUp = (values, history) => async dispatch => {
   try {
     const res = await axios.post('/api/signup', values);
@@ -44,10 +42,11 @@ export const onSignUp = (values, history) => async dispatch => {
       localStorage.setItem('token', res.data.token);
       history.push('/dashboard');
     } catch (error) {
-      dispatch(authError(error.response.data));
+      dispatch(authError('Unexpected Error. Please try again.'));
     }
   } catch (error) {
-    dispatch(authError(error.response.data));
+		console.log(error.response)
+    dispatch(authError(error.response.data.error));
   }
 };
 export const OAuthSignUp = (values, history) => async dispatch => {
@@ -59,11 +58,15 @@ export const OAuthSignUp = (values, history) => async dispatch => {
       localStorage.setItem('token', res.data.token);
       history.push('/dashboard');
     } catch (error) {
-      dispatch(authError(error.response.data));
+			dispatch(authError('Unexpected Error. Please try again.'));
     }
   } catch (error) {
-    dispatch(authError(error.response.data));
+		dispatch(authError('Unexpected Error. Please try again.'));
   }
+};
+export const openAuthSignUp = history => dispatch => {
+	history.push('/signup');
+	dispatch({ type: GOOGLE_SIGN_UP });
 };
 export const authError = error => {
   return {
@@ -92,8 +95,3 @@ export const fetchUser = token => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-//GoogleToken.js
-export const oAuthSignUp = history => dispatch => {
-	history.push('/signup');
-	dispatch({ type: GOOGLE_SIGN_UP });
-};

@@ -57,7 +57,7 @@ class Signup extends Component {
 
     if (!agree) {
       this.setState({
-        agreeErr: 'Please check this box to continue'
+        agreeErr: 'Check the box below to continue'
       });
     } else if (!this.props.auth.googleSignUp) {
       if (!email) {
@@ -117,6 +117,7 @@ class Signup extends Component {
   };
 
   handleEmailPassword = event => {
+		this.props.resetAuthError()
     this.setState({ [event.target.name + 'Err']: '' });
     this.setState({ mismatchErr: '' });
     this.setState({ passwordStructure: '' });
@@ -144,9 +145,10 @@ class Signup extends Component {
 
   renderAlert(error) {
     if (error) {
-      return <div className="alert">Oops! {/*this.props.auth.error*/}</div>;
+      window.scrollTo(0, 0);
+      return <div className="alert">{this.props.auth.error}</div>;
     }
-  }
+	}
 
   render() {
     const {

@@ -4,7 +4,7 @@ import * as actions from '../actions/index';
 
 class OAuthSignUp extends Component {
   componentDidMount() {
-		this.props.oAuthSignUp(this.props.history);
+		this.props.openAuthSignUp(this.props.history);
   }
 
   render() {

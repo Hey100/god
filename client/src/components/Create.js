@@ -14,15 +14,16 @@ const fs = require('fs');
 
 class Create extends Component {
   state = {
-		contributors: '',
+    contributors: '',
     error: '',
     visible: false,
     imageErr: '',
     imageLoading: false,
     selectedFile: null,
-		path: null,
-		amount: '',
-		startDate: ''
+    path: null,
+    amount: '',
+    startDate: '',
+    dateInputType: 'text'
   };
 
   componentDidMount() {
@@ -56,13 +57,21 @@ class Create extends Component {
     //resetAll
     this.props.reset();
     //if error, reset error
-    error  && this.props.resetError();
+    error && this.props.resetError();
     //hide renderReview()
     this.setState({ visible: false });
     //if user changes numOfContributors, reset all options & chart
     if (event.target.name === 'contributors') {
-      this.setState({ amount: null, rate: null, startDate: null });
+      this.setState({
+        amount: null,
+        rate: null,
+        startDate: null,
+        dateInputType: 'text'
+      });
       this.props.reset();
+    }
+    if (event.target.name === 'startDate') {
+      this.setState({ dateInputType: 'date' });
     }
     //set error states
     this.setState({ [event.target.name + 'Err']: '' });
@@ -123,6 +132,7 @@ class Create extends Component {
   };
 
   handleMouseDown = event => {
+    this.setState({ dateInputType: 'date' });
     this.setState({ startDateErr: '' });
   };
   handleNext() {
@@ -131,6 +141,9 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
+    } else if (!this.state.selectedFile) {
+      window.scrollTo(0, 0);
+      this.setState({ imageErr: 'Required Field' });
     } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
@@ -231,10 +244,10 @@ class Create extends Component {
             onChange={this.handleChange}
             onMouseDown={this.handleMouseDown}
             className="form-input"
-            type="date"
+            type={this.state.dateInputType}
             name="startDate"
             placeholder="Start Date"
-            value={this.state.startDate || ''}
+            value={this.state.startDate || 'Start Date'}
           />
           <div className="alert">{startDateErr ? startDateErr : null}</div>
         </div>
@@ -248,7 +261,10 @@ class Create extends Component {
     const position = chart[selection];
     return (
       <div className="tab">
-        <button style={{alignSelf: 'left' }}onClick={() => this.setState({ visible: false })}>
+        <button
+          style={{ alignSelf: 'left' }}
+          onClick={() => this.setState({ visible: false })}
+        >
           Go Back
         </button>
         <h2 className="text-2">4. Review Your Pool</h2>
