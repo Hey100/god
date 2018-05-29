@@ -62,11 +62,9 @@ class AllPools extends Component {
         .split(',')
         .join('');
     };
-    pools.map(pool => {
+    pools.forEach(pool => {
       let title = pool.title;
-      let num = pool.contributors.length;
-      let percent = Math.round(num * 100 / pool.numOfContributors);
-      let match = pool.title.match(new RegExp(keyword, 'i'));
+      let match = title.match(new RegExp(keyword, 'i'));
       if (spljoin(min) && Number(pool.amount) < spljoin(min)) return;
       if (spljoin(max) && Number(pool.amount) > spljoin(max)) return;
       else if (contributors && Number(pool.numOfContributors) !== contributors)
@@ -152,7 +150,7 @@ class AllPools extends Component {
                     })}
                   </h3>
                   <h3>{pool.rate}% max interest</h3>
-                  <h3>{num == 1 ? '1 Contributor' : `${num} Contributors`}</h3>
+                  <h3>{num === 1 ? '1 Contributor' : `${num} Contributors`}</h3>
                   {this.renderDate(pool.startDate)}
                 </div>
               </div>
@@ -216,7 +214,6 @@ class AllPools extends Component {
     const search = _.debounce(keyword => {
       this.search(keyword);
     }, 300);
-    const { allPools } = this.props.pools;
     const clearButton =
       this.state.min ||
       this.state.max ||

@@ -19,7 +19,7 @@ class Chart extends Component {
 
   selection(selection) {
     const { error } = this.props.pools;
-    error ? this.props.resetError() : null;
+		error && this.props.resetError()
     this.props.setSelection(selection);
   }
 
@@ -138,9 +138,7 @@ class Chart extends Component {
               type="radio"
               name="position"
               value={chart}
-              onClick={() => {
-                this.selection(index);
-              }}
+              onClick={() => this.selection(index)}
             />
           </td>
         );

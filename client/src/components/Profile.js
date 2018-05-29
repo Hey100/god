@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as actions from '../actions/index';
 
-import './styles/profile.css'
+import './styles/profile.css';
 
 class Profile extends Component {
   componentDidMount() {
@@ -14,11 +15,25 @@ class Profile extends Component {
       return <div>Loading...</div>;
     } else {
       const { profile } = this.props.prof;
+      const date = moment(profile.createdAt).format('MMMM YYYY');
       return (
-        <div className="tab">
+        <div className="tab" style={{ padding: '50px' }}>
           <img className="pic__thumb" src={profile.profilePic} alt="" />
-					<h1 className="text-2">{profile.first_name} {profile.last_name}</h1>
-					<h1 className="text-3">Pooli Score: {profile.ccScore}</h1>
+          <h1 className="text-2">
+            {profile.first_name} {profile.last_name}
+          </h1>
+          <ul className="info__list">
+            <li
+              className="info__listitem"
+              style={{ 'list-style-type': 'none' }}
+            >
+              Pooli Score: {profile.ccScore}
+            </li>
+            <li className="info__listitem">
+              {profile.city}, {profile.state}
+            </li>
+            <li className="info__listitem">Joined {date}</li>
+          </ul>
         </div>
       );
     }

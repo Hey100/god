@@ -21,7 +21,7 @@ import './styles/global.css';
 class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
-    token ? this.props.fetchUser(token) : null;
+    token && this.props.fetchUser(token)
   }
 
   render() {

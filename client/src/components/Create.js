@@ -14,13 +14,15 @@ const fs = require('fs');
 
 class Create extends Component {
   state = {
-    contributors: null,
+		contributors: '',
     error: '',
     visible: false,
     imageErr: '',
     imageLoading: false,
     selectedFile: null,
-    path: null
+		path: null,
+		amount: '',
+		startDate: ''
   };
 
   componentDidMount() {
@@ -54,7 +56,7 @@ class Create extends Component {
     //resetAll
     this.props.reset();
     //if error, reset error
-    error ? this.props.resetError() : null;
+    error  && this.props.resetError();
     //hide renderReview()
     this.setState({ visible: false });
     //if user changes numOfContributors, reset all options & chart
@@ -184,7 +186,7 @@ class Create extends Component {
           name="amount"
           className="form-input select"
           onChange={this.handleChange}
-          value={this.state.amount}
+          value={this.state.amount || ''}
         >
           <option value="">Amount</option>
           <option value={value * 2}>{handleText(value, 2)}</option>
@@ -207,7 +209,7 @@ class Create extends Component {
           name="rate"
           className="form-input select"
           onChange={this.handleChange}
-          value={this.state.rate}
+          value={this.state.rate || ''}
         >
           <option value="">Rate</option>
           <option value="5">5%</option>
@@ -232,7 +234,7 @@ class Create extends Component {
             type="date"
             name="startDate"
             placeholder="Start Date"
-            value={this.state.startDate}
+            value={this.state.startDate || ''}
           />
           <div className="alert">{startDateErr ? startDateErr : null}</div>
         </div>
@@ -360,7 +362,7 @@ class Create extends Component {
   };
 
   render() {
-    const { error, chart, selection, createError } = this.props.pools;
+    const { error, createError } = this.props.pools;
     const {
       titleErr,
       categoryErr,
