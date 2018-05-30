@@ -1,8 +1,7 @@
 .chart-wrap {
   display: flex;
   flex-direction: column;
-  align-items: center;
-	overflow-x: scroll; }
+	align-items: center; }
 	
 .chart__btn {
 	border-radius: 5px;
@@ -51,19 +50,10 @@
 	cursor: pointer;
 	border-radius: 10px
 }
-
-table {
-	border-collapse: collapse;
-	width: 1400px;
-	overflow-x: scroll; }
-	
+/*
 tr {
 	height: 70px;
 }
-
-thead {
-  background: linear-gradient(to left, #088DA5, #00E6DC);
-	color: #FFF; }
 
 th, td {
   padding: 20.55px;
@@ -73,4 +63,61 @@ td {
   color: #088DA5; }
 
 tbody tr:nth-child(even) {
-  background-color: #F5F5F5; }
+  background-color: #F5F5F5; } */
+
+table {
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+  width: 100%; }
+
+thead {
+  background: linear-gradient(to left, #088DA5, #00E6DC);
+	color: #FFF; }
+
+
+tbody { border: 1px solid #F0F0F0; }
+
+tbody tr {
+  background-color: #FFF;
+	padding: .5em;
+	height: 50px;
+}
+
+tbody tr:nth-child(even) { background-color: #F0F0F0; }
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+	}
+  
+  table tr {
+    border-bottom: 3px solid #F0F0F0;
+		display: block;
+		height: auto;
+	}
+  
+  table td {
+    display: block;
+    text-align: right;
+  }
+  
+  table td::before {
+    content: attr(data-label);
+    float: left;
+  }
+}
