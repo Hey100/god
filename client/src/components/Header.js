@@ -34,7 +34,7 @@ class Header extends Component {
           <Link className="head__drop-item" to={'/dashboard'}>
             My Dash
           </Link>
-          <Link className="head__drop-item" to={'/#'}>
+          <Link className="head__drop-item" to={'/settings'}>
             Settings
           </Link>
           <Link className="head__drop-item" to={'/logout'}>

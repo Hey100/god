@@ -1,0 +1,26 @@
+fieldset {
+	border: none;
+  padding-bottom: 10px;
+}
+.error {
+  width: 100%;
+  background-color: tomato;
+  padding: 20px;
+  border-radius: 10px;
+}
+.password {
+	margin: 10px 0;
+	color: orange;
+	width: 500px
+}
+.success {
+	width: 100%;
+  background-color: mediumseagreen;
+  padding: 20px;
+  border-radius: 10px;
+}
+.required {
+	padding-top: 10px;
+	font-style: italic;
+	color: tomato
+}

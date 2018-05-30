@@ -28,8 +28,11 @@ exports.signup = function(req, res, next) {
   User.findOne({ email: email }, function(err, existingUser) {
 		if (err) {
 			return next(err);
-    }
+		}
 		
+		if (existingUser && existingUser.googleId) {
+			return res.status(422).send({ error: 'Email is associated with a Google account. Please try logging in with Google.' });
+    }
     if (existingUser) {
 			return res.status(422).send({ error: 'Email is already in use' });
     }

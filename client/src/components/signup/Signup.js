@@ -52,12 +52,12 @@ class Signup extends Component {
 
   onSubmit = values => {
     const { agree, email, password, c_password, path } = this.state;
-    {
-      path ? (values['pic'] = path) : null;
-    }
+
+    path && (values['pic'] = path);
+
     if (!agree) {
       this.setState({
-        agreeErr: 'Please check this box to continue'
+        agreeErr: 'Check the box below to continue'
       });
     } else if (!this.props.auth.googleSignUp) {
       if (!email) {
@@ -90,7 +90,7 @@ class Signup extends Component {
   };
 
   handleChange = event => {
-    this.state.agreeErr ? this.setState({ agreeErr: '' }) : null;
+    this.state.agreeErr && this.setState({ agreeErr: '' });
     this.setState({ agree: !this.state.agree });
   };
 
@@ -117,6 +117,7 @@ class Signup extends Component {
   };
 
   handleEmailPassword = event => {
+		this.props.resetAuthError()
     this.setState({ [event.target.name + 'Err']: '' });
     this.setState({ mismatchErr: '' });
     this.setState({ passwordStructure: '' });
@@ -144,9 +145,10 @@ class Signup extends Component {
 
   renderAlert(error) {
     if (error) {
-      return <div className="alert">Oops! {this.props.auth.error}</div>;
+      window.scrollTo(0, 0);
+      return <div className="alert">{this.props.auth.error}</div>;
     }
-  }
+	}
 
   render() {
     const {
@@ -296,8 +298,7 @@ class Signup extends Component {
                   name="accept request"
                   onChange={this.handleChange}
                 />{' '}
-                By checking the box and clicking "submit" below,
-                you confirm:
+                By checking the box and clicking "submit" below, you confirm:
               </div>
               <ul className="signup__list">
                 <li>

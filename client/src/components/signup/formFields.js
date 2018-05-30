@@ -16,7 +16,7 @@ export default [
   {
     label: 'Date of Birth',
     name: 'dob',
-    type: 'date',
+    type: 'text',
     noValueError: 'Required Field'
   },
   {

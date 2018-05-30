@@ -19,7 +19,7 @@ class Chart extends Component {
 
   selection(selection) {
     const { error } = this.props.pools;
-    error ? this.props.resetError() : null;
+		error && this.props.resetError()
     this.props.setSelection(selection);
   }
 
@@ -99,17 +99,17 @@ class Chart extends Component {
         if (c.position === index && c._user === this.props.user._id) {
           this.props.joined();
           return (position1 = (
-            <td style={{ padding: '10px', color: 'tomato' }}>You &#10004;</td>
+						<td data-label="Position" style={{ padding: '10px', color: 'tomato' }}>You &#10004;</td>
           ));
         } else if (c.position === index && c._user !== this.props.user._id) {
           return (position2 = (
-            <td style={{ padding: '10px', color: 'tomato' }}>
+						<td data-label="Position" style={{ padding: '10px', color: 'tomato' }}>
               <a href={'/profile/' + c._user}> {c.name}</a>
             </td>
           ));
         } else {
           return (position3 = (
-            <td>
+						<td data-label="Position" >
               {this.renderModal(index, chart)}
               <button className="chart__btn" onClick={() => this.changeVisibility(index, chart)}>
                 Join
@@ -125,27 +125,25 @@ class Chart extends Component {
       } else if (position3 && !this.props.pools.joined) {
         return position3;
       } else {
-        return <td style={{ padding: '10px', color: 'seagreen' }}>Open </td>;
+				return <td data-label="Position" style={{ padding: '10px', color: 'seagreen' }}>Open </td>;
       }
     } else {
       if (this.props.onCancel && index !== this.props.pools.selection) {
-        return <td>{index + 1}</td>;
+				return <td data-label="Position" >{index + 1}</td>;
       }
       if (index !== this.props.pools.selection) {
         return (
-          <td>
+					<td data-label="Position" >
             <input
               type="radio"
               name="position"
               value={chart}
-              onClick={() => {
-                this.selection(index);
-              }}
+              onClick={() => this.selection(index)}
             />
           </td>
         );
       }
-      return <td>{index + 1} &#10004;</td>;
+			return <td data-label="Position" >{index + 1} &#10004;</td>;
     }
   };
 
@@ -153,7 +151,7 @@ class Chart extends Component {
     let newDate = moment(date)
       .add(index, 'months')
       .format('L');
-    return <td key={date}>{newDate}</td>;
+		return <td data-label="Disbursement Date" key={date}>{newDate}</td>;
   };
 
   parse = num => {
@@ -167,19 +165,19 @@ class Chart extends Component {
 
   render() {
     return (
-      <table>
+	    <table>
         <thead>
           <tr>
-            <th>Position</th>
-            <th>Base Amount</th>
-            <th>Interest Rate</th>
-            <th>Interest Paid/Earned*</th>
-            <th>Monthly Payment</th>
-            <th>Cash Paid</th>
-            <th>Cash Available</th>
-            <th>Fee**</th>
-            <th>Cash Received</th>
-            <th>Disbursement Date</th>
+            <th scope="col">Position</th>
+            <th scope="col">Base Amount</th>
+            <th scope="col">Interest Rate</th>
+            <th scope="col">Interest Paid/Earned*</th>
+            <th scope="col">Monthly Payment</th>
+            <th scope="col">Cash Paid</th>
+            <th scope="col">Cash Available</th>
+            <th scope="col">Fee**</th>
+            <th scope="col">Cash Received</th>
+            <th scope="col">Disbursement Date</th>
           </tr>
         </thead>
         <tbody>
@@ -199,14 +197,14 @@ class Chart extends Component {
             return (
               <tr key={chart.cashPaid}>
                 {this.renderInput(chart, index)}
-                <td>{this.parse(amount)}</td>
-                <td>{interestRate}%</td>
-                <td>{this.parse(interestAmount)}</td>
-                <td>{this.parse(monthly)}</td>
-                <td>{this.parse(cashPaid)}</td>
-                <td>{this.parse(cashReceived)}</td>
-                <td>${fee}</td>
-                <td>{this.parse(tcr)}</td>
+                <td data-label="Base Amount">{this.parse(amount)}</td>
+                <td data-label="Interest Rate">{interestRate}%</td>
+                <td data-label="Interest Paid/Earned">{this.parse(interestAmount)}</td>
+                <td data-label="Monthly Payment">{this.parse(monthly)}</td>
+                <td data-label="Cash Paid">{this.parse(cashPaid)}</td>
+                <td data-label="Cash Available">{this.parse(cashReceived)}</td>
+                <td data-label="Fee">${fee}</td>
+                <td data-label="Cash Received">{this.parse(tcr)}</td>
                 {this.renderDate(startDate, index)}
               </tr>
             );

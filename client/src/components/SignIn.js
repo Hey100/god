@@ -19,12 +19,9 @@ class SignIn extends Component {
     this.props.signIn(values, this.props.history);
   };
 
-  renderAlert() {
-    if (this.props.auth.error) {
-      return <div className="alert">Oops! {this.props.auth.error}</div>;
-    }
-    return null;
-  }
+	handleInput = () => {
+		this.props.resetAuthError()
+	}
 
   render() {
     return (
@@ -39,6 +36,7 @@ class SignIn extends Component {
                 name="email"
                 component="input"
                 placeholder="Email"
+								onInput={this.handleInput}
               />
             </div>
             <div>
@@ -48,13 +46,14 @@ class SignIn extends Component {
                 name="password"
                 component="input"
                 placeholder="Password"
+								onInput={this.handleInput}
               />
             </div>
             <button className="mid-btn" type="submit">
               Login
             </button>
             {this.props.auth.error ? (
-              <div className="alert">Oops! {this.props.auth.error}</div>
+              <div className="alert">{this.props.auth.error}</div>
             ) : null}
           </form>
           <a href="/auth/google" className="mid-btn google align-center">

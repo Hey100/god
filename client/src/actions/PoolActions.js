@@ -15,6 +15,15 @@ import {
 	FETCHED_POOL,
 	JOINED
 } from './types';
+import {
+  convertNumber,
+  calculateTerm,
+  rateAsDecimal,
+  calculateCashInterval,
+  calculatePaymentInterval,
+  calculateBasePayment,
+  chartCalc
+} from '../lib/calculationHelpers';
 
 //MyPools.js
 export const fetchMyPools = () => async dispatch => {
@@ -32,55 +41,27 @@ export const fetchAllPools = () => async dispatch => {
 
 //Create.js
 export const createChart = values => dispatch => {
-	let amount = parseInt(values.amount, 0);
-	let ppl = parseInt(values.contributors, 0);
-	let rate = values.rate / 100;
+	let { title, category, description, startDate } = values;
+	let amount = convertNumber(values.amount)
+	let people = convertNumber(values.contributors);
+	let rate = rateAsDecimal(values.rate)
 
-	let term = ppl - 1;
-	let startDate = values.startDate;
-	let cashInterval = amount * rate / term;
-	let paymentInterval = cashInterval / term;
-	let basePayment = amount / term;
-	let users = [];
-	const chartCalc = (
-		amount,
-		ppl,
-		cashInterval,
-		basePayment,
-		paymentInterval
-	) => {
-		for (let i = ppl - 1; i >= 0; i--) {
-			let x = amount + cashInterval * [ppl - 1 - [i]];
-			let y = amount + cashInterval * [i];
-			let z = basePayment + paymentInterval * [i];
-			let result = {
-				cashReceived: x,
-				cashPaid: y,
-				monthly: z,
-				amount,
-				interestRate: parseFloat((y - x) / y * 100).toFixed(2),
-				interestAmount: y - x,
-				fee: parseFloat(amount * 0.01),
-				tcr: x - amount * 0.01,
-				startDate,
-				ppl
-			};
-			users.push(result);
-		}
-	};
-	chartCalc(amount, ppl, cashInterval, basePayment, paymentInterval);
-	let obj = {};
-	const { title, category, description, contributors } = values;
-	obj['info'] = {
-		title,
-		category,
-		description,
-		amount,
-		contributors,
-		rate: rate * 100,
-		startDate
-	};
-	obj['users'] = users;
+	let term = calculateTerm(people)
+	let cashInterval = calculateCashInterval(amount, rate, term);
+	let paymentInterval = calculatePaymentInterval(cashInterval, term)
+	let basePayment = calculateBasePayment(amount, term)
+	const obj = {
+		info: {
+			title,
+			category,
+			description,
+			amount,
+			contributors: values.contributors,
+			startDate,
+			rate: rate * 100
+		},
+		users: chartCalc({ amount, people, cashInterval, basePayment, paymentInterval, term, startDate })
+	}
 	dispatch({ type: CHART_CREATED, payload: obj });
 };
 export const setError = err => {

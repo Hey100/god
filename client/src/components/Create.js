@@ -14,13 +14,16 @@ const fs = require('fs');
 
 class Create extends Component {
   state = {
-    contributors: null,
+    contributors: '',
     error: '',
     visible: false,
     imageErr: '',
     imageLoading: false,
     selectedFile: null,
-    path: null
+    path: null,
+    amount: '',
+    startDate: '',
+    dateInputType: 'text'
   };
 
   componentDidMount() {
@@ -54,13 +57,21 @@ class Create extends Component {
     //resetAll
     this.props.reset();
     //if error, reset error
-    error ? this.props.resetError() : null;
+    error && this.props.resetError();
     //hide renderReview()
     this.setState({ visible: false });
     //if user changes numOfContributors, reset all options & chart
     if (event.target.name === 'contributors') {
-      this.setState({ amount: null, rate: null, startDate: null });
+      this.setState({
+        amount: null,
+        rate: null,
+        startDate: null,
+        dateInputType: 'text'
+      });
       this.props.reset();
+    }
+    if (event.target.name === 'startDate') {
+      this.setState({ dateInputType: 'date' });
     }
     //set error states
     this.setState({ [event.target.name + 'Err']: '' });
@@ -121,6 +132,7 @@ class Create extends Component {
   };
 
   handleMouseDown = event => {
+    this.setState({ dateInputType: 'date' });
     this.setState({ startDateErr: '' });
   };
   handleNext() {
@@ -129,6 +141,9 @@ class Create extends Component {
     } else if (!this.state.title) {
       window.scrollTo(0, 0);
       this.setState({ titleErr: 'Required Field' });
+    } else if (!this.state.selectedFile) {
+      window.scrollTo(0, 0);
+      this.setState({ imageErr: 'Required Field' });
     } else if (!this.state.category) {
       window.scrollTo(0, 0);
       this.setState({ categoryErr: 'Required Field' });
@@ -184,7 +199,7 @@ class Create extends Component {
           name="amount"
           className="form-input select"
           onChange={this.handleChange}
-          value={this.state.amount}
+          value={this.state.amount || ''}
         >
           <option value="">Amount</option>
           <option value={value * 2}>{handleText(value, 2)}</option>
@@ -207,7 +222,7 @@ class Create extends Component {
           name="rate"
           className="form-input select"
           onChange={this.handleChange}
-          value={this.state.rate}
+          value={this.state.rate || ''}
         >
           <option value="">Rate</option>
           <option value="5">5%</option>
@@ -229,10 +244,10 @@ class Create extends Component {
             onChange={this.handleChange}
             onMouseDown={this.handleMouseDown}
             className="form-input"
-            type="date"
+            type={this.state.dateInputType}
             name="startDate"
             placeholder="Start Date"
-            value={this.state.startDate}
+            value={this.state.startDate || ''}
           />
           <div className="alert">{startDateErr ? startDateErr : null}</div>
         </div>
@@ -246,7 +261,10 @@ class Create extends Component {
     const position = chart[selection];
     return (
       <div className="tab">
-        <button style={{alignSelf: 'left' }}onClick={() => this.setState({ visible: false })}>
+        <button
+          style={{ alignSelf: 'left' }}
+          onClick={() => this.setState({ visible: false })}
+        >
           Go Back
         </button>
         <h2 className="text-2">4. Review Your Pool</h2>
@@ -360,7 +378,7 @@ class Create extends Component {
   };
 
   render() {
-    const { error, chart, selection, createError } = this.props.pools;
+    const { error, createError } = this.props.pools;
     const {
       titleErr,
       categoryErr,
@@ -482,7 +500,7 @@ class Create extends Component {
             </div>
             {this.props.pools.chart ? (
               <button
-                className="big-btn"
+                className="mid-btn"
                 type="submit"
                 onClick={() => this.handleNext()}
               >
