@@ -29,7 +29,7 @@ export default function(state = INITIAL_STATE, action) {
     case FETCH_USER:
       return { ...state, user: action.payload };
     case RESET_AUTH_ERROR:
-      return { ...state, error: '', googleSignUp: false, success: '' };
+      return { ...state, error: '', success: '' };
     case GOOGLE_SIGN_UP:
       return { ...state, googleSignUp: true };
     case UPDATED_USER:

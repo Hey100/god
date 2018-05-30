@@ -9,7 +9,7 @@ import AllPools from './AllPools';
 import Create from './Create';
 import Logout from './Logout';
 import SignIn from './SignIn';
-import SignUp from './signup/SignUp';
+import SignUp from './signup/SignUp'
 import Landing from './Landing';
 import OAuthSignUp from './OAuthSignUp';
 import OAuthSignIn from './OAuthSignIn';

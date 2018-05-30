@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/index'
 
-export default class SignUpField extends Component {
+class SignUpField extends Component {
   state = {
     dateInput: 'text'
-  };
+	};
+	handleChange = e => {
+		this.props.resetAuthError()
+	}
 
   render() {
     const {
@@ -50,6 +55,8 @@ export default class SignUpField extends Component {
     }
   }
 }
+
+export default connect(null, actions)(SignUpField)
 
 const renderDropdown = input => {
   return (
