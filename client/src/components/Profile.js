@@ -25,7 +25,7 @@ class Profile extends Component {
           <ul className="info__list">
             <li
               className="info__listitem"
-              style={{ 'list-style-type': 'none' }}
+              style={{ 'listStyleType': 'none' }}
             >
               Pooli Score: {profile.ccScore}
             </li>

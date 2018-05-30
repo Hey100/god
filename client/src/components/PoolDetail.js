@@ -89,7 +89,7 @@ class PoolDetail extends Component {
           ) : null}
           <div className="pool__details">
             <div
-              className="pool__card pool__thumb"
+              className="pool__thumb"
               style={{ backgroundImage: `url(${pools.pool.poolPic})` }}
             />
             <div className="pool__card">

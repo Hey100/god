@@ -484,7 +484,7 @@ class Create extends Component {
             </div>
             {this.props.pools.chart ? (
               <button
-                className="big-btn"
+                className="mid-btn"
                 type="submit"
                 onClick={() => this.handleNext()}
               >

@@ -9,3 +9,10 @@
   color: #F90101;
   border: 1px solid #F90101;
   margin-top: 40px; }
+
+.google:active {
+  background-color: #F90101;
+  color: #FFF;
+  border: 1px solid #F90101;
+  margin-top: 40px; }
+
