@@ -35,6 +35,12 @@ class Signup extends Component {
   componentWillUnmount() {
     this.props.resetAuthError();
   }
+  componentWillUpdate(nextProps) {
+    console.log(nextProps);
+    if (nextProps.submitFailed) {
+      this.props.authError('Error! Please fill out all required fields');
+    }
+  }
 
   renderFields() {
     return _.map(formFields, ({ label, name, type, placeholder }) => {
@@ -52,9 +58,7 @@ class Signup extends Component {
 
   onSubmit = values => {
     const { agree, email, password, c_password, path } = this.state;
-
     path && (values['pic'] = path);
-
     if (!agree) {
       this.setState({
         agreeErr: 'Check the box below to continue'
@@ -90,6 +94,7 @@ class Signup extends Component {
   };
 
   handleChange = event => {
+		this.props.resetAuthError()
     this.state.agreeErr && this.setState({ agreeErr: '' });
     this.setState({ agree: !this.state.agree });
   };
@@ -117,7 +122,6 @@ class Signup extends Component {
   };
 
   handleEmailPassword = event => {
-		this.props.resetAuthError()
     this.setState({ [event.target.name + 'Err']: '' });
     this.setState({ mismatchErr: '' });
     this.setState({ passwordStructure: '' });
@@ -148,7 +152,7 @@ class Signup extends Component {
       window.scrollTo(0, 0);
       return <div className="alert">{this.props.auth.error}</div>;
     }
-	}
+  }
 
   render() {
     const {
@@ -229,7 +233,7 @@ class Signup extends Component {
                   className="form-input"
                   component="input"
                   name="email"
-                  type="text"
+                  type="email"
                   placeholder="Email"
                   onChange={this.handleEmailPassword}
                 />

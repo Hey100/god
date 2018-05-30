@@ -6,8 +6,7 @@ import * as actions from '../actions/index';
 class Settings extends Component {
   state = {
     currentPassword: '',
-		newPassword: '',
-		email: ''
+		newPassword: ''
   };
 
   componentDidMount() {
@@ -17,19 +16,19 @@ class Settings extends Component {
   handleChange = e => {
     this.setState({ currentPasswordErr: '' });
 		this.setState({ newPasswordErr: '' });
-		if(this.state.email === '') {
-			this.setState({ currentEmail : this.props.auth.user.email}, () => {
-				console.log(this.state.currentEmail)
-			})
-			this.props.auth.user.email = ''
-		}
+		
     if (e.target.name === 'newPassword') {
       this.setState({
         passwordReqs:
           'Passwords must contain at least 8 characters, including one number, one uppercase letter, and one special character'
       });
     }
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value }, () => {
+			if (this.state.email === '') {
+				this.setState({ currentEmail: this.props.auth.user.email })
+				this.props.auth.user.email = ''
+			}
+		});
     this.props.resetAuthError();
   };
 

@@ -11,9 +11,11 @@ export const saveUpdatedUserInfo = values => async dispatch => {
       dispatch({
         type: AUTH_ERROR,
         payload:
-          'This email is associated with a Google account. Your password cannot be changed.'
+          'This email is associated with a Google account. Your email and password cannot be changed.'
       });
-    } else {
+		} else if (res.data.activeUser) {
+			dispatch({ type: AUTH_ERROR, payload: 'New email is already associated with an active account'})
+		}	else {
       dispatch({
         type: UPDATED_USER,
         payload: 'Your account has been successfully updated'
