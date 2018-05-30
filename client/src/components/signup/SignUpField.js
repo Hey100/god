@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export default class SignUpField extends Component {
-	state = {
-		dateInput: 'text',
-	}
+  state = {
+    dateInput: 'text'
+  };
 
   render() {
     const {
@@ -18,6 +18,7 @@ export default class SignUpField extends Component {
         <div>
           <label>{label}</label>
           {renderDropdown(input)}
+          <div className="alert">{touched && error}</div>
         </div>
       );
     } else if (input.name === 'dob') {
@@ -28,9 +29,10 @@ export default class SignUpField extends Component {
             {...input}
             type={this.state.dateInput}
             placeholder={placeholder}
-						onFocus={() => this.setState({ dateInput: 'date' })}
-						onBlur={() => this.setState({ dateInput: 'text' })}
+            onFocus={() => this.setState({ dateInput: 'date' })}
+            onBlur={() => !input.value && this.setState({ dateInput: 'text' })}
           />
+          <div className="alert">{touched && error}</div>
         </div>
       );
     } else {
@@ -51,7 +53,10 @@ export default class SignUpField extends Component {
 
 const renderDropdown = input => {
   return (
-    <select {...input} className="form-input select">
+    <select
+      {...input}
+      className="form-input select"
+    >
       <option value="">State</option>
       <option value="AL">Alabama</option>
       <option value="AK">Alaska</option>

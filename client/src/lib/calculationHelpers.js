@@ -25,6 +25,5 @@ export const chartCalc = ({ amount, people, cashInterval, basePayment, paymentIn
 			people
 		});
 	}
-	console.log({result})
 	return result
 } 

@@ -6,6 +6,7 @@ export const UNAUTH_USER = 'unauth_user';
 export const FETCH_USER = 'fetch_user';
 export const GOOGLE_SIGN_UP = 'google_sign_up';
 export const UPDATED_USER = 'updated_user'
+export const CURRENT_EMAIL = 'current_email';
 
 //pool reducer
 export const ALL_POOLS = 'all_pools';
