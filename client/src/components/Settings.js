@@ -7,16 +7,17 @@ class Settings extends Component {
   state = {
     currentPassword: '',
 		newPassword: ''
-  };
+	};
+	viewed = false
 
   componentDidMount() {
     this.props.resetAuthError();
   }
 
   handleChange = e => {
+		const { setCurrentEmail, auth } = this.props	
     this.setState({ currentPasswordErr: '' });
 		this.setState({ newPasswordErr: '' });
-		
     if (e.target.name === 'newPassword') {
       this.setState({
         passwordReqs:
@@ -24,8 +25,9 @@ class Settings extends Component {
       });
     }
     this.setState({ [e.target.name]: e.target.value }, () => {
-			if (this.state.email === '') {
-				this.setState({ currentEmail: this.props.auth.user.email })
+			if (this.state.newEmail && !this.viewed) {
+				setCurrentEmail(auth.user.email)
+				this.viewed = true
 				this.props.auth.user.email = ''
 			}
 		});
@@ -33,17 +35,17 @@ class Settings extends Component {
   };
 
   handleSave = () => {
-    const { currentPassword, newPassword, email } = this.state;
+		const { currentPassword, newPassword, newEmail } = this.state;
+		const { user, currentEmail } = this.props.auth
     let regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
-		console.log(this.state.currentEmail)
     if (!currentPassword) {
       this.setState({ currentPasswordErr: 'Required Field' });
     } else if (newPassword && !regex.test(newPassword)) {
       this.setState({ newPasswordErr: 'Invalid New Password' });
     } else {
       this.props.saveUpdatedUserInfo({
-        currentEmail: this.props.auth.user.email || this.state.currentEmail,
-        newEmail: email,
+        currentEmail: user.email || currentEmail,
+        newEmail,
         currentPassword: currentPassword,
         newPassword: newPassword
       });
@@ -82,9 +84,9 @@ class Settings extends Component {
               <input
                 className="form-input"
                 type="email"
-                name="email"
+                name="newEmail"
                 onChange={this.handleChange}
-                value={this.state.email || email}
+                value={this.state.newEmail || email}
               />
             </fieldset>
             <fieldset>

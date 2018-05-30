@@ -30,8 +30,7 @@ export default class SignUpField extends Component {
             type={this.state.dateInput}
             placeholder={placeholder}
             onFocus={() => this.setState({ dateInput: 'date' })}
-            onBlur={() => this.setState({ dateInput: 'text' })}
-            ref={input => (this.input = input)}
+            onBlur={() => !input.value && this.setState({ dateInput: 'text' })}
           />
           <div className="alert">{touched && error}</div>
         </div>
@@ -44,7 +43,6 @@ export default class SignUpField extends Component {
             {...input}
             type={type}
             placeholder={placeholder}
-            ref={input => (this.input = input)}
           />
           <div className="alert">{touched && error}</div>
         </div>
@@ -58,7 +56,6 @@ const renderDropdown = input => {
     <select
       {...input}
       className="form-input select"
-      ref={input => (this.input = input)}
     >
       <option value="">State</option>
       <option value="AL">Alabama</option>

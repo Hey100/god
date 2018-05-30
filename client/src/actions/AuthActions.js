@@ -45,7 +45,6 @@ export const onSignUp = (values, history) => async dispatch => {
       dispatch(authError('Unexpected Error. Please try again.'));
     }
   } catch (error) {
-		console.log(error.response)
     dispatch(authError(error.response.data.error));
   }
 };
@@ -94,4 +93,3 @@ export const fetchUser = token => async dispatch => {
   });
   dispatch({ type: FETCH_USER, payload: res.data });
 };
-

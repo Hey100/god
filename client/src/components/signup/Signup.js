@@ -36,7 +36,6 @@ class Signup extends Component {
     this.props.resetAuthError();
   }
   componentWillUpdate(nextProps) {
-    console.log(nextProps);
     if (nextProps.submitFailed) {
       this.props.authError('Error! Please fill out all required fields');
     }

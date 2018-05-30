@@ -4,9 +4,8 @@ const User = mongoose.model('users');
 
 module.exports = app => {
   app.post('/api/changeuserinfo', async (req, res, done) => {
-    const { currentEmail, currentPassword, newEmail, newPassword } = req.body;
-    console.log(req.body);
-
+		const { currentEmail, currentPassword, newEmail, newPassword } = req.body;
+		
     User.findOne({ email: currentEmail }, function(err, user) {
       if (err) {
         return done(err);
@@ -21,24 +20,34 @@ module.exports = app => {
         if (!isMatch) {
           return done(null, false);
         } else {
-          if (newEmail !== currentEmail && newPassword) {
-						checkForActiveUser(newEmail)
-						console.log('running rest of function')
-            // user.email = newEmail;
-            // user.password = newPassword;
-            // user.save(err => {
-            //   if (err) return done(err);
-            //   res.send(user);
-            // });
-          }
-          if (newEmail !== currentEmail) {
-            user.email = newEmail;
-            user.save(err => {
+          if (newEmail && newEmail !== currentEmail && newPassword) {
+            User.findOne({ email: newEmail }, function(err, activeUser) {
               if (err) return done(err);
-              res.send(user);
+              if (activeUser) {
+                res.send({ activeUser: true });
+              } else {
+                user.email = newEmail;
+                user.password = newPassword;
+                user.save(err => {
+                  if (err) return done(err);
+                  res.send(user);
+                });
+              }
             });
-          }
-          if (newPassword) {
+          } else if (newEmail && newEmail !== currentEmail && !newPassword) {
+            User.findOne({ email: newEmail }, function(err, activeUser) {
+              if (err) return done(err);
+              if (activeUser) {
+                res.send({ activeUser: true });
+              } else {
+                user.email = newEmail;
+                user.save(err => {
+                  if (err) return done(err);
+                  res.send(user);
+                });
+              }
+            });
+          } else if (!newEmail && newPassword) {
             user.password = newPassword;
             user.save(err => {
               if (err) {
@@ -52,16 +61,5 @@ module.exports = app => {
         }
       });
     });
-  });
-};
-
-const checkForActiveUser = email => {
-	console.log('checking for active user')
-  User.findOne({ email: email }, function(err, activeUser) {
-    if (err) return done(err);
-    if (activeUser) {
-      res.send({ activeUser: true });
-    }
-    return false;
   });
 };
