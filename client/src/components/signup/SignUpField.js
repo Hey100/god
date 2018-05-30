@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 export default class SignUpField extends Component {
 	state = {
 		dateInput: 'text',
-		dob: null
 	}
 
   render() {

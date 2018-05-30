@@ -32,6 +32,7 @@ require('./routes/commentRoutes')(app);
 require('./routes/paymentRoutes')(app);
 require('./routes/poolRoutes')(app);
 require('./routes/profileRoutes')(app);
+require('./routes/settingsRoutes')(app);
 
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);

@@ -247,7 +247,7 @@ class Create extends Component {
             type={this.state.dateInputType}
             name="startDate"
             placeholder="Start Date"
-            value={this.state.startDate || 'Start Date'}
+            value={this.state.startDate || ''}
           />
           <div className="alert">{startDateErr ? startDateErr : null}</div>
         </div>
