@@ -156,7 +156,7 @@ class Landing extends Component {
         </div>
         <div className="land__col">
           <h1 className="land__title">
-            Here at pool.io we take security to the next level.
+            Here at Pooli we take security to the next level.
           </h1>
           <div className="land__cards">
             <div className="land__card">
