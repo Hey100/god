@@ -4,11 +4,13 @@ const User = mongoose.model('users');
 
 module.exports = app => {
 	app.post('/api/changeuserinfo', async (req, res, done) => {
-		// console.log(req.body)
 		
 		User.findOne({ email: req.body.currentEmail }, function (err, user) {
 			if (err) {
 				return done(err);
+			}
+			if (user.googleId) {
+				res.send({user: 'google'})
 			}
 			user.comparePassword(req.body.currentPassword, function (err, isMatch) {
 				if (err) {
@@ -26,7 +28,7 @@ module.exports = app => {
 							res.send(user)
 						})
 					} else {
-						return done(null, true)
+						res.send(user)
 					}
 				}
 			});

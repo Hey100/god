@@ -19,3 +19,8 @@ fieldset {
   padding: 20px;
   border-radius: 10px;
 }
+.required {
+	padding-top: 10px;
+	font-style: italic;
+	color: tomato
+}

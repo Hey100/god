@@ -6,12 +6,23 @@ import * as actions from '../actions/index';
 class Settings extends Component {
   state = {
     currentPassword: '',
-    newPassword: ''
+		newPassword: '',
+		email: ''
   };
+
+  componentDidMount() {
+    this.props.resetAuthError();
+  }
 
   handleChange = e => {
     this.setState({ currentPasswordErr: '' });
-    this.setState({ newPasswordErr: '' });
+		this.setState({ newPasswordErr: '' });
+		if(this.state.email === '') {
+			this.setState({ currentEmail : this.props.auth.user.email}, () => {
+				console.log(this.state.currentEmail)
+			})
+			this.props.auth.user.email = ''
+		}
     if (e.target.name === 'newPassword') {
       this.setState({
         passwordReqs:
@@ -23,21 +34,21 @@ class Settings extends Component {
   };
 
   handleSave = () => {
-		const { currentPassword, currentEmail, newPassword, email } = this.state
+    const { currentPassword, newPassword, email } = this.state;
     let regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
-    console.log(regex.test(this.state.newPassword));
+		console.log(this.state.currentEmail)
     if (!currentPassword) {
       this.setState({ currentPasswordErr: 'Required Field' });
     } else if (newPassword && !regex.test(newPassword)) {
       this.setState({ newPasswordErr: 'Invalid New Password' });
     } else {
       this.props.saveUpdatedUserInfo({
-        currentEmail: this.props.auth.user.email,
+        currentEmail: this.props.auth.user.email || this.state.currentEmail,
         newEmail: email,
         currentPassword: currentPassword,
         newPassword: newPassword
-			});
-			this.setState({ currentPassword: '', newPassword: '' })
+      });
+      this.setState({ currentPassword: '', newPassword: '', passwordReqs: '' });
     }
   };
 
@@ -57,7 +68,7 @@ class Settings extends Component {
           {this.props.auth.error ? (
             <p className="error">{this.props.auth.error}</p>
           ) : null}
-          {this.props.auth.success? (
+          {this.props.auth.success ? (
             <p className="success">{this.props.auth.success}</p>
           ) : null}
           {this.state.newPasswordErr ? (
@@ -71,7 +82,7 @@ class Settings extends Component {
               <legend>Email</legend>
               <input
                 className="form-input"
-                type="text"
+                type="email"
                 name="email"
                 onChange={this.handleChange}
                 value={this.state.email || email}
@@ -87,7 +98,7 @@ class Settings extends Component {
                 value={this.state.currentPassword}
               />
               {this.state.currentPasswordErr ? (
-                <p>{this.state.currentPasswordErr}</p>
+                <p className="required">{this.state.currentPasswordErr}</p>
               ) : null}
             </fieldset>
             <fieldset>
@@ -105,13 +116,24 @@ class Settings extends Component {
             </fieldset>
           </div>
           <div>
-            <button onClick={() => this.handleSave()} className="button">
+            <button
+              onClick={() => this.handleSave()}
+              style={{
+                width: '100%'
+              }}
+              className="button"
+            >
               Save
             </button>
             &nbsp;
             <button
               onClick={() => this.props.history.push('/dashboard')}
               className="cancel"
+              style={{
+                width: '100%',
+                padding: '5px 10px',
+                borderRadius: '5px'
+              }}
             >
               Go Back
             </button>
