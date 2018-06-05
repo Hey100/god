@@ -71,8 +71,7 @@ class Landing extends Component {
     return <div className="land__wrap">
         <div className="land__col">
           <h1 className="land__title intro">
-            Zombie ipsum reversus ab viral inferno, nam rick grimes malum
-            cerebro. De carne lumbering animata corpora quaeritis.
+            Monetize Your Free Time. Join a Money Pool.  
           </h1>
         </div>
         <div className="land__col">
@@ -86,7 +85,7 @@ class Landing extends Component {
                 <button style={this.handleSelected(1)}>1</button>
                 <div>
                   <h1>Join or create a pool</h1>
-                  <h2>blah blah blah</h2>
+                  <h2>Search through existing money pools or create a unique pool where you set the interest rate, contributors, and start date.</h2>
                 </div>
               </div>
               <div className="land__tuto-content-box" onClick={() => this.setState(
@@ -95,7 +94,7 @@ class Landing extends Component {
                 <button style={this.handleSelected(2)}>2</button>
                 <div>
                   <h1>Pick the day you want to get your money</h1>
-                  <h2>blah blah blah</h2>
+                  <h2>Select a position in a pool and decide when to get your money. </h2>
                 </div>
               </div>
               <div className="land__tuto-content-box" onClick={() => this.setState(
@@ -104,7 +103,7 @@ class Landing extends Component {
                 <button style={this.handleSelected(3)}>3</button>
                 <div>
                   <h1>Enjoy your money</h1>
-                  <h2>blah blah blah</h2>
+                  <h2>When it's your turn to receive money, we'll deposit it into your account.  </h2>
                 </div>
               </div>
             </div>
@@ -112,7 +111,7 @@ class Landing extends Component {
         </div>
         <div className="land__col">
           <h1 className="land__title">
-            Join a community of wise investors with the same interests as
+            Join a community of like-minded hobbyists with the same interests as
             you
           </h1>
           <div className="land__categ">
@@ -161,7 +160,7 @@ class Landing extends Component {
           <div className="land__cards">
             <div className="land__card">
               <VerifiedIcon size={150} color="#414141" />
-              <p>High security standards and encription protocols.</p>
+              <p>High security standards and encryption protocols.</p>
             </div>
             <div className="land__card">
               <FinanceIcon size={150} color="#414141" />
@@ -169,7 +168,7 @@ class Landing extends Component {
             </div>
             <div className="land__card">
               <AccountMultipleIcon size={150} color="#414141" />
-              <p>Thrusworthy and financially responsible users.</p>
+              <p>Trustworthy and financially responsible users.</p>
             </div>
           </div>
           <a className="big-btn" href="/signin">

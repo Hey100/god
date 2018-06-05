@@ -174,9 +174,9 @@ class Chart extends Component {
             <th scope="col">Interest Paid/Earned*</th>
             <th scope="col">Monthly Payment</th>
             <th scope="col">Cash Paid</th>
-            <th scope="col">Cash Available</th>
+            {/* <th scope="col">Cash Available</th> */}
             <th scope="col">Fee**</th>
-            <th scope="col">Cash Received</th>
+            <th scope="col">Disbursement Amount</th>
             <th scope="col">Disbursement Date</th>
           </tr>
         </thead>
@@ -202,7 +202,7 @@ class Chart extends Component {
                 <td data-label="Interest Paid/Earned">{this.parse(interestAmount)}</td>
                 <td data-label="Monthly Payment">{this.parse(monthly)}</td>
                 <td data-label="Cash Paid">{this.parse(cashPaid)}</td>
-                <td data-label="Cash Available">{this.parse(cashReceived)}</td>
+                {/* <td data-label="Cash Available">{this.parse(cashReceived)}</td> */}
                 <td data-label="Fee">${fee}</td>
                 <td data-label="Cash Received">{this.parse(tcr)}</td>
                 {this.renderDate(startDate, index)}
