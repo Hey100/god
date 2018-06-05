@@ -9,9 +9,9 @@ import AllPools from './AllPools';
 import Create from './Create';
 import Logout from './Logout';
 import SignIn from './SignIn';
-import SignUp from './signup/SignUp'
+import Signup from './signup/Signup'
 import Landing from './Landing';
-import OAuthSignUp from './OAuthSignUp';
+import OAuthSignUp from './OAuthSignp';
 import OAuthSignIn from './OAuthSignIn';
 import Help from './Help';
 import Settings from './Settings';
@@ -38,7 +38,7 @@ class App extends Component {
             <Route path="/create" component={Create} />
             <Route path="/logout" component={Logout} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
+            <Route path="/signup" component={Signup} />
 						<Route path="/oauthsignup" component={OAuthSignUp} />
 						<Route path="/oauthsignin" component={OAuthSignIn} />
             <Route path="/help" component={Help} />

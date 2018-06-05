@@ -17,7 +17,7 @@ import '../styles/loader.css';
 import '../styles/global.css';
 import '../styles/media.css';
 
-class SignUp extends Component {
+class Signup extends Component {
 	state = {
 		agree: false,
 		imageErr: '',
@@ -367,6 +367,6 @@ export default withRouter(
 		reduxForm({
 			validate,
 			form: 'registerForm'
-		})(SignUp)
+		})(Signup)
 	)
 );
