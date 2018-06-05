@@ -11,7 +11,7 @@ import Logout from './Logout';
 import SignIn from './SignIn';
 import Signup from './signup/Signup'
 import Landing from './Landing';
-import OAuthSignUp from './OAuthSignup';
+import OAuthSignUp from './OAuthSignUp';
 import OAuthSignIn from './OAuthSignIn';
 import Help from './Help';
 import Settings from './Settings';
