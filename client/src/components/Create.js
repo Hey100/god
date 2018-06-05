@@ -257,10 +257,11 @@ class Create extends Component {
   };
   renderReview = () => {
     window.scrollTo(0, 0);
-    const { chart, selection } = this.props.pools;
+    const { chart, selection, createError } = this.props.pools;
     const position = chart[selection];
     return (
       <div className="tab">
+				{createError ? <h1 className="cancel">{createError}</h1> : null}
         <button
           style={{ alignSelf: 'left' }}
           onClick={() => this.setState({ visible: false })}
@@ -376,7 +377,7 @@ class Create extends Component {
   };
 
   render() {
-    const { error, createError } = this.props.pools;
+    const { error } = this.props.pools;
     const {
       titleErr,
       categoryErr,
@@ -397,7 +398,6 @@ class Create extends Component {
         <div className="tab">
           <h1 className="tab-title">Start a pool</h1>
           <div className="tab-box-v">
-            {createError ? <h1 className="cancel">{createError}</h1> : null}
             <h2 className="text-2">
               1. Give Your Pool a Name and Some Details
             </h2>
