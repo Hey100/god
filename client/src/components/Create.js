@@ -313,9 +313,8 @@ class Create extends Component {
                 <th>Interest Paid/Earned</th>
                 <th>Monthly Payment</th>
                 <th>Cash Paid</th>
-                <th>Cash Available</th>
                 <th>Fee</th>
-                <th>Cash Received</th>
+                <th>Disbursement Amount</th>
                 <th>Disbursement Date</th>
               </tr>
             </thead>
@@ -326,7 +325,6 @@ class Create extends Component {
                 <td>{this.parse(position.interestAmount)}</td>
                 <td>{this.parse(position.monthly)}</td>
                 <td>{this.parse(position.cashPaid)}</td>
-                <td>{this.parse(position.cashReceived)}</td>
                 <td>${position.fee}</td>
                 <td>{this.parse(position.tcr)}</td>
                 <td>
