@@ -3,6 +3,69 @@
   flex-direction: column;
 	align-items: center; }
 	
+.chart__overlay{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	background-color: rgba(0,0,0,0.2); /*dim the background*/}
+
+.chart__modal {
+	width: 500px;
+	height: 600px;
+	display: flex;
+	position: absolute;
+	top: 100px;
+	left: calc(100vw/2 - 250px);
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 25px;
+	background: linear-gradient(to left bottom, #088DA5, #00868B);
+	color: #FFF;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px 0px rgba(255,255,255,0.1);
+	z-index: 1; }
+
+.chart__modal-title {
+	font-size: 22px;
+	font-weight: lighter;
+}
+
+.chart__modal > h5, .chart__modal > h1 {
+	margin: 10px 0;
+}
+
+.chart__modal span {
+	font-size: 18px;
+	color: #40E0D0;
+	font-weight: lighter;
+}
+
+.chart__modal-btn {
+	width: 50%;
+	height: 50px;
+	padding: 10px 20px;
+	font-size: 1.5em;
+	color: #FFF;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: scale, .1s;
+}
+
+.chart__modal-btn:hover {
+	transform: scale(1.05); }
+
+.green {
+	background-color: mediumseagreen;
+}
+.red {
+	background-color: tomato;
+}
+
 .chart__btn {
 	border-radius: 5px;
 	border: none;
@@ -16,54 +79,6 @@
 .chart__btn:hover {
 	transform: scale(1.1);
 }
-
-.modal > h5, .modal > h1 {
-	color: black;
-	padding: 30px
-}
-
-.modal-title {
-	/* background: white */
-	font-size: 18px
-}
-
-.overlay{
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 10;
-	background-color: rgba(0,0,0,0.1); /*dim the background*/
-}
-
-.modal {
-	padding: 25px;
-	position: absolute; 
-	width: 25%;
-	height: 75%;
-	right: 600px;
-	bottom: 75px;
-	background: #3A6073;
-	align-content: center;
-	z-index: 2;
-	cursor: pointer;
-	border-radius: 10px
-}
-/*
-tr {
-	height: 70px;
-}
-
-th, td {
-  padding: 20.55px;
-  text-align: center; }
-
-td {
-  color: #088DA5; }
-
-tbody tr:nth-child(even) {
-  background-color: #F5F5F5; } */
 
 table {
   border-collapse: collapse;

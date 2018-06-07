@@ -65,15 +65,15 @@ class Signup extends Component {
 		} else if (!this.props.auth.googleSignUp) {
 			if (!email) {
 				this.setState({
-					emailErr: 'Required Field'
+					emailErr: 'Email is required'
 				});
 			} else if (!password) {
 				this.setState({
-					passwordErr: 'Required Field'
+					passwordErr: 'Password is required'
 				});
 			} else if (!c_password) {
 				this.setState({
-					c_passwordErr: 'Required Field'
+					c_passwordErr: 'Password confirmation is required'
 				});
 			} else if (password !== c_password) {
 				this.setState({
@@ -99,8 +99,17 @@ class Signup extends Component {
 	};
 
 	handeChangeII = e => {
-		this.setState({ imageErr: '' });
-		this.setState({ selectedFile: e.target.files[0] });
+		e.preventDefault();
+		let reader = new FileReader();
+		let file = e.target.files[0];
+		reader.onloadend = () => {
+			this.setState({
+				imageErr: "",
+				selectedFile: file,
+				imagePreviewUrl: reader.result
+			});
+		}
+		file && reader.readAsDataURL(file)
 	};
 
 	upload = async () => {
@@ -149,7 +158,7 @@ class Signup extends Component {
 	renderAlert(error) {
 		if (error) {
 			window.scrollTo(0, 0);
-			return <div className="alert">{this.props.auth.error}</div>;
+			return <div className="header-alert">{this.props.auth.error}</div>;
 		}
 	}
 
@@ -164,6 +173,7 @@ class Signup extends Component {
 			path,
 			selectedFile,
 			imageLoading,
+			imagePreviewUrl,
 			passwordStructure,
 			uploadSuccess
 		} = this.state;
@@ -189,6 +199,7 @@ class Signup extends Component {
 				</div>
 			);
 		}
+		
 		return (
 			<div className="tab">
 				{this.renderAlert(error)}
@@ -206,22 +217,22 @@ class Signup extends Component {
 								<h2 className="text-2">Save Your Information</h2>
 								<div className="form-upload">
 									<label className="form-file-label align-center">
-										<UploadIcon size="24" color="gray" />&nbsp;<strong>
-											Select or drag a picture
-                    </strong>
+										<UploadIcon size="24" color="gray" />&nbsp;Select or drag a picture (max 5MB)
 									</label>
 									<input
 										className="form-input"
 										type="file"
 										onChange={this.handeChangeII}
 									/>
-									{imageLoading ? (
+									{imageLoading ?
 										<div className="jumper">
 											<div />
 											<div />
 											<div />
-										</div>
-									) : null}
+										</div> : null}
+									{imagePreviewUrl ? <div>
+											<img className="img-preview" src={imagePreviewUrl} alt=""/>
+										</div> : null }
 									{path && !imageLoading ? <img src={path} alt="" /> : null}
 									{selectedFile && !uploadSuccess ? (
 										<button onClick={() => this.upload()}>Upload</button>

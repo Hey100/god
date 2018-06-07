@@ -29,24 +29,14 @@ class Chart extends Component {
       const months = this.props.pools.chart.length;
       const day = moment(modalChart.startDate).format('Do');
       return (
-        <div className="overlay">
-          <div className="modal">
-            <h1 className="modal-title">
-              <span>{modalChart.title.toUpperCase()}</span>
-            </h1>
-            <h1>
-              Pool Starts: <span> {modalChart.startDate}</span>
-            </h1>
-            <h1>
-              Your disbursement date is: <span>{modalChart.dDate}</span>
-            </h1>
-            <h1>
-              On your disbursement date, we will deposit into your bank account:{' '}
-              <span>{this.parse(modalChart.disburseAmount)}</span>
-            </h1>
+        <div className="chart__overlay">
+					<div className="chart__modal">
+						<h1 className="chart__modal-title">{modalChart.title.toUpperCase()}</h1>
+            <h1>Pool Starts: <span>{modalChart.startDate}</span></h1>
+            <h1>Your disbursement date is: <span>{modalChart.dDate}</span></h1>
+            <h1>On your disbursement date, you will receive: <span>{this.parse(modalChart.disburseAmount)}</span></h1>
             <button
-              className="button"
-              style={{ width: '40%' }}
+              className="chart__modal-btn green"
               onClick={() =>
                 this.props.joinPool(this.props.params, modalIndex, modalChart)
               }
@@ -55,17 +45,16 @@ class Chart extends Component {
             </button>
             &nbsp;
             <button
-              className="cancel"
-              style={{ width: '40%', borderRadius: '5px', padding: '5px 10px' }}
+              className="chart__modal-btn red"
               onClick={() => this.changeVisibility()}
             >
               Cancel
             </button>
             <h5>
               *By clicking "Submit", you agree to pay{' '}
-              <span>{this.parse(modalChart.monthly)}</span> every{' '}
-              <span>{day}</span> of the month (except on your disbursement date)
-              for the next <span>{months}</span> months, upon the commencement
+              {this.parse(modalChart.monthly)} every{' '}
+              {day} of the month (except on your disbursement date)
+              for the next {months} months, upon the commencement
               of this pool.
             </h5>
           </div>
@@ -183,7 +172,7 @@ class Chart extends Component {
         <tbody>
           {this.props.chart.map(chart => {
             const {
-              cashReceived,
+              // cashReceived,
               cashPaid,
               monthly,
               amount,

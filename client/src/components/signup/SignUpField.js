@@ -20,7 +20,7 @@ class SignUpField extends Component {
     } = this.props;
     if (input.name === 'state') {
       return (
-        <div>
+				<div>
           <label>{label}</label>
           {renderDropdown(input)}
           <div className="alert">{touched && error}</div>

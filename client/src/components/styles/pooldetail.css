@@ -23,7 +23,7 @@
 .pool__thumb {
 	max-height: 400px;
 	width: 100%;
-	margin: 40px 0;
+	margin: 40px 40px 0 0;
   border-radius: 5px;
   background-size: cover;
   background-position: center; }
@@ -62,7 +62,7 @@
   margin: 10px 10px 10px 0; }
 
 .pool__comment-text > h5 {
-  color: dodgerblue;
+  color: #00868B;
   font-size: 1em; }
 
 .pool__comment-text > p {
@@ -74,10 +74,10 @@
   width: 500px;
   padding: 10px 20px;
   margin: 10px;
-  border: 1px solid dodgerblue;
+  border: 1px solid #40E0D0;
   border-radius: 5px;
   background-color: white;
-  color: dodgerblue; }
+  color: #808080; }
 
 .pool__form-submit {
   height: 40px;
@@ -85,7 +85,7 @@
   padding: 10px;
   margin: 10px 0 20px 0;
   color: #FFF;
-  background-color: dodgerblue;
+  background-color: #40E0D0;
   border: none;
   border-radius: 5px; }
 
@@ -110,7 +110,7 @@
 		padding: 20px; }
 		
   .pool__thumb {
-		margin: 2em 0 0 0;
-		min-width: 250px; 
+		margin: 2em 0;
+		width: 100%; 
 		min-height: 300px; }
 }
