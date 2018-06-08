@@ -40,11 +40,6 @@ const Footer = () => {
 						<li>
 							<Link to={"/help"}>Help Center</Link>
 						</li>
-						<li>
-						<a href="https://www.freepik.com/alekksall">
-								Illustrations by Alekksall
-							</a>
-						</li>
 					</ul>
 				</div>
 				<div className="foot__dec">
