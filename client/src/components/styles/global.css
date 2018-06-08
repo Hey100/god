@@ -105,10 +105,14 @@ ul li {
   justify-content: center; }
 
 /* FORM */
+.test {
+	color: 'coral';
+}
+
 .form-input {
   width: 500px;
   height: 50px;
-  margin-top: 20px;
+  margin: 20px 0 10px 0;
   padding: 10px 15px;
   background-color: white;
   border: 1px solid #088DA5;
@@ -123,7 +127,7 @@ ul li {
   width: 500px;
   margin: 10px;
   font-size: 2em;
-  color: gray; }
+  color: #808080; }
 
 .form-upload {
   width: 500px;
@@ -133,11 +137,14 @@ ul li {
   position: relative;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: white;
-  border: 1px solid darkcyan;
-  border-radius: 5px; }
+	padding: 20px 10px;
+	margin: 10px 0 20px 0;
+  background-color: #FFF;
+  border: 2px dashed #808080;
+	border-radius: 5px; }
+	
+.form-upload:hover {
+	border-color: darkcyan; }
 
 .form-upload [type=file] {
   cursor: inherit;
@@ -148,13 +155,6 @@ ul li {
   position: absolute;
   right: 0;
   top: 0; }
-
-.form-upload:hover {
-  border: 1px solid coral; }
-
-.form-file-label:hover {
-  background-color: gray;
-  cursor: pointer; }
 
 .form-upload > img {
   max-width: 250px;
@@ -167,20 +167,30 @@ ul li {
   padding: 5px 20px;
   border: none;
   border-radius: 5px;
-  background-color: dodgerblue;
+  background-color: #40E0D0;
   color: white; }
+
+.header-alert {
+  color: tomato;
+	font-size: 1.75em;
+	margin-top: 30px; }
 
 .alert {
   color: tomato;
-  font-size: 1.5em;
-  margin-bottom: 10px; }
+	font-size: 1.5em; }
 
 .select {
   appearance: none;
   height: 50px; }
 
 .textarea {
-  height: auto; }
+	height: auto; }
+	
+.img-preview {
+	margin: 10px 0;
+	max-width: 400px;
+	height: auto;
+}
 
 /* BUTTON */
 .link {
@@ -204,7 +214,7 @@ ul li {
   transform: scale(1.2); }
 
 .button:active {
-  background-color: greenyellow; }
+  background-color: #00868B; }
 
 .mid-btn {
   width: 500px;

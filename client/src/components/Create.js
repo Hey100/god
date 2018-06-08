@@ -103,11 +103,21 @@ class Create extends Component {
         this.props.createChart(obj);
       }
     });
-  };
-  handeChangeII = e => {
-    this.setState({ imageErr: '' });
-    this.setState({ selectedFile: e.target.files[0] });
-  };
+	};
+	
+	handeChangeII = e => {
+		e.preventDefault();
+		let reader = new FileReader();
+		let file = e.target.files[0];
+		reader.onloadend = () => {
+			this.setState({
+				imageErr: "",
+				selectedFile: file,
+				imagePreviewUrl: reader.result
+			});
+		}
+		file && reader.readAsDataURL(file)
+	};
 
   upload = async () => {
     this.setState({ imageLoading: true });
@@ -263,14 +273,14 @@ class Create extends Component {
       <div className="tab">
 				{createError ? <h1 className="cancel">{createError}</h1> : null}
         <button
-          style={{ alignSelf: 'left' }}
+					className="mid-btn"
           onClick={() => this.setState({ visible: false })}
         >
           Go Back
         </button>
         <h2 className="text-2">4. Review Your Pool</h2>
         <div
-          className="pool__card pool__thumb"
+          className="card__card card_thumb"
           style={{ backgroundImage: `url(${this.state.path})` }}
         />
         <div>
@@ -339,7 +349,7 @@ class Create extends Component {
         </div>
         <div style={{ margin: '0 auto', textAlign: 'center' }}>
           <button
-            className="big-btn"
+            className="mid-btn"
             type="submit"
             onClick={() => this.handleSubmit(chart)}
           >
@@ -382,7 +392,6 @@ class Create extends Component {
       titleErr,
       categoryErr,
       descriptionErr,
-      imageErr,
       visible,
       title,
       category,
@@ -391,7 +400,9 @@ class Create extends Component {
       path,
       uploadSuccess,
       selectedFile,
-      imageLoading
+			imageLoading,
+			imagePreviewUrl,
+			imageErr,
     } = this.state;
     if (!visible) {
       return (
@@ -443,9 +454,7 @@ class Create extends Component {
             </div>
             <div className="form-upload">
               <label className="form-file-label align-center">
-                <UploadIcon size="24" color="gray" />&nbsp;<strong>
-                  Select or drag a picture
-                </strong>
+                <UploadIcon size="24" color="gray" />&nbsp;Select or drag a picture (max 5MB)
               </label>
               <input type="file" onChange={this.handeChangeII} />
               {imageLoading ? (
@@ -455,9 +464,9 @@ class Create extends Component {
                   <div />
                 </div>
               ) : null}
-              {path && uploadSuccess && !imageLoading ? (
-                <img src={path} alt="" />
-              ) : null}
+							{imagePreviewUrl ? <div>
+								<img className="img-preview" src={imagePreviewUrl} alt="" />
+							</div> : null}
               {selectedFile && !uploadSuccess ? (
                 <button onClick={() => this.upload()}>Upload</button>
               ) : null}
@@ -474,7 +483,7 @@ class Create extends Component {
                 </button>
               ) : null}
             </div>
-            {imageErr ? <p className="alert">{imageErr}</p> : null}
+            {imageErr && <p className="alert">{imageErr}</p>}
             <h2 className="text-2">2. Choose Your Options</h2>
             <select
               name="contributors"
