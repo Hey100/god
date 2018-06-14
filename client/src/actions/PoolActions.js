@@ -62,6 +62,7 @@ export const createChart = values => dispatch => {
 		},
 		users: chartCalc({ amount, people, cashInterval, basePayment, paymentInterval, term, startDate })
 	}
+	// console.log(obj)
 	dispatch({ type: CHART_CREATED, payload: obj });
 };
 export const setError = err => {
