@@ -25,7 +25,7 @@ class PoolDetail extends Component {
   redirect = () => {
     this.props.authError('You must be a member to leave a comment.');
     this.props.history.push('/signup');
-  };
+	};
 
   handleSubmit = event => {
     const { profilePic } = this.props.auth.user;

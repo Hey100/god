@@ -45,7 +45,7 @@ describe('async/reduxthunk action creators', () => {
     });
   });
 
-  it('should create an action for fetching all pools', () => {
+  it('should create an action for fetching all pools', done => {
     const res = { 1: 'pool1', 2: 'pool2', 3: 'pool3', 4: 'pool4' };
     const store = mockStore({});
     moxios.stubRequest('/api/allpools', {
@@ -58,6 +58,7 @@ describe('async/reduxthunk action creators', () => {
     };
     return store.dispatch(actions.fetchAllPools()).then(() => {
       expect(store.getActions()).toEqual([expectedAction]);
+      done();
     });
   });
 
@@ -136,8 +137,8 @@ describe('async/reduxthunk action creators', () => {
           tcr: 2600
         }
       ]
-		};
-		
+    };
+
     const expectedAction = {
       type: CHART_CREATED,
       payload: result
@@ -145,6 +146,58 @@ describe('async/reduxthunk action creators', () => {
 
     store.dispatch(actions.createChart(values));
     expect(store.getActions()).toEqual([expectedAction]);
+  });
+
+  it('creates an action for creating a payment schedule', () => {
+    moxios.stubRequest('/api/createPayment', {
+      status: 200
+    });
+    const store = mockStore({});
+    const expectedAction = {
+      type: PAYMENT_CREATED
+    };
+    return store.dispatch(actions.createPayment({})).then(() => {
+      expect(store.getActions()).toEqual([expectedAction]);
+    });
+  });
+
+  it('creates an action for creating creating a comment', () => {
+    const store = mockStore({});
+    const commentObj = {
+      comment: 'hello',
+      poolId: '5b19989f6ebe570be8471e02',
+      pic:
+        'https://lh5.googleusercontent.com/-VpQihZZnp-8/AAAAAAAAAAI/AAAAAAAAABc/patMkO_Cl2Y/photo.jpg?sz=50'
+    };
+    const res = { data: { _pool: '5b19989f6ebe570be8471e02' } };
+    moxios.stubRequest('/api/saveComment', commentObj, {
+      status: 200,
+      response: res
+    });
+    const expectedAction = {
+      type: COMMENT_CREATED
+    };
+    return store.dispatch(actions.createComment(commentObj)).then(() => {
+      expect(store.getActions()).toEqual([expectedAction]);
+    });
+  });
+
+  it('creates an action for fetching all comments', done => {
+    const id = 2;
+    const store = mockStore({});
+    const res = { 1: 'comment1', 2: 'comment2' };
+    moxios.stubRequest(`/api/comments/${id}`, {
+      status: 200,
+      response: res
+    });
+    const expectedAction = {
+      type: FETCHED_COMMENTS,
+      payload: res
+    };
+    return store.dispatch(actions.fetchComments(id)).then(() => {
+      expect(store.getActions()).toEqual([expectedAction]);
+      done();
+    });
   });
 });
 

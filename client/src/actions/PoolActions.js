@@ -146,7 +146,7 @@ export const createComment = values => async dispatch => {
 		}
 	});
 	dispatch(fetchComments(res.data._pool));
-	dispatch({ type: COMMENT_CREATED, payload: res.data });
+	dispatch({ type: COMMENT_CREATED });
 };
 export const fetchPool = id => async dispatch => {
 	const res = await axios.get(`/api/fetchPool/${id}`);
