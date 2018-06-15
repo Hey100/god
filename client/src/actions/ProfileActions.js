@@ -13,7 +13,7 @@ export const calculateLimit = obj => async dispatch => {
 	const res = await axios.post('/api/calculateLimit', obj, {
 		headers: { Authorization: localStorage.getItem('token') }
 	});
-	await dispatch(fetchPayments());
+	dispatch(fetchPayments());
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
 
