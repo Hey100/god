@@ -15,7 +15,12 @@ import {
   JOINED
 } from '../types';
 import * as actions from '../PoolActions';
-import { mockStore, mockChartData, mockChartInputs } from '../../testing/utils';
+import {
+  mockStore,
+  mockChartData,
+  mockChartInputs,
+  mockPool
+} from '../../testing/utils';
 import moxios from 'moxios';
 
 describe('async/reduxthunk action creators', () => {
@@ -117,22 +122,33 @@ describe('async/reduxthunk action creators', () => {
   });
 
   it('creates an action for fetching a specific pool', () => {
-    const id = '23uo2inkgl384thn';
+    const id = '5b21eec48ed00e0d0206c943';
     const store = mockStore({});
     const res = {
+      pool: mockPool,
       obj: mockChartInputs
     };
-    const expectedAction = {
-      type: FETCHED_POOL,
-      payload: res
+    const result = {
+      info: mockChartInputs,
+      users: mockChartData
     };
+    const expectedAction = [
+      {
+        type: CHART_CREATED,
+        payload: result
+      },
+      {
+        type: FETCHED_POOL,
+        payload: res.pool
+      }
+    ];
     moxios.stubRequest(`/api/fetchPool/${id}`, {
       status: 200,
       response: res
     });
 
     return store.dispatch(actions.fetchPool(id)).then(() => {
-      expect(store.getActions()).toEqual([expectedAction]);
+      expect(store.getActions()).toEqual(expectedAction);
     });
   });
 
@@ -194,19 +210,3 @@ describe('normal action creators', () => {
     expect(actions.reset()).toEqual(expectedAction);
   });
 });
-
-// [{ "payload": {
-// 	 "info": {
-// 	 		"amount": NaN, 
-				//"category": undefined, 
-				//"contributors": undefined, 
-				//"description": undefined, 
-				//"rate": NaN, 
-				//"startDate": undefined, 
-				//"title": undefined }, 
-				//"users": Array[] }, 
-				//"type": "chart_created" },
-// 	 {
-// 	 "payload": {
-// 	 "_id": "982374928374ui", "obj": {
-// 	 "amount": 2500, "category": "", "contributors": 5, "description": "", "rate": 5, "startDate": "2018-06-27", "title": "" }, "poolInfo": "blah blah" }, "type": "fetched_pool" }]

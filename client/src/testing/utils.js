@@ -2,15 +2,31 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 export const mockStore = configureMockStore([thunk]);
+export const mockPool = {
+  amount: '1000',
+  category: 'Home Improvement',
+  contributors: [{}],
+  creator: 'Amity L.',
+  description: 'Testing',
+  numOfContributors: 5,
+  poolPic:
+    'https://res.cloudinary.com/ethanyjoh/image/upload/v1528950428/ejlocjean3vwp2umyh4i.png',
+  rate: '5',
+  startDate: '2018-06-27T07:00:00.000Z',
+  title: 'For Testing Purposes',
+  __v: 0,
+  _id: '5b21eec48ed00e0d0206c943',
+  _user: '5b15d610f74f9d04621b4124'
+};
 export const mockChartCalc = {
-	amount: 2500,
-	people: 5,
-	cashInterval: 31.25,
-	basePayment: 625,
-	paymentInterval: 7.8125,
-	term: 4,
-	startDate: '2018-06-27'
-}
+  amount: 2500,
+  people: 5,
+  cashInterval: 31.25,
+  basePayment: 625,
+  paymentInterval: 7.8125,
+  term: 4,
+  startDate: '2018-06-27'
+};
 export const mockChartInputs = {
   amount: 2500,
   category: '',

@@ -10,41 +10,41 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const Pool = mongoose.model('pools');
 
 cloudinary.config({
-	cloud_name: 'ethanyjoh',
-	api_key: '573798653617485',
-	api_secret: keys.cloudinarySecretKey
+  cloud_name: 'ethanyjoh',
+  api_key: '573798653617485',
+  api_secret: keys.cloudinarySecretKey
 });
 
 const storage = multer.diskStorage({
-	destination: './client/src/uploads/',
-	filename: function (req, file, cb) {
-		cb(
-			null,
-			file.fieldname + '-' + Date.now() + path.extname(file.originalname)
-		);
-	}
+  destination: './client/src/uploads/',
+  filename: function(req, file, cb) {
+    cb(
+      null,
+      file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+    );
+  }
 });
 
 const upload = multer({
-	storage: storage,
-	limits: {
-		fileSize: 1024 * 1024 * 5
-	},
-	fileFilter: function (req, file, cb) {
-		checkFileType(file, cb);
-	}
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  }
 }).single('image');
 
 function checkFileType(file, cb) {
-	const fileTypes = /jpeg|jpg|png|gif/;
-	const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-	const mimetype = fileTypes.test(file.mimetype);
+  const fileTypes = /jpeg|jpg|png|gif/;
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = fileTypes.test(file.mimetype);
 
-	if (mimetype && extname) {
-		return cb(null, true);
-	} else {
-		cb('err');
-	}
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('err');
+  }
 }
 
 module.exports = app => {
@@ -64,7 +64,12 @@ module.exports = app => {
   });
   app.get('/api/fetchPool/:id', async (req, res, done) => {
     const pool = await Pool.findById({ _id: req.params.id });
-    res.send(pool);
+    let obj = {};
+    obj['amount'] = pool.amount;
+    obj['contributors'] = pool.numOfContributors;
+    obj['startDate'] = pool.startDate;
+    obj['rate'] = pool.rate;
+    res.send({ pool, obj });
   });
 
   //post

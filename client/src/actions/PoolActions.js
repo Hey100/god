@@ -62,8 +62,6 @@ export const createChart = values => dispatch => {
 		},
 		users: chartCalc({ amount, people, cashInterval, basePayment, paymentInterval, term, startDate })
 	}
-	console.log('end of chartCreate')
-	console.log(obj)
 	dispatch({ type: CHART_CREATED, payload: obj });
 };
 export const setError = err => {
@@ -152,14 +150,8 @@ export const createComment = values => async dispatch => {
 };
 export const fetchPool = id => async dispatch => {
 	const res = await axios.get(`/api/fetchPool/${id}`);
-	console.log(res.data)
-	let obj = {};
-	obj['amount'] = res.data.amount;
-	obj['contributors'] = res.data.numOfContributors;
-	obj['startDate'] = res.data.startDate;
-	obj['rate'] = res.data.rate;
-	dispatch(createChart(res.obj));
-	dispatch({ type: FETCHED_POOL, payload: res.data });
+	dispatch(createChart(res.data.obj));
+	dispatch({ type: FETCHED_POOL, payload: res.data.pool });
 };
 export const fetchComments = id => async dispatch => {
 	const res = await axios.get(`/api/comments/${id}`);
