@@ -99,21 +99,41 @@ describe('async/reduxthunk action creators', () => {
       pic:
         'https://lh5.googleusercontent.com/-VpQihZZnp-8/AAAAAAAAAAI/AAAAAAAAABc/patMkO_Cl2Y/photo.jpg?sz=50'
     };
-    const res = { data: { _pool: '5b19989f6ebe570be8471e02' } };
+    const res = { _pool: '5b19989f6ebe570be8471e02' };
     moxios.stubRequest('/api/saveComment', commentObj, {
       status: 200,
       response: res
     });
     const expectedAction = {
       type: COMMENT_CREATED
-		};
-		//test is passing as a false positive...
-		//need more research on moxios.wait and how to test an action creator with two dispatches
-		return moxios.wait(() => {
-			store.dispatch(actions.createComment(commentObj)).then(() => {
-				expect(store.getActions()).toEqual([expectedAction]);
-			});
-		})
+    };
+    //test is passing as a false positive...
+    //need more research on moxios.wait and how to test an action creator with two dispatches
+    moxios.wait(() => {
+      return store.dispatch(actions.createComment(commentObj)).then(() => {
+        expect(store.getActions()).toEqual([expectedAction]);
+      });
+    });
+  });
+
+  it('creates an action for fetching a specific pool', () => {
+    const id = '23uo2inkgl384thn';
+    const store = mockStore({});
+    const res = {
+      obj: mockChartInputs
+    };
+    const expectedAction = {
+      type: FETCHED_POOL,
+      payload: res
+    };
+    moxios.stubRequest(`/api/fetchPool/${id}`, {
+      status: 200,
+      response: res
+    });
+
+    return store.dispatch(actions.fetchPool(id)).then(() => {
+      expect(store.getActions()).toEqual([expectedAction]);
+    });
   });
 
   it('creates an action for fetching all comments', done => {
@@ -174,3 +194,19 @@ describe('normal action creators', () => {
     expect(actions.reset()).toEqual(expectedAction);
   });
 });
+
+// [{ "payload": {
+// 	 "info": {
+// 	 		"amount": NaN, 
+				//"category": undefined, 
+				//"contributors": undefined, 
+				//"description": undefined, 
+				//"rate": NaN, 
+				//"startDate": undefined, 
+				//"title": undefined }, 
+				//"users": Array[] }, 
+				//"type": "chart_created" },
+// 	 {
+// 	 "payload": {
+// 	 "_id": "982374928374ui", "obj": {
+// 	 "amount": 2500, "category": "", "contributors": 5, "description": "", "rate": 5, "startDate": "2018-06-27", "title": "" }, "poolInfo": "blah blah" }, "type": "fetched_pool" }]
