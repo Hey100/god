@@ -1,19 +1,19 @@
 import axios from 'axios';
 import {
-	FETCH_USER,
-	MY_POOLS,
-	ALL_POOLS,
-	CHART_CREATED,
-	COMMENT_CREATED,
-	PAYMENT_CREATED,
-	FETCHED_COMMENTS,
-	SELECTION,
-	ERROR,
-	CREATE_ERROR,
-	RESET,
-	RESET_ERROR,
-	FETCHED_POOL,
-	JOINED
+  FETCH_USER,
+  MY_POOLS,
+  ALL_POOLS,
+  CHART_CREATED,
+  COMMENT_CREATED,
+  PAYMENT_CREATED,
+  FETCHED_COMMENTS,
+  SELECTION,
+	SELECT_POSITION_ERROR,
+  CREATE_POOL_JOIN_POOL_ERROR,
+  RESET,
+	RESET_SELECT_POSITION_ERROR,
+  FETCHED_POOL,
+  JOINED
 } from './types';
 import {
   convertNumber,
@@ -66,7 +66,7 @@ export const createChart = values => dispatch => {
 };
 export const setError = err => {
 	return {
-		type: ERROR,
+		type: SELECT_POSITION_ERROR,
 		payload: err
 	};
 };
@@ -82,7 +82,7 @@ export const createPool = (values, history) => async dispatch => {
 		dispatch({ type: RESET });
 	} catch (error) {
 		const err = error.response.data.error;
-		dispatch({ type: CREATE_ERROR, payload: err });
+		dispatch({ type: CREATE_POOL_JOIN_POOL_ERROR, payload: err });
 	}
 };
 export const createPayment = values => async dispatch => {
@@ -103,7 +103,7 @@ const updateUser = values => async dispatch => {
 //Chart.js
 export const resetError = () => {
 	return {
-		type: RESET_ERROR
+		type: RESET_SELECT_POSITION_ERROR
 	};
 };
 export const setSelection = selection => {
@@ -129,7 +129,7 @@ export const joinPool = (poolId, position, chart) => async dispatch => {
 		dispatch({ type: FETCHED_POOL, payload: res.data });
 	} catch (error) {
 		const err = error.response.data.error;
-		dispatch({ type: CREATE_ERROR, payload: err });
+		dispatch({ type: CREATE_POOL_JOIN_POOL_ERROR, payload: err });
 	}
 };
 export const joined = () => {

@@ -158,6 +158,6 @@ it('handles actions of type CURRENT_EMAIL', () => {
 });
 
 it('handles action with unknown type', () => {
-  const newState = authReducer([], {});
-  expect(newState).toEqual([]);
+	const newState = authReducer(INITIAL_STATE, {});
+  expect(newState).toEqual(INITIAL_STATE);
 });

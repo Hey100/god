@@ -20,6 +20,6 @@ it('handles actions with type FETCHED_PAYMENTS', () => {
 });
 
 it('handles actions with an unknown type', () => {
-  const newState = dashReducer([], {});
-  expect(newState).toEqual([]);
+	const newState = dashReducer(INITIAL_STATE, {});
+  expect(newState).toEqual(INITIAL_STATE);
 });

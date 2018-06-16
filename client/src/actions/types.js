@@ -14,13 +14,13 @@ export const MY_POOLS = 'my_pools';
 export const FETCHED_POOL = 'fetched_pool';
 export const FETCHED_COMMENTS = 'fetched_comments';
 export const JOINED = 'joined';
-export const CREATE_ERROR = 'create_error';
+export const CREATE_POOL_JOIN_POOL_ERROR = 'create_pool_join_pool_error';
 export const CHART_CREATED = 'chart_created';
 export const COMMENT_CREATED = 'comment_created';
 export const PAYMENT_CREATED = 'payment_created';
 export const SELECTION = 'selection';
-export const RESET_ERROR = 'reset_error';
-export const ERROR = 'error';
+export const RESET_SELECT_POSITION_ERROR = 'reset_select_selection_error';
+export const SELECT_POSITION_ERROR = 'select_position_error';
 export const RESET = 'reset';
 
 //dashboard reducer

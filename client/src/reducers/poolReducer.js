@@ -4,12 +4,12 @@ import {
   SELECTION,
   FETCHED_POOL,
   COMMENT_CREATED,
-	FETCHED_COMMENTS,
-	PAYMENT_CREATED,
+  FETCHED_COMMENTS,
+  PAYMENT_CREATED,
   RESET,
-	ERROR,
-	CREATE_ERROR,
-  RESET_ERROR,
+  SELECT_POSITION_ERROR,
+  CREATE_POOL_JOIN_POOL_ERROR,
+	RESET_SELECT_POSITION_ERROR,
   ALL_POOLS,
   JOINED
 } from '../actions/types';
@@ -48,11 +48,11 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, comments: action.payload };
 		case PAYMENT_CREATED:
       return state;
-    case CREATE_ERROR:
+		case CREATE_POOL_JOIN_POOL_ERROR:
       return { ...state, createError: action.payload };
-    case ERROR:
+		case SELECT_POSITION_ERROR:
       return { ...state, error: action.payload };
-    case RESET_ERROR:
+		case RESET_SELECT_POSITION_ERROR:
       return { ...state, error: '' };
     case RESET:
       return {

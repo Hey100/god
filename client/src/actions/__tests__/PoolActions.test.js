@@ -7,10 +7,10 @@ import {
   PAYMENT_CREATED,
   FETCHED_COMMENTS,
   SELECTION,
-  ERROR,
-  CREATE_ERROR,
+	SELECT_POSITION_ERROR,
+	CREATE_POOL_JOIN_POOL_ERROR,
   RESET,
-  RESET_ERROR,
+  RESET_SELECT_POSITION_ERROR,
   FETCHED_POOL,
   JOINED
 } from '../types';
@@ -175,7 +175,7 @@ describe('normal action creators', () => {
   it('should create an action for setting an error', () => {
     const text = 'error';
     const expectedAction = {
-      type: ERROR,
+			type: SELECT_POSITION_ERROR,
       payload: text
     };
     expect(actions.setError(text)).toEqual(expectedAction);
@@ -183,7 +183,7 @@ describe('normal action creators', () => {
 
   it('should create an action for resetting an error', () => {
     const expectedAction = {
-      type: RESET_ERROR
+			type: RESET_SELECT_POSITION_ERROR
     };
     expect(actions.resetError()).toEqual(expectedAction);
   });
