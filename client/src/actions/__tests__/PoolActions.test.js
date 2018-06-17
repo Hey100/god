@@ -7,8 +7,8 @@ import {
   PAYMENT_CREATED,
   FETCHED_COMMENTS,
   SELECTION,
-	SELECT_POSITION_ERROR,
-	CREATE_POOL_JOIN_POOL_ERROR,
+  SELECT_POSITION_ERROR,
+  CREATE_POOL_JOIN_POOL_ERROR,
   RESET,
   RESET_SELECT_POSITION_ERROR,
   FETCHED_POOL,
@@ -22,6 +22,7 @@ import {
   mockPool
 } from '../../testing/utils';
 import moxios from 'moxios';
+import createHistory from 'history/createBrowserHistory';
 
 describe('async/reduxthunk action creators', () => {
   beforeEach(() => {
@@ -33,12 +34,17 @@ describe('async/reduxthunk action creators', () => {
   });
 
   it('should create an action for fetching pools for current user ', done => {
+    const history = createHistory();
+    console.log(history);
     const res = { 1: 'pool1', 2: 'pool2' };
     const store = mockStore({});
     moxios.stubRequest('/api/mypools', {
       status: 200,
       response: res
     });
+    history.push('/dashboard');
+    console.log(history.location);
+
     const expectedAction = {
       type: MY_POOLS,
       payload: res
@@ -175,7 +181,7 @@ describe('normal action creators', () => {
   it('should create an action for setting an error', () => {
     const text = 'error';
     const expectedAction = {
-			type: SELECT_POSITION_ERROR,
+      type: SELECT_POSITION_ERROR,
       payload: text
     };
     expect(actions.setError(text)).toEqual(expectedAction);
@@ -183,7 +189,7 @@ describe('normal action creators', () => {
 
   it('should create an action for resetting an error', () => {
     const expectedAction = {
-			type: RESET_SELECT_POSITION_ERROR
+      type: RESET_SELECT_POSITION_ERROR
     };
     expect(actions.resetError()).toEqual(expectedAction);
   });

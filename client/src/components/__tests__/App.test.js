@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import App from '../App';
-import { BrowserRouter, Route, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../Header';
 import Profile from '../Profile';
 import PoolDetail from '../PoolDetail';
@@ -27,6 +27,9 @@ beforeEach(() => {
     </Root>
   );
 });
+afterEach(() => {
+	wrapped.unmount()
+})
 
 it('shows 13 Routes', () => {
   expect(wrapped.find(Route).length).toEqual(13);

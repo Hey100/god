@@ -23,7 +23,7 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
     token && this.props.fetchUser(token)
-  }
+	}
 
   render() {
     return (

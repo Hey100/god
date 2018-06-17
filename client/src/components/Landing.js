@@ -171,7 +171,7 @@ class Landing extends Component {
               <p>Trustworthy and financially responsible users.</p>
             </div>
           </div>
-          <a className="big-btn" href="/signin">
+          <a className="big-btn" ref='button' href="/signin">
             JOIN
           </a>
         </div>
