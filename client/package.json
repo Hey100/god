@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap": "^4.1.0",
+    "bootstrap": "^4.3.1",
     "chart.js": "^2.7.2",
     "mdi-react": "^3.3.0",
     "moment": "^2.22.1",
